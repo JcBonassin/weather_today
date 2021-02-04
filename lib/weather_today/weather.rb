@@ -10,4 +10,11 @@ class WeatherToday::Weather
         DOC
     end 
 
+    weather_today = self.new
+    weather_today.location = "my location"
+    weather_today.date = "today's date"
+    weather_today.temp = "temperature"
+    weather_today.decription = "descrription"
+    
+
 end 
