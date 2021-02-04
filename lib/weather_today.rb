@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "weather_today/version"
+require 'pry'
+require 'bundler'
+require 'json'
+require 'rest-client'
 
-module WeatherToday
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "weather_today/version"
+require_relative './weather_today/cli'
+require_relative './weather_today/weather'
+
+
