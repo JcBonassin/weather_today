@@ -3,7 +3,7 @@
 require 'pry'
 require 'bundler'
 require 'json'
-require 'rest-client'
+
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'
