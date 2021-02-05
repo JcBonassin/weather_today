@@ -8,3 +8,8 @@ gemspec
 gem "rake", "~> 13.0"
 
 gem "rubocop", "~> 1.7"
+
+gem 'pry'
+gem "json"
+gem "open-uri"
+gem "bundler"
