@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
-require './lib/weather_today'
+#require './lib/weather_today'
+require "bundler/setup"
+require "weather_today"
 
 WeatherToday::CLI.new.call  
