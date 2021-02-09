@@ -2,8 +2,10 @@
 
 require 'pry'
 require 'bundler'
-require 'json'
-
+require 'JSON'
+#require 'rest-client'
+require 'httparty'
+require 'paint'
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'
