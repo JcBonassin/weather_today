@@ -13,5 +13,6 @@ gem 'pry'
 gem "json"
 gem "open-uri"
 gem "bundler"
-#gem 'rest-client'
 gem "httparty"
+
+

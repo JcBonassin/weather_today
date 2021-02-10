@@ -1,24 +1,73 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city
+    
 
-    include HTTParty
-    base_uri "api.openweathermap.org/data/2.5"
+    #include HTTParty
+    #base_uri "api.openweathermap.org/data/2.5"
+    
 
-    def self.today
-        self.api_data
+    def initialize
+        @location = location
+    end
+
+
+    def self.location
+        url = URI("https://freegeoip.app/json/")
+
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        request = Net::HTTP::Get.new(url)
+        request["accept"] = 'application/json'
+        request["content-type"] = 'application/json'
+
+        response = http.request(request)
+        data = JSON.parse(response.body)
+        @location = data["city"]
+        #[@location]
+        #puts response.read_body
     end 
     
+
+    
+    #def self.today
+    #    self.api_data
+    #end 
+
+
+
     def self.api_data
-        response = HTTParty.get('http://api.openweathermap.org/data/2.5/weather?q=chicago,us&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial')
+        response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        @weather_today.date = Time.at(data[:dt]).strftime('%Y-%m-%d %H:%M')
+        @weather_today.date = Time.at(data[:dt]).strftime('%d-%m-%Y %H:%M')
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
         [@weather_today]
     end 
+
+
+
+
+
+
+    #def self.today
+    #    self.api_data
+    #end 
+    #
+    #def self.api_data
+    #    response = HTTParty.get('http://api.openweathermap.org/data/2.5/weather?q=chicago,us&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial')
+    #    data = JSON.parse(response.body, symbolize_names: true)
+    #    @weather_today = self.new
+    #    @weather_today.location = data[:name]
+    #    @weather_today.date = Time.at(data[:dt]).strftime('%d-%m-%Y %H:%M')
+    #    @weather_today.temp = data[:main][:temp]
+    #    @weather_today.decription = data[:weather].first[:description]
+    #    [@weather_today]
+    #end 
 
     
     
