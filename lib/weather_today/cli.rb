@@ -10,13 +10,13 @@ class WeatherToday::CLI
     def welcome
         #puts "welcome to today's weather"
 
-        @weather = WeatherToday::Weather.api_data
+        @weather = WeatherToday::Weather.api_location
         @weather.each do |weather_today|
-            puts "#{weather_today.date} - #{weather_today.location} - #{weather_today.temp} - #{weather_today.decription}"
+            puts "#{weather_today.location} - #{weather_today.date} - #{weather_today.temp} - #{weather_today.decription}"
         end
         #p @weather
         #end
-        @forecast = WeatherToday::Weather.forecast
+        @forecast = WeatherToday::Weather.api_forecast
     end
         
     
