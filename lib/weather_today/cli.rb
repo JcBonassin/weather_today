@@ -3,6 +3,7 @@ class WeatherToday::CLI
     def call
         welcome
         menu
+        select_location
         #forecast
         #bye
     end
@@ -39,9 +40,11 @@ class WeatherToday::CLI
                 welcome
             elsif input == "f"
                 the_forecast = @forecast[input.to_i]
-                puts "#{the_forecast.temp_min} - #{the_forecast.temp_max} - #{the_forecast.conditions}"
+                puts "#{the_forecast.day_1} - #{the_forecast.temp_max} - #{the_forecast.conditions}"
             elsif input == "q"
                 bye
+            elsif input == "c" 
+                select_location   
             #case input
             #when "f"
             #    forecast
@@ -55,7 +58,27 @@ class WeatherToday::CLI
             end
         end 
     end   
+
+    def select_location
+        puts " please type the city of country of yout preference "
+        input = gets.chomp.downcase
+        if input.empty? 
+            menu
+        elsif
+            weather1 = WeatherToday::Weather.select_location(input)
+            weather_location(weather1)
+        else 
+            input = nil 
+            menu
+            
+        end 
+    end 
+
     
+
+    def weather_location(weather1)
+         p "#{weather1.decription}"
+    end
     
    #def forecast
    #    puts <<-DOC
