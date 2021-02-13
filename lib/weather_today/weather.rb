@@ -1,6 +1,6 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city 
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1 
     
 
     include HTTParty
@@ -66,11 +66,13 @@ class WeatherToday::Weather
    def self.api_forecast
        response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
        data = JSON.parse(response.read_body, symbolize_names: true)
-       
-       data.select {|key,_| data.include? key}
+       #parsed = response.parsed_response
+       #data.select {|key,_| data.include? key}
 
-       #@forecast = self.new 
-       #@forecast.day_1 = data.values_at(:daily)
+       @forecast = self.new 
+       @forecast.day_1 = data[:daily][0][:wind_speed]
+       #@forecast.day_2 = parsed["daily"][2]["temp"]
+       #@forecast.report_time = parsed["dt"]
        #@forecast.day = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
        #data = JSON.parse(response.body, symbolize_names: true)
        #@forecast.temp_min = data[:daily]
@@ -81,14 +83,14 @@ class WeatherToday::Weather
        #forecast.conditions = "conditions"
        #@forecast.description = data[:weather][:description]
 
-       #[@forecast]
+       [@forecast]
    end
 
-   def self.daily_forecast
-        data.map do |w|
-            w.select {|k,_| api_forecast.include? k}
-        end
-   end 
+   #def self.daily_forecast
+   #     data.map do |w|
+   #         w.select {|k,_| api_forecast.include? k}
+   #     end
+   #end 
 
    #def self.today
     #    self.api_data
