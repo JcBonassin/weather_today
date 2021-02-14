@@ -1,6 +1,6 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1, :location_select, :location1, :weather_location11
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1 
     
 
     include HTTParty
@@ -24,22 +24,6 @@ class WeatherToday::Weather
         #[@location]
 
     end 
-
-    #def self.location1
-    #    url = URI("https://freegeoip.app/json/")
-    #    http = Net::HTTP.new(url.host, url.port)
-    #    http.use_ssl = true
-    #    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    #    request = Net::HTTP::Get.new(url)   
-    #    request["accept"] = 'application/json'
-    #    request["content-type"] = 'application/json'
-    #    response = http.request(request)
-    #    data = JSON.parse(response.body, symbolize_names: true)
-    #    #data.fetch_values(:latitude, :longitude, :city)
-    #    @location = data.fetch(:city)
-    #    #[@location]
-#
-    #end 
 
     def self.lat
         url = URI("https://freegeoip.app/json/")
@@ -80,16 +64,16 @@ class WeatherToday::Weather
         [@weather_today]
     end 
 
-    def self.select_location
-        response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
-        data = JSON.parse(response.body, symbolize_names: true)
-        @weather_location1 = self.new
-        #@weather_location1.location = data[:name]
-        #@weather_location1.date1 = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
-        #@weather_location1.temp1 = data[:main][:temp]
-        @weather_location1.decription = data[:weather].first[:description]
-        [@weather_location1]
-    end 
+    #def select_name(place)
+    #    response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?q=#{place}&appid=3207703ee5d0d14e6b6a53d10071018f&units=imperial")
+    #    data = JSON.parse(response.body, symbolize_names: true)
+    #    @current = self.new
+    #    #@weather_location1.location = data[:name]
+    #    #@weather_location1.date1 = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
+    #    #@weather_location1.temp1 = data[:main][:temp]
+    #    #@current.location_name = data[:weather].first[:description]
+    #    #[@weather_location1]
+    #end 
 
 
 

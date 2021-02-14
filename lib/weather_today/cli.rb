@@ -44,7 +44,7 @@ class WeatherToday::CLI
             elsif input == "q"
                 bye
             elsif input == "c" 
-                select_location   
+                new_entry  
             #case input
             #when "f"
             #    forecast
@@ -59,26 +59,31 @@ class WeatherToday::CLI
         end 
     end   
 
-    def select_location
-        puts " please type the city of country of yout preference "
-        input = gets.chomp.downcase
-        if input.empty? 
-            menu
-        elsif
-            weather1 = WeatherToday::Weather.select_location(input)
-            weather_location(weather1)
-        else 
-            input = nil 
-            menu
-            
-        end 
-    end 
+    def new_entry
+        new_input = nil
+        while new_input != "exit"  
+            puts " please type the city of country of yout preference "
+            new_input = gets.chomp.downcase
+            if new_input.empty? 
+                menu
+            elsif
+                weather1 = WeatherToday::Search.select_name(new_input)
+                weather_location(weather1)
+            else 
+                bye
+            end 
+        end
+    end
 
-    
 
     def weather_location(weather1)
-         p "#{weather1.decription}"
+
+        puts "#{weather1.date} - #{weather1.temp} - #{weather1.conditions}"
+
+         
     end
+
+    
     
    #def forecast
    #    puts <<-DOC
