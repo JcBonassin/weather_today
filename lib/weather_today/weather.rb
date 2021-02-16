@@ -1,6 +1,6 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1 
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1, :time 
     
 
     include HTTParty
@@ -20,7 +20,7 @@ class WeatherToday::Weather
         response = http.request(request)
         data = JSON.parse(response.body, symbolize_names: true)
         #data.fetch_values(:latitude, :longitude, :city)
-        @location = data.fetch(:city)
+        location = data.fetch(:city)
         #[@location]
 
     end 
@@ -51,6 +51,16 @@ class WeatherToday::Weather
         @lon = data.fetch(:longitude)
     end 
 
+    #def self.current_time
+    #    response = HTTParty.get("https://timezoneapi.io/api/ip/?token=aJvkeBPLCzkvwFKeMmTa")
+    #    parsed = response.parsed_response
+    #    if parsed["meta"]["code"] = 200
+    #        city = parsed["data"]["city"]
+    #        puts city
+    #        time = parsed["data"]["datetime"]["date_time"]
+    #        puts time
+    #    end
+    #end
 
 
     def self.api_location
@@ -58,24 +68,14 @@ class WeatherToday::Weather
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        @weather_today.date = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
+        @weather_today.date = Time.at(data[:dt])
+        @weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
         [@weather_today]
     end 
 
-    #def select_name(place)
-    #    response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?q=#{place}&appid=3207703ee5d0d14e6b6a53d10071018f&units=imperial")
-    #    data = JSON.parse(response.body, symbolize_names: true)
-    #    @current = self.new
-    #    #@weather_location1.location = data[:name]
-    #    #@weather_location1.date1 = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
-    #    #@weather_location1.temp1 = data[:main][:temp]
-    #    #@current.location_name = data[:weather].first[:description]
-    #    #[@weather_location1]
-    #end 
-
-
+    
 
    def self.api_forecast
        response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")

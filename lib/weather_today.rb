@@ -9,6 +9,7 @@ require 'open-uri'
 require 'uri'
 require 'net/http'
 require 'openssl'
+require 'dotenv/load'
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'

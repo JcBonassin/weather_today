@@ -62,12 +62,14 @@ class WeatherToday::CLI
     def new_entry
         new_input = nil
         while new_input != "exit"  
-            puts " please type the city of country of yout preference "
+            puts " please type the city of country of your preference "
             new_input = gets.chomp.downcase
             if new_input.empty? 
                 menu
             elsif
+                weather_location = WeatherToday::Search.current_time(new_input)
                 weather1 = WeatherToday::Search.select_name(new_input)
+                weather_enquire(weather_location)    
                 weather_location(weather1)
             else 
                 bye
@@ -82,6 +84,12 @@ class WeatherToday::CLI
 
          
     end
+
+    def weather_enquire(weather_location)
+        puts "local time #{weather_location.time}"
+    end 
+
+
 
     
     
