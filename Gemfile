@@ -14,6 +14,6 @@ gem "json"
 gem "open-uri"
 gem "bundler"
 gem "httparty"
-gem 'dotenv'
+gem "dotenv"
 
 

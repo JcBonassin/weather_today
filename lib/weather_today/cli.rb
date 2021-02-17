@@ -3,13 +3,12 @@ class WeatherToday::CLI
     def call
         welcome
         menu
-        select_location
         #forecast
         #bye
     end
     
     def welcome
-        #puts "welcome to today's weather"
+        puts "welcome to today's weather"
 
         @weather = WeatherToday::Weather.api_location
         @weather.each do |weather_today|
@@ -20,11 +19,9 @@ class WeatherToday::CLI
         @forecast = WeatherToday::Weather.api_forecast
     end
         
-    
     def menu
         input = nil
-        while input != "q"
-            puts "
+        puts "
             Please select: 
 
             f for forecast 
@@ -32,6 +29,7 @@ class WeatherToday::CLI
             m for main menu
             c to check another city
             q to exit "   
+        while input != "q"
             input = gets.chomp.downcase
             if input == "u" 
                 the_weather = @weather[input.to_i]
@@ -41,41 +39,88 @@ class WeatherToday::CLI
             elsif input == "f"
                 the_forecast = @forecast[input.to_i]
                 puts "#{the_forecast.day_1} - #{the_forecast.temp_max} - #{the_forecast.conditions}"
-            elsif input == "q"
-                bye
+                menu
             elsif input == "c" 
                 new_entry  
-            #case input
-            #when "f"
-            #    forecast
-            #when "u"
-            #    puts "useful date"
-            #when "m"
-            #    welcome    
-            #when "q" 
-            #    bye  
-            else puts "sorry you didn't select the right option. Please try again"        
-            end
+            elsif input == "q"
+                    bye
+            else puts "sorry you didn't select the right option. Please try again"   
+            end    
         end 
-    end   
+
+        
+          
+        
+    end  
 
     def new_entry
         new_input = nil
-        while new_input != "exit"  
-            puts " please type the city of country of your preference "
+        puts " please type the city of your preference or exit to main menu"
+        while new_input != "q"
             new_input = gets.chomp.downcase
-            if new_input.empty? 
+            if new_input === "exit" 
                 menu
+                else
+            end 
+
+            if new_input.empty?
+                new_entry
             elsif
-                weather_location = WeatherToday::Search.current_time(new_input)
                 weather1 = WeatherToday::Search.select_name(new_input)
-                weather_enquire(weather_location)    
                 weather_location(weather1)
+                weather_location = WeatherToday::Search.current_time(new_input)
+                weather_enquire(weather_location)
+                yesno
             else 
-                bye
+                new_input = nil
+                new_entry
             end 
         end
     end
+
+    def yesno 
+        puts "Do you want to check another location (Y/N)?"
+        answer = nil 
+        answer = gets.chomp.downcase
+        while answer != "exit" 
+            if answer.downcase == "y"
+            new_entry
+            elsif answer.downcase == "n"
+                bye
+            else 
+             p "dude learn good types manners ;)  ... Try again!!!"
+             new_entry
+            end
+        end 
+    end
+
+    #puts "Do you like this?"
+    #answer = gets.strip
+    #if answer.downcase == "yes"
+    #    puts "Me too"
+    #  else
+    #    puts "Whyyyy?"
+    #  end
+#
+
+
+
+    #        new_input = gets.chomp.downcase
+    #        weather1 = WeatherToday::Search.select_name(new_input)
+    #        weather_location(weather1)
+    #        weather_location = WeatherToday::Search.current_time(new_input)
+    #        weather_enquire(weather_location)    
+    #        p "please type a new city or exit to return to the main menu"
+#
+    #        if new_input.empty?
+    #            menu
+    #        end 
+    #        if new_input === "exit"
+    #            menu
+    #        end 
+    #    end 
+#
+    #end
 
 
     def weather_location(weather1)
@@ -103,6 +148,7 @@ class WeatherToday::CLI
 
     def bye
         puts "thanks for checking the weather. Get ready to go out"
+        exit 
     end     
 
 
