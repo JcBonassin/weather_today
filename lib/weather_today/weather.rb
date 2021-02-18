@@ -87,7 +87,7 @@ class WeatherToday::Weather
        #data = JSON.parse(response.body, symbolize_names: true)
        #@forecast.temp_min = data[:daily]
        #@forecast = self.new
-       #@forecast.location = data[:name]
+       @forecast.location = data[:name]
        #@forecast.temp_min = data[:main]
        #forecast.temp_max = "temp_max"
        #forecast.conditions = "conditions"
