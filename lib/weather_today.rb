@@ -10,6 +10,8 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 require 'dotenv/load'
+require 'open_weather'
+require 'geocoder'
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'

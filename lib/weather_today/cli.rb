@@ -8,14 +8,13 @@ class WeatherToday::CLI
     end
     
     def welcome
+        system('cls') || system('clear')
         puts "welcome to today's weather"
 
         @weather = WeatherToday::Weather.api_location
         @weather.each do |weather_today|
             puts "#{weather_today.location} - #{weather_today.date} - #{weather_today.temp} - #{weather_today.decription}"
         end
-        #p @weather
-        #end
         @forecast = WeatherToday::Weather.api_forecast
     end
         
@@ -84,6 +83,8 @@ class WeatherToday::CLI
         answer = gets.chomp.downcase
         while answer != "exit" 
             if answer.downcase == "y"
+            #system('cls') || system('clear') #clear the screen 
+            #puts ''   a free space 
             new_entry
             elsif answer.downcase == "n"
                 bye
@@ -94,39 +95,10 @@ class WeatherToday::CLI
         end 
     end
 
-    #puts "Do you like this?"
-    #answer = gets.strip
-    #if answer.downcase == "yes"
-    #    puts "Me too"
-    #  else
-    #    puts "Whyyyy?"
-    #  end
-#
-
-
-
-    #        new_input = gets.chomp.downcase
-    #        weather1 = WeatherToday::Search.select_name(new_input)
-    #        weather_location(weather1)
-    #        weather_location = WeatherToday::Search.current_time(new_input)
-    #        weather_enquire(weather_location)    
-    #        p "please type a new city or exit to return to the main menu"
-#
-    #        if new_input.empty?
-    #            menu
-    #        end 
-    #        if new_input === "exit"
-    #            menu
-    #        end 
-    #    end 
-#
-    #end
-
 
     def weather_location(weather1)
 
-        puts "#{weather1.date} - #{weather1.temp} - #{weather1.conditions}"
-
+        puts "#{weather1.date}-#{weather1.temp}-#{weather1.conditions}"
          
     end
 

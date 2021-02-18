@@ -10,10 +10,12 @@ gem "rake", "~> 13.0"
 gem "rubocop", "~> 1.7"
 
 gem 'pry'
-gem "json"
-gem "open-uri"
-gem "bundler"
-gem "httparty"
-gem "dotenv"
+gem 'json'
+gem 'open-uri'
+gem 'bundler'
+gem 'httparty'
+gem 'dotenv'
+gem 'open-weather'
+gem 'geocoder', '~> 1.6', '>= 1.6.5'
 
 

@@ -6,9 +6,6 @@ class WeatherToday::Weather
     include HTTParty
     base_uri "api.openweathermap.org/data/2.5"
 
-
-    
-
     def self.location
         url = URI("https://freegeoip.app/json/")
         http = Net::HTTP.new(url.host, url.port)
@@ -64,7 +61,7 @@ class WeatherToday::Weather
 
 
     def self.api_location
-        response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
+        response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{ENV['API_KEY']}&units=imperial")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
@@ -78,7 +75,7 @@ class WeatherToday::Weather
     
 
    def self.api_forecast
-       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
+       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=#{ENV['API_KEY']}&units=imperial")
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        #data.select {|key,_| data.include? key}
