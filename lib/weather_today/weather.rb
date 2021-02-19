@@ -1,6 +1,6 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1, :time 
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1, :time, :day_2, :day_3, :dt_1, :dt_2, :dt_3, :weather_1, :weather_2, :weather_3, :humidity_1
     
 
     include HTTParty
@@ -80,18 +80,27 @@ class WeatherToday::Weather
        #parsed = response.parsed_response
        #data.select {|key,_| data.include? key}
        @forecast = self.new 
-       @forecast.day_1 = data[:daily][0][:wind_speed]
-       #@forecast.day_2 = parsed["daily"][2]["temp"]
+       @forecast.day_1 = data[:daily][0][:temp][:day]
+       @forecast.day_2 = data[:daily][1][:temp][:day]
+       @forecast.day_3 = data[:daily][2][:temp][:day]
        #@forecast.report_time = parsed["dt"]
-       #@forecast.day = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
+       @forecast.dt_1 = Time.at(data[:daily][0][:dt]).strftime('%d-%m-%Y')
+       @forecast.dt_2 = Time.at(data[:daily][1][:dt]).strftime('%d-%m-%Y')
+       @forecast.dt_3 = Time.at(data[:daily][2][:dt]).strftime('%d-%m-%Y')
        #data = JSON.parse(response.body, symbolize_names: true)
+
+       @forecast.weather_1 = data[:daily][0][:weather].first[:description]
+       @forecast.weather_2 = data[:daily][1][:weather].first[:description]
+       @forecast.weather_3 = data[:daily][2][:weather].first[:description]
+
+       @forecast.humidity_1= data[:daily][0][:humidity]
        #@forecast.temp_min = data[:daily]
        #@forecast = self.new
-       @forecast.location = data[:name]
+       #@forecast.location = data[:name]
        #@forecast.temp_min = data[:main]
        #forecast.temp_max = "temp_max"
        #forecast.conditions = "conditions"
-       #@forecast.description = data[:weather][:description]
+       #@forecast.description = data[:current][:weather][:description]
 
        [@forecast]
    end

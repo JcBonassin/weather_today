@@ -36,8 +36,15 @@ class WeatherToday::CLI
             elsif input == "m"
                 welcome
             elsif input == "f"
+                sleep(0.5)
                 the_forecast = @forecast[input.to_i]
-                puts "#{the_forecast.day_1} - #{the_forecast.temp_max} - #{the_forecast.conditions}"
+                puts "#{the_forecast.dt_1} - #{the_forecast.dt_2} - #{the_forecast.dt_3}"
+                puts ''
+                puts "#{the_forecast.day_1}ºF  - #{the_forecast.day_2}ºF  - #{the_forecast.day_3}ºF "
+                puts ''
+                puts "#{the_forecast.weather_1} - #{the_forecast.weather_2} - #{the_forecast.weather_3}"
+                puts ''
+                puts "#{the_forecast.humidity_1}% "
                 menu
             elsif input == "c" 
                 new_entry  
@@ -77,6 +84,9 @@ class WeatherToday::CLI
         end
     end
 
+
+
+
     def yesno 
         puts "Do you want to check another location (Y/N)?"
         answer = nil 
@@ -107,16 +117,16 @@ class WeatherToday::CLI
     end 
 
 
-
+    def forecast
+       puts <<-DOC
+            temp_min
+            temp_max
+            Conditions
+        DOC
+    end
     
     
-   #def forecast
-   #    puts <<-DOC
-   #         temp_min
-   #         temp_max
-   #         Conditions
-   #     DOC
-   # end
+   
 
     def bye
         puts "thanks for checking the weather. Get ready to go out"
