@@ -32,7 +32,7 @@ class WeatherToday::Search
        
    end
 
-
+  # A ruby wrapper for Open Weather Map API.
   #def self.select_name(location)
   #  options = { units: "metric", APPID: "f8822bf698b7ae0e71f06a474dc913f3" }
   #  OpenWeather::Current.city(location, options) 

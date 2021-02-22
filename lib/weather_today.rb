@@ -12,6 +12,7 @@ require 'openssl'
 require 'dotenv/load'
 require 'open_weather'
 require 'geocoder'
+require 'colorize'
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'

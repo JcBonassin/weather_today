@@ -8,7 +8,7 @@ class WeatherToday::CLI
     end
     
     def welcome
-        system('cls') || system('clear')
+        #system('cls') || system('clear')
         puts "welcome to today's weather"
 
         @weather = WeatherToday::Weather.api_location
@@ -40,7 +40,7 @@ class WeatherToday::CLI
                 the_forecast = @forecast[input.to_i]
                 puts "#{the_forecast.dt_1} - #{the_forecast.dt_2} - #{the_forecast.dt_3}"
                 puts ''
-                puts "#{the_forecast.day_1}ºF  - #{the_forecast.day_2}ºF  - #{the_forecast.day_3}ºF "
+                puts "#{the_forecast.temp_1}ºF  - #{the_forecast.temp_2}ºF  - #{the_forecast.temp_3}ºF "
                 puts ''
                 puts "#{the_forecast.weather_1} - #{the_forecast.weather_2} - #{the_forecast.weather_3}"
                 puts ''

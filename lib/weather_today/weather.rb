@@ -1,6 +1,6 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :day_1, :time, :day_2, :day_3, :dt_1, :dt_2, :dt_3, :weather_1, :weather_2, :weather_3, :humidity_1
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3, :weather_1, :weather_2, :weather_3, :humidity_1
     
 
     include HTTParty
@@ -32,7 +32,7 @@ class WeatherToday::Weather
         request["content-type"] = 'application/json'
         response = http.request(request)
         data = JSON.parse(response.body, symbolize_names: true)
-        @lat = data.fetch(:latitude)
+        lat = data.fetch(:latitude)
     end 
 
     def self.lon
@@ -45,7 +45,7 @@ class WeatherToday::Weather
         request["content-type"] = 'application/json'
         response = http.request(request)
         data = JSON.parse(response.body, symbolize_names: true)
-        @lon = data.fetch(:longitude)
+        lon = data.fetch(:longitude)
     end 
 
     #def self.current_time
@@ -65,8 +65,8 @@ class WeatherToday::Weather
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        @weather_today.date = Time.at(data[:dt])
-        @weather_today.time = Time.new(data[:timezone])
+        @weather_today.date = Time.at(data[:dt]).strftime('%d-%m-%Y %H:%M')
+        #@weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
         [@weather_today]
@@ -80,9 +80,9 @@ class WeatherToday::Weather
        #parsed = response.parsed_response
        #data.select {|key,_| data.include? key}
        @forecast = self.new 
-       @forecast.day_1 = data[:daily][0][:temp][:day]
-       @forecast.day_2 = data[:daily][1][:temp][:day]
-       @forecast.day_3 = data[:daily][2][:temp][:day]
+       @forecast.temp_1 = data[:daily][0][:temp][:day]
+       @forecast.temp_2 = data[:daily][1][:temp][:day]
+       @forecast.temp_3 = data[:daily][2][:temp][:day]
        #@forecast.report_time = parsed["dt"]
        @forecast.dt_1 = Time.at(data[:daily][0][:dt]).strftime('%d-%m-%Y')
        @forecast.dt_2 = Time.at(data[:daily][1][:dt]).strftime('%d-%m-%Y')
