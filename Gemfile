@@ -18,5 +18,5 @@ gem 'dotenv'
 gem 'open-weather'
 gem 'geocoder', '~> 1.6', '>= 1.6.5'
 gem 'colorize', '~> 0.8.1'
-
+gem 'terminal-table', '~> 3.0'
 
