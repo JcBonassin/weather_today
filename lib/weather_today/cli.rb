@@ -16,14 +16,18 @@ class WeatherToday::CLI
             puts "#{weather_today.location} - #{weather_today.date} - #{weather_today.temp} - #{weather_today.decription}"
         end
         @forecast = WeatherToday::Weather.api_forecast
+        @forecast.each do |forecast|
+        display_forecast(forecast)
+        end
     end
         
     def menu
         input = nil
+        # out f for forecast 
         puts "
             Please select: 
 
-            f for forecast 
+            
             u for more useful data
             m for main menu
             c to check another city
@@ -35,17 +39,17 @@ class WeatherToday::CLI
                 puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp} - #{the_weather.decription}"
             elsif input == "m"
                 welcome
-            elsif input == "f"
-                sleep(0.5)
-                the_forecast = @forecast[input.to_i]
-                puts "#{the_forecast.dt_1} - #{the_forecast.dt_2} - #{the_forecast.dt_3}"
-                puts ''
-                puts "#{the_forecast.temp_1}ºF  - #{the_forecast.temp_2}ºF  - #{the_forecast.temp_3}ºF "
-                puts ''
-                puts "#{the_forecast.weather_1} - #{the_forecast.weather_2} - #{the_forecast.weather_3}"
-                puts ''
-                puts "#{the_forecast.humidity_1}% "
-                menu
+            #elsif input == "f"
+            #    sleep(0.5)
+            #    the_forecast = @forecast[input.to_i]
+            #    puts "#{the_forecast.dt_1} - #{the_forecast.dt_2} - #{the_forecast.dt_3}"
+            #    puts ''
+            #    puts "#{the_forecast.temp_1}ºF  - #{the_forecast.temp_2}ºF  - #{the_forecast.temp_3}ºF "
+            #    puts ''
+            #    puts "#{the_forecast.weather_1} - #{the_forecast.weather_2} - #{the_forecast.weather_3}"
+            #    puts ''
+            #    puts "#{the_forecast.humidity_1}% "
+            #    menu
             elsif input == "c" 
                 new_entry  
             elsif input == "q"
@@ -76,6 +80,8 @@ class WeatherToday::CLI
                 weather_location(weather1)
                 weather_location = WeatherToday::Search.current_time(new_input)
                 weather_enquire(weather_location)
+                forecast_2 = WeatherToday::Search.select_forecast(new_input)
+                display_forecast2(forecast_2)
                 yesno
             else 
                 new_input = nil
@@ -117,13 +123,30 @@ class WeatherToday::CLI
     end 
 
 
-    def forecast
-       puts <<-DOC
-            temp_min
-            temp_max
-            Conditions
-        DOC
+    def display_forecast(forecast)
+
+        puts "#{forecast.dt_1} - #{forecast.dt_2} - #{forecast.dt_3}"
+        puts ''
+        puts "#{forecast.temp_1}ºF- #{forecast.temp_2}ºF  - #{forecast.temp_3}ºF "
+        puts ''
+        puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
+        puts ''
+        puts "#{forecast.humidity_1}% "
+        
     end
+
+    def display_forecast2(forecast_2)
+
+      
+        puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
+        puts ''
+        puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
+        #puts ''
+        #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
+        #puts ''
+        #puts "#{forecast.humidity_1}% "
+         
+     end
     
     
    
