@@ -13,7 +13,7 @@ require 'dotenv/load'
 require 'open_weather'
 require 'geocoder'
 require 'colorize'
-require 'terminal-table'
+
 
 
 require_relative "weather_today/version"

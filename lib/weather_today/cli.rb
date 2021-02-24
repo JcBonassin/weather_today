@@ -9,12 +9,23 @@ class WeatherToday::CLI
     
     def welcome
         #system('cls') || system('clear')
+        puts ''
         puts "welcome to today's weather"
+        puts ''
 
         @weather = WeatherToday::Weather.api_location
         @weather.each do |weather_today|
-            puts "#{weather_today.location} - #{weather_today.date} - #{weather_today.temp} - #{weather_today.decription}"
+            puts "#{weather_today.location} - #{weather_today.temp}ºF - #{weather_today.decription}" #{weather_today.date} -
         end
+
+        #puts ''
+        #puts "Local time: #{WeatherToday::Weather.current_time}"
+        
+        puts ''
+
+        puts "Forecast"
+        puts ''
+     
         @forecast = WeatherToday::Weather.api_forecast
         @forecast.each do |forecast|
         display_forecast(forecast)
@@ -36,7 +47,7 @@ class WeatherToday::CLI
             input = gets.chomp.downcase
             if input == "u" 
                 the_weather = @weather[input.to_i]
-                puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp} - #{the_weather.decription}"
+                puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp}ºF - #{the_weather.decription}"
             elsif input == "m"
                 welcome
             #elsif input == "f"
@@ -81,7 +92,7 @@ class WeatherToday::CLI
                 weather_location = WeatherToday::Search.current_time(new_input)
                 weather_enquire(weather_location)
                 forecast_2 = WeatherToday::Search.select_forecast(new_input)
-                #display_forecast2(forecast_2)
+                display_forecast2(forecast_2)
                 yesno
             else 
                 new_input = nil
@@ -114,17 +125,17 @@ class WeatherToday::CLI
 
     def weather_location(weather1)
 
-        puts "#{weather1.date}-#{weather1.temp}-#{weather1.conditions}"
+        puts "#{weather1.temp}ºF - #{weather1.conditions}" #{weather1.date}
          
     end
 
     def weather_enquire(weather_location)
-        puts "local time #{weather_location.time}"
+        puts "Local time #{weather_location.time}"
     end 
 
 
     def display_forecast(forecast)
-
+        
         puts "#{forecast.dt_1} - #{forecast.dt_2} - #{forecast.dt_3}"
         puts ''
         puts "#{forecast.temp_1}ºF- #{forecast.temp_2}ºF  - #{forecast.temp_3}ºF "
@@ -132,21 +143,24 @@ class WeatherToday::CLI
         puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
         puts ''
         puts "#{forecast.humidity_1}% - #{forecast.humidity_2}% - #{forecast.humidity_3}%  "
+      
         
     end
 
-   # def display_forecast2(forecast_2)
-#
-   #   
-   #     puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
-   #     puts ''
-   #     puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
-   #     #puts ''
-   #     #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
-   #     #puts ''
-   #     #puts "#{forecast.humidity_1}% "
-   #      
-   #  end
+    def display_forecast2(forecast_2)
+
+        puts ''
+        puts  "Forecast"
+        puts ''
+        puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
+        puts ''
+        puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
+        puts ''
+        #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
+        #puts ''
+        #puts "#{forecast.humidity_1}% "
+         
+     end
     
     
    
@@ -155,6 +169,7 @@ class WeatherToday::CLI
         puts "thanks for checking the weather. Get ready to go out"
         exit 
     end     
+
 
 
 end
