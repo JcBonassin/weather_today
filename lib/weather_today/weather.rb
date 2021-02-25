@@ -2,7 +2,7 @@ class WeatherToday::Weather
 
     attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3
-    attr_accessor :weather_1, :weather_2, :weather_3, :humidity_1, :humidity_2, :humidity_3
+    attr_accessor :weather_1, :weather_2, :weather_3, :humidity_1, :humidity_2, :humidity_3 
     
 
    # def self.location
@@ -66,9 +66,11 @@ class WeatherToday::Weather
         @weather_today = self.new
         @weather_today.location = data[:name]
         @weather_today.date = Time.at(data[:dt]).strftime('%d-%m-%Y %H:%M') # only time report not local time
-        #@weather_today.time = Time.new(data[:timezone])
+        @weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
+        #@Weather_today.temp_min = data[:main][0][:temp_min]
+        #@weather_today.temp_max = data[:main][0][:temp_max]
         [@weather_today]
     end 
 

@@ -3,7 +3,7 @@ class WeatherToday::Search
 
  
     attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity
-    attr_accessor :temp_max, :temp_1, :temp_2, :temp_3, :temp_4, :dt_1, :dt_2, :dt_3, :dt_4 
+    attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :dt_1, :dt_2, :dt_3, :dt_4 
 
     
     

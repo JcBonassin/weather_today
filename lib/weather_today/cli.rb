@@ -15,7 +15,7 @@ class WeatherToday::CLI
 
         @weather = WeatherToday::Weather.api_location
         @weather.each do |weather_today|
-            puts "#{weather_today.location} - #{weather_today.temp}ºF - #{weather_today.decription}" #{weather_today.date} -
+            puts "#{weather_today.location} - #{weather_today.temp}ºF - #{weather_today.decription} #{weather_today.temp_min} - #{weather_today.temp_max}ºF " #{weather_today.date} -
         end
 
         #puts ''
