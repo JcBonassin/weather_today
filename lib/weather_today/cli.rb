@@ -13,23 +13,17 @@ class WeatherToday::CLI
         puts "welcome to today's weather"
         puts ''
 
-        @weather = WeatherToday::Weather.api_location
-        @weather.each do |weather_today|
-            puts "#{weather_today.location} - #{weather_today.temp}ºF - #{weather_today.decription} #{weather_today.temp_min} - #{weather_today.temp_max}ºF " #{weather_today.date} -
-        end
-
-        #puts ''
-        #puts "Local time: #{WeatherToday::Weather.current_time}"
-        
+        weather = WeatherToday::Weather.api_location
+        current_weather(weather)
+    
         puts ''
 
         puts "Forecast"
         puts ''
      
-        @forecast = WeatherToday::Weather.api_forecast
-        @forecast.each do |forecast|
+        forecast = WeatherToday::Weather.api_forecast
         display_forecast(forecast)
-        end
+        
     end
         
     def menu
@@ -111,7 +105,7 @@ class WeatherToday::CLI
         while answer != "exit" 
             if answer.downcase == "y"
             #system('cls') || system('clear') #clear the screen 
-            #puts ''   a free space 
+            #puts ''   #a free space 
             new_entry
             elsif answer.downcase == "n"
                 bye
@@ -121,6 +115,15 @@ class WeatherToday::CLI
             end
         end 
     end
+
+
+
+    def current_weather(weather)
+
+        puts "#{weather.date} - #{weather.location} - #{weather.temp}ºF - #{weather.decription} - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
+        puts ''
+        puts "Feels like #{weather.feels}ºF "
+    end 
 
 
     def weather_location(weather1)

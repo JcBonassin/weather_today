@@ -1,7 +1,9 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels
+
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3
+
     attr_accessor :weather_1, :weather_2, :weather_3, :humidity_1, :humidity_2, :humidity_3 
     
 
@@ -65,13 +67,14 @@ class WeatherToday::Weather
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        @weather_today.date = Time.at(data[:dt]).strftime('%d-%m-%Y %H:%M') # only time report not local time
-        @weather_today.time = Time.new(data[:timezone])
+        @weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
+        #@weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
-        #@Weather_today.temp_min = data[:main][0][:temp_min]
-        #@weather_today.temp_max = data[:main][0][:temp_max]
-        [@weather_today]
+        @weather_today.temp_max = data[:main][:temp_max]
+        @weather_today.temp_min = data[:main][:temp_min]
+        @weather_today.feels = data[:main][:feels_like]
+        @weather_today
     end 
 
     
@@ -85,9 +88,9 @@ class WeatherToday::Weather
        @forecast.temp_2 = data[:daily][2][:temp][:day]
        @forecast.temp_3 = data[:daily][3][:temp][:day]
        #@forecast.report_time = parsed["dt"]
-       @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%d-%m-%Y %H:%M')
-       @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%d-%m-%Y')
-       @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%d-%m-%Y')
+       @forecast.dt_1 = Time.at(data[:daily][1][:dt]) .strftime('%A')
+       @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
+       @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%A')
        #data = JSON.parse(response.body, symbolize_names: true)
 
        @forecast.weather_1 = data[:daily][1][:weather].first[:description]
@@ -105,7 +108,7 @@ class WeatherToday::Weather
        #forecast.conditions = "conditions"
        #@forecast.description = data[:current][:weather][:description]
 
-       [@forecast]
+       @forecast
    end
 
 
