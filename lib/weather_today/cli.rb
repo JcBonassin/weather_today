@@ -15,6 +15,8 @@ class WeatherToday::CLI
 
         weather = WeatherToday::Weather.api_location
         current_weather(weather)
+        news = WeatherToday::Weather.news
+        news_feed_(news)
     
         puts ''
 
@@ -120,7 +122,7 @@ class WeatherToday::CLI
 
     def current_weather(weather)
 
-        puts "#{weather.date} - #{weather.location} - #{weather.temp}ºF - #{weather.decription} - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
+        puts "Today in  #{weather.location} - #{weather.temp}ºF - #{weather.decription} - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
         puts ''
         puts "Feels like #{weather.feels}ºF "
     end 
@@ -164,7 +166,22 @@ class WeatherToday::CLI
         #puts "#{forecast.humidity_1}% "
          
      end
-    
+
+     def news_feed_(news)
+
+        puts ''
+        puts  "News"
+        WeatherToday::Weather.open_link
+        puts ''
+        puts "#{news.title_1}"
+        puts ''
+        puts "#{news.title_2}"
+        puts ''
+        puts "#{news.title_3}"
+        puts ''
+        puts "#{news.title_4}"
+        
+     end
     
    
 

@@ -1,9 +1,8 @@
 class WeatherToday::Weather
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels
-
-    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3
-
+    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
+    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3 
+    attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
     attr_accessor :weather_1, :weather_2, :weather_3, :humidity_1, :humidity_2, :humidity_3 
     
 
@@ -67,7 +66,7 @@ class WeatherToday::Weather
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        @weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
+        #@weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
         #@weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp]
         @weather_today.decription = data[:weather].first[:description]
@@ -110,6 +109,40 @@ class WeatherToday::Weather
 
        @forecast
    end
+
+
+   def self.news 
+    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=647fbe72d746415bb1d9e2110f0e9b43")
+    data = JSON.parse(response.read_body, symbolize_names: true)
+    @news = self.new 
+    @news.title_1 = data[:articles][0][:title]
+    @news.url_1 = data[:articles][0][:url]
+    @news.title_2 = data[:articles][1][:title]
+    @news.url_2 = data[:articles][1][:url]
+    @news.title_3 = data[:articles][2][:title]
+    @news.url_3 = data[:articles][2][:url]
+    @news.title_4 = data[:articles][3][:title]
+    @news.url_4 = data[:articles][3][:url]
+    @news.title_4 = data[:articles][4][:title]
+    @news.url_4 = data[:articles][4][:url]
+    @link = @news.url_1
+    #@news.all_news = n.get_top_headlines(sources: "bbc-news")
+    #all = @news.all_news
+    #@news.title_1 = all[0]
+    
+   @news
+   end 
+
+   def self.open_link
+    link = @link
+    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+      system "start #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+      system "open #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+      system "xdg-open #{link}"
+    end
+  end
 
 
 end 

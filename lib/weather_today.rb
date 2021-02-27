@@ -13,6 +13,7 @@ require 'dotenv/load'
 require 'open_weather'
 require 'geocoder'
 require 'colorize'
+require 'news-api'
 
 
 

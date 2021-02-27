@@ -21,6 +21,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0212)
     multi_xml (0.6.0)
+    news-api (0.2.0)
     open-uri (0.1.0)
     open-weather (0.11.0)
       json
@@ -59,6 +60,7 @@ DEPENDENCIES
   geocoder (~> 1.6, >= 1.6.5)
   httparty
   json
+  news-api (~> 0.2.0)
   open-uri
   open-weather
   pry
