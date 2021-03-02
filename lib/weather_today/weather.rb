@@ -125,7 +125,7 @@ class WeatherToday::Weather
     @news.url_4 = data[:articles][3][:url]
     @news.title_4 = data[:articles][4][:title]
     @news.url_4 = data[:articles][4][:url]
-    @link = @news.url_1
+    link = @news
     #@news.all_news = n.get_top_headlines(sources: "bbc-news")
     #all = @news.all_news
     #@news.title_1 = all[0]
@@ -134,7 +134,7 @@ class WeatherToday::Weather
    end 
 
    def self.open_link
-    link = @link
+    link = "https://www.bbc.com/news/world"
     if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
       system "start #{link}"
     elsif RbConfig::CONFIG['host_os'] =~ /darwin/

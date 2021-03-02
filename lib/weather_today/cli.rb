@@ -1,5 +1,8 @@
 class WeatherToday::CLI
 
+   
+    $prompt = TTY::Prompt.new 
+
     def call
         welcome
         menu
@@ -13,62 +16,69 @@ class WeatherToday::CLI
         puts "welcome to today's weather"
         puts ''
 
-        weather = WeatherToday::Weather.api_location
-        current_weather(weather)
-        news = WeatherToday::Weather.news
-        news_feed_(news)
-    
-        puts ''
-
-        puts "Forecast"
+        puts "Forecast".colorize(:red)
         puts ''
      
         forecast = WeatherToday::Weather.api_forecast
         display_forecast(forecast)
+
+        puts ''
+        weather = WeatherToday::Weather.api_location
+        current_weather(weather)
+        puts ''
+        puts "News Highlights"
+        news = WeatherToday::Weather.news
+        news_feed_(news)
+    
+
         
     end
         
     def menu
-        input = nil
+        answer = $prompt.select('Main Menu:', ["for more useful data","for more news","to check another city", "to exit"], require: true)
+        #input = nil
         # out f for forecast 
-        puts "
-            Please select: 
+        case answer
+        when "for more useful data"
+            weather = WeatherToday::Weather.api_location
+            current_weather(weather)
+            menu
+        when "for more news"
+            #system "clear"
+            WeatherToday::Weather.open_link
+            menu
+        when "to check another city"
+            new_entry 
+        when "to exit"
+            bye
+        else
+            puts "sorry you didn't select the right option. Please try again"  
+        end
 
-            
-            u for more useful data
-            m for main menu
-            c to check another city
-            q to exit "   
-        while input != "q"
-            input = gets.chomp.downcase
-            if input == "u" 
-                the_weather = @weather[input.to_i]
-                puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp}ºF - #{the_weather.decription}"
-            elsif input == "m"
-                welcome
-            #elsif input == "f"
-            #    sleep(0.5)
-            #    the_forecast = @forecast[input.to_i]
-            #    puts "#{the_forecast.dt_1} - #{the_forecast.dt_2} - #{the_forecast.dt_3}"
-            #    puts ''
-            #    puts "#{the_forecast.temp_1}ºF  - #{the_forecast.temp_2}ºF  - #{the_forecast.temp_3}ºF "
-            #    puts ''
-            #    puts "#{the_forecast.weather_1} - #{the_forecast.weather_2} - #{the_forecast.weather_3}"
-            #    puts ''
-            #    puts "#{the_forecast.humidity_1}% "
-            #    menu
-            elsif input == "c" 
-                new_entry  
-            elsif input == "q"
-                    bye
-            else puts "sorry you didn't select the right option. Please try again"   
-            end    
-        end 
+        #puts "
+        #    Please select: 
 
-        
-          
-        
-    end  
+        #    
+        #    u for more useful data
+        #    m for main menu
+        #    c to check another city
+        #    q to exit "   
+        #while input != "q"
+        #    input = gets.chomp.downcase
+        #    if input == "u" 
+        #        the_weather = @weather[input.to_i]
+        #        puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp}ºF - #{the_weather.decription}"
+        #    elsif input == "m"
+        #        welcome
+        #    elsif input == "c" 
+        #        new_entry  
+        #    elsif input == "q"
+        #            bye
+        #    else puts "sorry you didn't select the right option. Please try again"   
+        #    end    
+        #end 
+     end  
+
 
     def new_entry
         new_input = nil
@@ -158,7 +168,7 @@ class WeatherToday::CLI
         puts  "Forecast"
         puts ''
         puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
-        puts ''
+        puts '' 
         puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
         puts ''
         #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
@@ -169,9 +179,24 @@ class WeatherToday::CLI
 
      def news_feed_(news)
 
+        #answer = $prompt.multi_select('News:', ["#{news.title_1}","#{news.title_2}","#{news.title_3}", "#{news.title_4}"], require: true)
+        #
+        #case answer
+        #when "#{news.title_1}"
+        #    WeatherToday::Weather.open_link
+        #when "#{news.title_2}"
+        #    WeatherToday::Weather.open_link
+        #when "#{news.title_3}"
+        #    WeatherToday::Weather.open_link
+        #when "#{news.title_4}"
+        #    WeatherToday::Weather.open_link
+        #else
+        #    WeatherToday::Weather.open_link
+        #end
+
+
         puts ''
-        puts  "News"
-        WeatherToday::Weather.open_link
+        #WeatherToday::Weather.open_link
         puts ''
         puts "#{news.title_1}"
         puts ''
