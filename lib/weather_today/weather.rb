@@ -1,9 +1,9 @@
 class WeatherToday::Weather
 
     attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
-    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3 
+    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3, :sunset, :sunrise
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
-    attr_accessor :weather_1, :weather_2, :weather_3, :humidity_1, :humidity_2, :humidity_3 
+    attr_accessor :weather_1, :weather_2, :weather_3, :humidity, :humidity_1, :humidity_2, :humidity_3, :pressure
     
 
    # def self.location
@@ -73,6 +73,10 @@ class WeatherToday::Weather
         @weather_today.temp_max = data[:main][:temp_max]
         @weather_today.temp_min = data[:main][:temp_min]
         @weather_today.feels = data[:main][:feels_like]
+        @weather_today.humidity = data[:main][:humidity]
+        @weather_today.pressure = data[:main][:pressure]
+        @weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
+        @weather_today.sunrise = Time.at(data[:sys][:sunrise]).strftime('%H:%M')
         @weather_today
     end 
 
@@ -87,7 +91,7 @@ class WeatherToday::Weather
        @forecast.temp_2 = data[:daily][2][:temp][:day]
        @forecast.temp_3 = data[:daily][3][:temp][:day]
        #@forecast.report_time = parsed["dt"]
-       @forecast.dt_1 = Time.at(data[:daily][1][:dt]) .strftime('%A')
+       @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%A')
        @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
        @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%A')
        #data = JSON.parse(response.body, symbolize_names: true)
@@ -125,16 +129,19 @@ class WeatherToday::Weather
     @news.url_4 = data[:articles][3][:url]
     @news.title_4 = data[:articles][4][:title]
     @news.url_4 = data[:articles][4][:url]
-    link = @news
+    @link = @news.url_1
+    @link_2 = @news.url_2
+    @link_3 = @news.url_3
+    @link_4 = @news.url_4
     #@news.all_news = n.get_top_headlines(sources: "bbc-news")
     #all = @news.all_news
     #@news.title_1 = all[0]
     
-   @news
+   @news 
    end 
 
    def self.open_link
-    link = "https://www.bbc.com/news/world"
+    link =  @link 
     if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
       system "start #{link}"
     elsif RbConfig::CONFIG['host_os'] =~ /darwin/
@@ -143,6 +150,41 @@ class WeatherToday::Weather
       system "xdg-open #{link}"
     end
   end
+
+  def self.open_link_2
+    link =  @link_2
+    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+      system "start #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+      system "open #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+      system "xdg-open #{link}"
+    end
+  end
+
+  def self.open_link_3
+    link =  @link_3
+    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+      system "start #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+      system "open #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+      system "xdg-open #{link}"
+    end
+  end
+
+  def self.open_link_4
+    link =  @link_4
+    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+      system "start #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+      system "open #{link}"
+    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+      system "xdg-open #{link}"
+    end
+  end
+
+
 
 
 end 

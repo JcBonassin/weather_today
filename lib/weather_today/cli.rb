@@ -16,28 +16,30 @@ class WeatherToday::CLI
         puts "welcome to today's weather"
         puts ''
 
+        puts ''
+        weather = WeatherToday::Weather.api_location
+        current_weather(weather)
+        puts ''
+
         puts "Forecast".colorize(:red)
         puts ''
      
         forecast = WeatherToday::Weather.api_forecast
         display_forecast(forecast)
 
-        puts ''
-        weather = WeatherToday::Weather.api_location
-        current_weather(weather)
-        puts ''
         puts "News Highlights"
         news = WeatherToday::Weather.news
         news_feed_(news)
-    
+        puts ''
+
+        menu 
+        puts ''
 
         
     end
         
     def menu
         answer = $prompt.select('Main Menu:', ["for more useful data","for more news","to check another city", "to exit"], require: true)
-        #input = nil
-        # out f for forecast 
         case answer
         when "for more useful data"
             weather = WeatherToday::Weather.api_location
@@ -45,7 +47,8 @@ class WeatherToday::CLI
             menu
         when "for more news"
             #system "clear"
-            WeatherToday::Weather.open_link
+            news_display = WeatherToday::Weather.news
+            news_display(news_display)
             menu
         when "to check another city"
             new_entry 
@@ -54,29 +57,6 @@ class WeatherToday::CLI
         else
             puts "sorry you didn't select the right option. Please try again"  
         end
-
-        #puts "
-        #    Please select: 
-
-        #    
-        #    u for more useful data
-        #    m for main menu
-        #    c to check another city
-        #    q to exit "   
-        #while input != "q"
-        #    input = gets.chomp.downcase
-        #    if input == "u" 
-        #        the_weather = @weather[input.to_i]
-        #        puts "#{the_weather.date} - #{the_weather.location} - #{the_weather.temp}ºF - #{the_weather.decription}"
-        #    elsif input == "m"
-        #        welcome
-        #    elsif input == "c" 
-        #        new_entry  
-        #    elsif input == "q"
-        #            bye
-        #    else puts "sorry you didn't select the right option. Please try again"   
-        #    end    
-        #end 
      end  
 
 
@@ -120,7 +100,7 @@ class WeatherToday::CLI
             #puts ''   #a free space 
             new_entry
             elsif answer.downcase == "n"
-                bye
+                menu
             else 
              p "dude learn good types manners ;)  ... Try again!!!"
              new_entry
@@ -134,13 +114,15 @@ class WeatherToday::CLI
 
         puts "Today in  #{weather.location} - #{weather.temp}ºF - #{weather.decription} - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
         puts ''
-        puts "Feels like #{weather.feels}ºF "
+        puts "Feels like #{weather.feels}ºF - Humidity #{weather.humidity}% - Pressure #{weather.pressure} mb"
+        puts ''
+        puts "Sunrise #{weather.sunrise} Sunset #{weather.sunset}"
     end 
 
 
     def weather_location(weather1)
 
-        puts "#{weather1.temp}ºF - #{weather1.conditions}" #{weather1.date}
+     puts "#{weather1.temp}ºF - #{weather1.conditions}" #{weather1.date}"
          
     end
 
@@ -178,23 +160,6 @@ class WeatherToday::CLI
      end
 
      def news_feed_(news)
-
-        #answer = $prompt.multi_select('News:', ["#{news.title_1}","#{news.title_2}","#{news.title_3}", "#{news.title_4}"], require: true)
-        #
-        #case answer
-        #when "#{news.title_1}"
-        #    WeatherToday::Weather.open_link
-        #when "#{news.title_2}"
-        #    WeatherToday::Weather.open_link
-        #when "#{news.title_3}"
-        #    WeatherToday::Weather.open_link
-        #when "#{news.title_4}"
-        #    WeatherToday::Weather.open_link
-        #else
-        #    WeatherToday::Weather.open_link
-        #end
-
-
         puts ''
         #WeatherToday::Weather.open_link
         puts ''
@@ -207,6 +172,27 @@ class WeatherToday::CLI
         puts "#{news.title_4}"
         
      end
+
+    def news_display(news)
+
+     answer = $prompt.select('News:', ["#{news.title_1}","#{news.title_2}","#{news.title_3}", "#{news.title_4}", "main menu"], require: true)
+       
+       case answer
+       when "#{news.title_1}"
+           WeatherToday::Weather.open_link
+           news_display(news)
+       when "#{news.title_2}"
+           WeatherToday::Weather.open_link_2     
+           news_display(news)
+       when "#{news.title_3}"
+           WeatherToday::Weather.open_link_3
+       when "#{news.title_4}"
+           WeatherToday::Weather.open_link_4        
+       else
+           menu
+       end
+    end 
+
     
    
 
