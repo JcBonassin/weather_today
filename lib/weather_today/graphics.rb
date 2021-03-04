@@ -1,4 +1,4 @@
-class Graphs
+class String
     def graph_cond
         case self
         when 'thunderstorm'
@@ -28,7 +28,7 @@ class Graphs
         when 'hail'
             "\u{1F30A}"
         else
-            "\u{1F30A}" # error
+            "\u{1F30A}" 
         end
     end
     

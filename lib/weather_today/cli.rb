@@ -1,8 +1,8 @@
 class WeatherToday::CLI
 
    
-    $prompt = TTY::Prompt.new 
-
+    $prompt = TTY::Prompt.new(active_color: :cyan)
+   
     def call
         welcome
         menu
@@ -13,7 +13,7 @@ class WeatherToday::CLI
     def welcome
         #system('cls') || system('clear')
         puts ''
-        puts "welcome to today's weather"
+        puts "Welcome to today's weather"
         puts ''
 
         puts ''
@@ -27,7 +27,7 @@ class WeatherToday::CLI
         forecast = WeatherToday::Weather.api_forecast
         display_forecast(forecast)
 
-        puts "News Highlights"
+        puts "World's News"
         news = WeatherToday::Weather.news
         news_feed_(news)
         puts ''
@@ -75,8 +75,8 @@ class WeatherToday::CLI
             elsif
                 weather1 = WeatherToday::Search.select_name(new_input)
                 weather_location(weather1)
-                weather_location = WeatherToday::Search.current_time(new_input)
-                weather_enquire(weather_location)
+                #weather_location = WeatherToday::Search.current_time(new_input)
+                #weather_enquire(weather_location)
                 forecast_2 = WeatherToday::Search.select_forecast(new_input)
                 display_forecast2(forecast_2)
                 yesno
@@ -111,18 +111,21 @@ class WeatherToday::CLI
 
 
     def current_weather(weather)
-
-        puts "Today in  #{weather.location} - #{weather.temp}ºF - #{weather.decription} - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
+        puts "Today in  #{weather.location}  #{weather.decription.graph_cond}   \u{1F307} #{weather.sunrise} #{weather.sunset}"  
+        puts ''     
+        puts "#{weather.decription.quotes}".colorize(:red)
+        puts ''
+        puts "#{weather.temp}ºF - (min: #{weather.temp_min}ºF /max: #{weather.temp_max}ºF)"  
         puts ''
         puts "Feels like #{weather.feels}ºF - Humidity #{weather.humidity}% - Pressure #{weather.pressure} mb"
         puts ''
-        puts "Sunrise #{weather.sunrise} Sunset #{weather.sunset}"
+        
     end 
 
 
     def weather_location(weather1)
 
-     puts "#{weather1.temp}ºF - #{weather1.conditions}" #{weather1.date}"
+     puts "#{weather1.temp}ºF - #{weather1.conditions.graph_cond}" #{weather1.date}"
          
     end
 
@@ -132,30 +135,62 @@ class WeatherToday::CLI
 
 
     def display_forecast(forecast)
+
+       forecast_table_1 = TTY::Table.new(["#{forecast.dt_1}","#{forecast.dt_2}","#{forecast.dt_3}"], 
+                                         [["#{forecast.weather_1.graph_cond}","#{forecast.weather_2.graph_cond}","#{forecast.weather_3.graph_cond}"],
+                                         ["#{forecast.temp_1}ºF","#{forecast.temp_2}ºF","#{forecast.temp_3}ºF"],
+                                         ["#{forecast.humidity_1}%","#{forecast.humidity_2}%","#{forecast.humidity_3}%"],
+                                         ["#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}"]])
         
-        puts "#{forecast.dt_1} - #{forecast.dt_2} - #{forecast.dt_3}"
-        puts ''
-        puts "#{forecast.temp_1}ºF- #{forecast.temp_2}ºF  - #{forecast.temp_3}ºF "
-        puts ''
-        puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
-        puts ''
-        puts "#{forecast.humidity_1}% - #{forecast.humidity_2}% - #{forecast.humidity_3}%  "
-      
+        puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center]) { |renderer|
+        #renderer.border.separator = :each_row
+        renderer.border.style = :blue
+      } 
+        
+
+        #puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center])
+                                      
+        
+       # puts "#{forecast.dt_1} - #{forecast.dt_2} - #{forecast.dt_3}"
+       # puts ''
+       # puts "#{forecast.temp_1}ºF - #{forecast.temp_2}ºF - #{forecast.temp_3}ºF "
+       # puts ''
+       # puts "#{forecast.weather_1.graph_cond}  #{forecast.weather_2.graph_cond}  #{forecast.weather_3.graph_cond}"
+       # puts ''
+       # puts "#{forecast.humidity_1}% - #{forecast.humidity_2}% - #{forecast.humidity_3}%"
+       # puts ''
+       # puts "#{forecast.pop}%\u{1F4A7} #{forecast.pop_2}%\u{1F4A7} #{forecast.pop_3}%\u{1F4A7}" 
+       # puts ''
+       puts ''
         
     end
 
     def display_forecast2(forecast_2)
+       
+        puts  "Forecast".colorize(:red)
+        puts ''
 
-        puts ''
-        puts  "Forecast"
-        puts ''
-        puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
-        puts '' 
-        puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
-        puts ''
-        #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
-        #puts ''
-        #puts "#{forecast.humidity_1}% "
+        forecast_table_2 = TTY::Table.new(["#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}"], 
+                                         [["#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}"],
+                                         ["#{forecast_2.temp_1}ºF","#{forecast_2.temp_2}ºF","#{forecast_2.temp_3}ºF","#{forecast_2.temp_4}ºF"],
+                                         ["#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%"],
+                                         ["#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}"]])
+        
+        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center]) { |renderer|
+        #renderer.border.separator = :each_row
+        renderer.border.style = :red
+      } 
+
+       # puts ''
+       # puts  "Forecast"
+       # puts ''
+       # puts "#{forecast_2.temp_1}ºF - #{forecast_2.temp_2}ºF  - #{forecast_2.temp_3}ºF - #{forecast_2.temp_4}ºF"
+       # puts '' 
+       # puts "#{forecast_2.dt_1} - #{forecast_2.dt_2} - #{forecast_2.dt_3}- #{forecast_2.dt_4}"
+       # puts ''
+       # #puts "#{forecast.weather_1} - #{forecast.weather_2} - #{forecast.weather_3}"
+       # #puts ''
+       # #puts "#{forecast.humidity_1}% "
          
      end
 
@@ -186,8 +221,10 @@ class WeatherToday::CLI
            news_display(news)
        when "#{news.title_3}"
            WeatherToday::Weather.open_link_3
+           news_display(news)
        when "#{news.title_4}"
-           WeatherToday::Weather.open_link_4        
+           WeatherToday::Weather.open_link_4 
+           news_display(news)       
        else
            menu
        end

@@ -3,7 +3,7 @@ class WeatherToday::Weather
     attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3, :sunset, :sunrise
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
-    attr_accessor :weather_1, :weather_2, :weather_3, :humidity, :humidity_1, :humidity_2, :humidity_3, :pressure
+    attr_accessor :weather_1, :weather_2, :weather_3, :humidity, :humidity_1, :humidity_2, :humidity_3, :pressure, :pop, :pop_2, :pop_3
     
 
    # def self.location
@@ -68,11 +68,11 @@ class WeatherToday::Weather
         @weather_today.location = data[:name]
         #@weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
         #@weather_today.time = Time.new(data[:timezone])
-        @weather_today.temp = data[:main][:temp]
+        @weather_today.temp = data[:main][:temp].to_i
         @weather_today.decription = data[:weather].first[:description]
-        @weather_today.temp_max = data[:main][:temp_max]
-        @weather_today.temp_min = data[:main][:temp_min]
-        @weather_today.feels = data[:main][:feels_like]
+        @weather_today.temp_max = data[:main][:temp_max].to_i
+        @weather_today.temp_min = data[:main][:temp_min].to_i
+        @weather_today.feels = data[:main][:feels_like].to_i
         @weather_today.humidity = data[:main][:humidity]
         @weather_today.pressure = data[:main][:pressure]
         @weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
@@ -87,9 +87,9 @@ class WeatherToday::Weather
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        @forecast = self.new 
-       @forecast.temp_1 = data[:daily][1][:temp][:day]
-       @forecast.temp_2 = data[:daily][2][:temp][:day]
-       @forecast.temp_3 = data[:daily][3][:temp][:day]
+       @forecast.temp_1 = data[:daily][1][:temp][:day].to_i
+       @forecast.temp_2 = data[:daily][2][:temp][:day].to_i
+       @forecast.temp_3 = data[:daily][3][:temp][:day].to_i
        #@forecast.report_time = parsed["dt"]
        @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%A')
        @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
@@ -103,6 +103,10 @@ class WeatherToday::Weather
        @forecast.humidity_1 = data[:daily][1][:humidity]
        @forecast.humidity_2 = data[:daily][2][:humidity]
        @forecast.humidity_3 = data[:daily][3][:humidity]
+
+       @forecast.pop = data[:daily][1][:pop]*100
+       @forecast.pop_2 = data[:daily][2][:pop]*100
+       @forecast.pop_3 = data[:daily][3][:pop]*100
        #@forecast.temp_min = data[:daily]
        #@forecast = self.new
        #@forecast.location = data[:name]
@@ -116,7 +120,7 @@ class WeatherToday::Weather
 
 
    def self.news 
-    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=647fbe72d746415bb1d9e2110f0e9b43")
+    response = HTTParty.get("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=#{ENV['API_NEWS']}")
     data = JSON.parse(response.read_body, symbolize_names: true)
     @news = self.new 
     @news.title_1 = data[:articles][0][:title]
@@ -136,8 +140,7 @@ class WeatherToday::Weather
     #@news.all_news = n.get_top_headlines(sources: "bbc-news")
     #all = @news.all_news
     #@news.title_1 = all[0]
-    
-   @news 
+    @news 
    end 
 
    def self.open_link
