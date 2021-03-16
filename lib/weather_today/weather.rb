@@ -1,9 +1,11 @@
 class WeatherToday::Weather
 
     attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
-    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :dt_1, :dt_2, :dt_3, :sunset, :sunrise
+    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
-    attr_accessor :weather_1, :weather_2, :weather_3, :humidity, :humidity_1, :humidity_2, :humidity_3, :pressure, :pop, :pop_2, :pop_3
+    attr_accessor :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
+    attr_accessor :sunset, :sunrise, :pop, :pop_2, :pop_3, :pop_4, :pop_5
+    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
     
 
    # def self.location
@@ -90,23 +92,33 @@ class WeatherToday::Weather
        @forecast.temp_1 = data[:daily][1][:temp][:day].to_i
        @forecast.temp_2 = data[:daily][2][:temp][:day].to_i
        @forecast.temp_3 = data[:daily][3][:temp][:day].to_i
+       @forecast.temp_4 = data[:daily][4][:temp][:day].to_i
+       @forecast.temp_5 = data[:daily][5][:temp][:day].to_i
        #@forecast.report_time = parsed["dt"]
        @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%A')
        @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
        @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%A')
+       @forecast.dt_4 = Time.at(data[:daily][4][:dt]).strftime('%A')
+       @forecast.dt_5 = Time.at(data[:daily][5][:dt]).strftime('%A')
        #data = JSON.parse(response.body, symbolize_names: true)
 
        @forecast.weather_1 = data[:daily][1][:weather].first[:description]
        @forecast.weather_2 = data[:daily][2][:weather].first[:description]
        @forecast.weather_3 = data[:daily][3][:weather].first[:description]
+       @forecast.weather_4 = data[:daily][4][:weather].first[:description]
+       @forecast.weather_5 = data[:daily][5][:weather].first[:description]
 
        @forecast.humidity_1 = data[:daily][1][:humidity]
        @forecast.humidity_2 = data[:daily][2][:humidity]
        @forecast.humidity_3 = data[:daily][3][:humidity]
+       @forecast.humidity_4 = data[:daily][4][:humidity]
+       @forecast.humidity_5 = data[:daily][5][:humidity]
 
        @forecast.pop = data[:daily][1][:pop]*100
        @forecast.pop_2 = data[:daily][2][:pop]*100
        @forecast.pop_3 = data[:daily][3][:pop]*100
+       @forecast.pop_4 = data[:daily][4][:pop]*100
+       @forecast.pop_5 = data[:daily][5][:pop]*100
        #@forecast.temp_min = data[:daily]
        #@forecast = self.new
        #@forecast.location = data[:name]

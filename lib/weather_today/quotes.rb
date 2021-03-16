@@ -2,33 +2,48 @@ class String
     def quotes 
         case self 
         when 'thunderstorm'
-            "Fucking love is in the air."
+            "Fucking love is in the air.
+             Fucking love is in the air.".colorize(:blue)
         when 'light rain'
-            "Fucking|love is|in the air."
+            "Fucking|love is|in the air.
+            Fucking love is in the air."
         when 'rain'
-             "It's fucking raining."
+             "It's fucking raining.
+             Fucking love is in the air."
         when 'clear sky'
-            "Fucking|love is|in the air."
+            "Fucking|love is|in the air.
+            Fucking love is in the air."
         when 'few clouds'
-             "Fucking|love is|in the air."
+             "It's fucking cloudy.
+             Fucking love is in the air."
         when 'scattered clouds'
-            "Fucking|love is|in the air."
+            "Fucking|love is|in the air.
+            Fucking love is in the air.".colorize(:blue)      
         when 'broken clouds'
-            "Fucking love is in the air."
+            "Fucking love is in the air.
+            Fucking love is in the air."
         when 'overcast clouds'
-            "Fucking love is in the air."
+           puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+           puts ''
+           puts "You can look outside to get more information.".colorize(:blue)
         when 'tornado'
-             "Fucking|love is|in the air."
+             "Fucking|love is|in the air.
+             Fucking love is in the air."
         when 'cold'
-             "Fucking|love is|in the air."
+             "Fucking|love is|in the air.
+             Fucking love is in the air."
         when 'hot'
-             "Fucking|love is|in the air."
+             "Fucking|love is|in the air.
+             Fucking love is in the air."
         when 'windy'
-              "Fucking|love is|in the air."
+              "Fucking|love is|in the air.
+              Fucking love is in the air."
         when 'hail'
-             "Fucking|love is|in the air."
+             "Fucking|love is|in the air.
+             Fucking love is in the air."
         else
-             "Fucking|love is|in the air."
+             "Fucking|love is|in the air.
+             Fucking love is in the air."
         end
     end
 end 
