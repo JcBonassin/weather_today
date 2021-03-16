@@ -11,7 +11,7 @@ class WeatherToday::CLI
     end
     
     def welcome
-        #system('cls') || system('clear')
+        #puts Rain.go 
         puts ''
         puts "Welcome to today's weather"
         puts ''
@@ -21,7 +21,7 @@ class WeatherToday::CLI
         current_weather(weather)
         puts ''
 
-        puts "Forecast".colorize(:red)
+        puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
         puts ''
      
         forecast = WeatherToday::Weather.api_forecast
@@ -112,9 +112,9 @@ class WeatherToday::CLI
 
     def current_weather(weather)
 
-        puts "Today in #{weather.location}  #{weather.decription.graph_cond}  \u{1F305} #{weather.sunrise} #{weather.sunset}"  
+        puts "Today in #{weather.location}  #{weather.decription.graph_cond}  \n\u{1F305} #{weather.sunrise} #{weather.sunset}"  
         puts ''
-        puts  "#{weather.decription}".upcase.bold.blink.colorize(:white) #"#{weather.decription.graph_cond}"
+        puts  "#{weather.decription.upcase.bold.blink.colorize(:white)} #{weather.decription.graph_cond}"
         puts ''     
         puts "#{weather.decription.quotes}" #.colorize(:red)
         puts ''

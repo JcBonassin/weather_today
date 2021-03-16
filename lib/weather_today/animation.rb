@@ -1,334 +1,188 @@
-class BananaMan
+class Rain
     def self.frame_one
       puts "
-                                         :s+-
-                                       /dy/+yN:
-                                     :dh:---oN`
-                                   .hh:-----hs
-                                  +mo-------m/
-                                 hd:--------N:
-                               .dy----------N:
-                              .my----------:N:
-                             `dh-------+hhyydhyys+.
-                             om-------ym-    .yd./do
-                            .m+------:N/     ohM:/dN`
-                            /m--------dd`    .hm``ym`
-                            sh--/d+----sdyoosmNsshs`
-                            yy---mNmho/--://:ms.`
-                            od---+Ndhdmmdhysodd
-                            :N:---/mmhyyyyhdNo-
-                             ms-----+dmdhyyyN:
-                             /N/------:+shdmNdo:
-                    -//s:`    sm:------------:oN.      .:-s+o:
-                 .s/d: .yyh    yd--------------mo    `h+.-+-yd-
-                 -h-      ym-   sd:------------om` `+o+      //o
-                 .d:      +N+`   +mo------------m+  yy-     `sh:
-                  .do.   .yd-     yNd/----------sm` +omo. :-`/s
-                  -/+/:/ddydNds/-dN+/dh/--------:Nho/oNd:hyo+:
-                     /-/-    -+ymh.  `hNd+-------oNysh/
-                                    .dN+-odho:---:Nh-
-                                   oNh`    `/shhdy+sNd-
-                               .--yMs               .dNs-.
-                          .ohhso+++osyhy:       -shhso+++oshho-
-                         /N/`          .hy     od-           :m+
-                         :dyso+++++++oosdo     /dyoo+++++++ooyd/
-                           `...........`         `...........`
+      -`                                                                                            
+      N:                   `-                                                                       
+      N:                   :N      -             //                    -      /-                    
+      s.                   :N      M.     -`     sy     `-      -     `N.     yo            `-      
+      d-            -:     -h      M.     d/     sy     /d     .M     `M.     yo            -N      
+      N:            oy      `      M.     m/     ::     /m     .M     `M.     +:     `.     :N      
+      m-            oy             M.     m/     ..     /m     .M     `M.     .`     +y     :N      
+      `             oy      `      d`     s-     ss     /m     `h     `y`     yo     +h     :N      
+                    .-     -d      `             yy     :y             -`     yo     +h     :N      
+      .      .`            :N      `             oo      `      /      m:     s+     +h     -N      
+      m-     y+            :N      m`            ``      `     .M      N:     `      `.     `-      
+      N:     h+     /+     :N      M.     -`            :y     .M      d-                           
+      N:     h+     oy     -d      M.     d/     oo     /m     .M      `             -/     .o      
+      N:     :.     oy      .      s`     m/     yy     /m     `+      `      o/     +h     :N      
+      h-            oy                    m/     yy     /m             h-     yo     +h     :N      
+                    oy             y`     /.     yy     /m             N:     yo     +h     -d      
+             /-     oy             M.            ss     -o             N:     +:     +h      `      
+             h+     oy             M.            ``                    N:            .:     `:      
+             h+     :/             M.     o-            -o             m:                   :N      
+      `      y+                    M.    `mo:+oyyssyyo+/om`            .                    :N      
+      m-                           M. `/sys+::yh:``:hh::+sys/`                              :N      
+      N:                           M+yy/.    yy      sh    ./yy/`      o.     /:            :N      
+      N:                         `+m+`      oh        hs      `+h+`    N:     yo            :N      
+      N:     .`     oy     -y   :d+        .N.        .N-        +d/   N:     yo            :N      
+      N:     h+     oy     :N  sh.         sy          sy         `hs  N:     yo            .y      
+      N:     h+     oy     :N hs          `N-          .N`          sh +.     yo                    
+      m-     h+     /+     :Nyy           :N            m/           yy       yo     .:     .y      
+             h+             +N`           oh            ys           `m:      yo     +h     :N      
+             h+             ho`-/+ooo+/:. ys .:++ooo+:- +h `-/+ooo+/:`+d      :-     +h     :N      
+             y+            `Nds+:-....-/oymmyo/-.M:.-:oydNys/:-....:/sdM`            +h     :N      
+             `             `d-           `+:`    M-     /h`           `/      y+     +h     :N      
+             .`             `                    M-      `             s.     yo     +h     `o      
+             y+                                  M-                    N:     yo     +h             
+      .      h+                                  M-                    N:     yo     -/     `:      
+      m-     h+                                  M-                    -`     yo            -N      
+      N:     h+                                  M-                    .      ..            :N      
+      N:     h+                                  M-                    m-                   :N      
+      N:     h+                                  M-                    N:                   :N      
+      d-     y+                                  M-                    N:     -.            :N      
+      `      .`                                  M-                    y-     yo            -m      
+                                                 M-                           yo             -      
+      y.     :.                                 `M-                    `      yo                    
+      N:     h+     `.                          -M`                    h-     yo            .s      
+      N:     h+     oy                       ``-ho                     N:     +:            :N      
+      N-     h+     oy                       +oo-                      N:                   :N      
+      :`     :.     oy                                                 N:     o/     ``     -d      
+                    -/                                                 m:     yo     +h             
+                                                                       .      yo     +h             
+      d-                                                                      :-     +h             
+      N:                                                                             +h             
+      N:                                                                             /o             
+
       ".colorize(:yellow)
       sleep (0.09)
       system 'clear'
     end
     def self.frame_two
-      puts "                                 ``
-                                   `sdyyhhd:
-                                   sh:::::sd`
-                                  +d/::::::do
-                                 -m+:::::::om.
-                                `hy:::::::::m+
-          .:/:                  +d::::::::::yy                  ``.:+-`
-       -+oh.`ods:              `dhyyyhs/:+yhhdo-              /++/oy/m+
-       ++ .   `:y+             +mo.  `:ddy-   -yy`          .:y.     :o+.
-       oh      `hh`            hy  +h. +m` -h/ `m:          od:      :+o:
-       :+o-    .m+:           `md- `. `hm+` .``+d.          .sh+. `` `y:
-        ++y`./odhms-`         :mohysoyhs/yhsosho.           -smdosyso+:
-          :s/y.` -oddo-       +d::::/:::::::/od`         `/hms-  ``
-                   `:smh+-    oddhso+/////+oshm.      `:odh+`
-                      `/sdds:`ohomdhhdddddhhhdm:  `-+ymho:
-                          -+hmmd:/hdyyyyyyyyddmo+sddo/`
-                             `/m/::+ddhyyyhmy/hdy/.
-                               ds::::+syyys/::yo
-                               +m:::::::::::::yo
-                               `hy::::::::::::sh
-                                -mo:::::::::::sh
-                                 /m/::::::::::sd
-                                  +d/:::::::::om`
-                                   sd:::::::::+m`
-                                   `sd::::::::+m`
-                                     od/::::::/m-
-                                      /d/:::::/m:
-                                      `hmysyhdms.
-                                      smo:.` :my
-                                     sm+      +ms`
-                                    omy        smo
-                                   /my`         ym:
-                                  .dd.          `dd.
-                        `:syysooooosyyy/     -yyssooooossyy+-
-                       .do-           /m`    oh.          `:hs
-                       -ds+///////+oyys.      /yyso+///////+hs
-                         .-:::::/:-.`            `.-://///:.`
+      puts "
+                                                                                                          
+                                                                                                    
+                           `-                                                                       
+                           :N      -                    `-      -                                   
+                           :N      M.     -`            /d     .M             :-                    
+      -`                   :N      M.     d/            /m     .M             yo            `-      
+      N-                   -h      M.     m/     ::     /m     .M      -      yo            -N      
+      N:     .`             `      M.     m/     sy     /m     .M     `N`     +:     `.     :N      
+      y.     y+             `      M.     s-     sy     /m     .M     `M.     .`     +y     :N      
+      h.     h+            -d      M.            :/     /m     `h     `M.     yo     +h     :N      
+      N:     h+            :N      M.                   :y            `M.     yo     +h     :N      
+      m-     h+            :N      m`                    `            `h`     yo     +h     :N      
+      .      o:            :N      `      -`             `             .`     yo     +h     :N      
+                           :N             d/            :y             m:     s+     +h     -N      
+      .      ``            -m             m/            /m             N:     ``     .-     `:      
+      m-     y+     :+      .             m/            /m             d-                           
+      N:     h+     oy             y`     /.     ++     /m             `             -/     `+      
+      N:     h+     oy             M.            yy     /m             `      o/     +h     :N      
+      N:     :-     oy     .o      M.            yy     -o     `s      h-     yo     +h     :N      
+      d-            oy     :N      M.    `o/:+oyyddyyo+/-``    .M      N:     yo     +h     -m      
+                    oy     :N      M. `/sys+::yh:``:hh::+sys/` .M      N:     +:     +h      `      
+             :-     oy     :N     `M+yy/.    yy      sh    ./yy+M`     N:            +h     `-      
+             h+     :+     .+    `om+`      oh        hs      `+mo`    N:            +h     :N      
+             h+                 :d+        .N.        .N-        +d/   .             +h     :N      
+             y+            -y  sh.         sy          sy         `hs         /-     -:     :N      
+      m-                   :N hs          `N-          .N`          sh +.     yo            :N      
+      N:                   :Nyy           :N            m/           yyN:     yo            :N      
+      N:            oy     :MN`           oh            ys           `mM:     s+            :N      
+      N:     .`     oy      mo`-/+ooo+/:. ys .:++ooo+:- +h `-/+ooo+/:`+M:                   .y      
+      N:     h+     oy     `Nds+:-....-/oymmyo/-.M:.-:oydNys/:-....:/sdM.                           
+      N:     h+     /o     `d-           `+:`    M-     /h`           `/             .:     .s      
+      m-     h+             `                    M-      `                           +h     :N      
+      `      h+                                  M-                                  +h     :N      
+             h+                                  M-                                  +h     :N      
+             y+     -:                           M-                           s+     +h     :N      
+             ``     oy                           M-                    s.     yo     +h     .o      
+             .`     oy                           M-                    N:     yo     +h             
+             y+     oy                           M-                    N:     yo     :+     `:      
+      `      h+     oy                           M-                    :`     yo            -N      
+      d-     h+     oy                           M-                    .      -.            :N      
+      N:     h+     .-                           M-                    d-                   :N      
+      N:     h+                                 `M-                    N:            /o     :N      
+      N:     h+                                 -M`                    N:            +h     :N      
+      m-     y+                              ``-ho                     h-            +h     -N      
+      `      .`                              +oo-                                    +h     `-      
+                                                                                     +h             
+      y.     -.     ``                                                 y-            +h     .s      
+      N:     h+     oy                                                 N:            :o     :N      
+      N:     h+     oy                                                 N:                   :N      
+      N:     h+     oy                                                 N:     +/      `     -d      
+      /`     :-     :/                                                 N:     yo     +h             
+
     ".colorize(:yellow)
       sleep (0.09)
       system 'clear'
     end
     def self.frame_three
       puts "
-                                          /hyyyhd/
-                                         .m+::::+m:
-                                         yh::::::+m-
-                                        -m+:::::::sh`
-                                        od:::::::::do
-                                       `ds:::::::::+m-
-                                      -smhyo/:/syhysdy
-                                    `yy:``.+dhd/.``:ym.
-                    `.:-            od` +s` :m: -s- `d+               -.-`
-                 ./od-.+h+:         /m- -:``om+ `:. -my           /++/ysyd-
-                 ++`:   .:s+         :hy++ohy+hho++yhym`        `-h`    .o/+
-                 /d`      yy          .mo+/:::::+++/::m-       `dh.      //s
-                 :o+`    `do/         :ms+/::::::/+oyhm:        /hh-     .h`
-                  +oh `:+dmd:`        /mhhdddddddddmmom:        .omd/+hy+o.
-                    /o+h:-.omd+`      ommhyyyyyyyydh/:m-      .omh:  -.
-                            `/hmo:::-`yyoddyyyyhddo::+m`    .omy:
-                               :sssyhdms::oyhhhy+::::ymhhhhhmy-
-                                     `do::::::::::::/m:``````
-                                     `m+::::::::::::hy
-                                     .m/:::::::::::sd.
-                                     -m/::::::::::+m:
-                                     :m/:::::::::/d/
-                                     :m:::::::::/d+
-                                     +m::::::::/do
-                                     +d:::::::/d+
-                                     od::::::+m/
-                                     /mdhysosmmy
-                                     sm+ `.:+.+ms`
-                                    omy        smo
-                                   /my`         ym:
-                                  .dd`          `dd.
-                        `:syysoooossyys-     .oyyssoooossyy+-
-                       .do.           /m`    sy`          `:hs
-                       -ds+///////++syy:     `ohys+////////+hs
-                         .-://///::..            ..:://///:.`
+                                                                                                          
+      ++                                  :o             
+      -`                                         yy                    -             +h             
+      N-                                         yy                   `N.            +h             
+      N:                   `-             -`     ..                   `M.            :o             
+      s.     .`            :N             d/            `-            `M.                           
+             y+            :N      -      m/            /d      -     `M.     :-                    
+             h+            -h      N.     m/            /m     .N     `y`     yo     `.             
+             h+             `      M.     s-     ::     /m     .M             yo     +y             
+             h+             `      M.            sy     /m     `h      -`     +:     +h             
+             h+            -d      M.            sy     :y             m:            +h             
+             h+            :N      m`     -`     //     .+             N:     /-     +h      .      
+      h.     o:            :N      `      d/            /m             N:     yo     +h     -m      
+      N:                   -d             m/     oo     /m             N:     yo     +h     :N      
+      m-     ``             .             m/     yy     .+     `h      N:     yo     .-     :N      
+      -      y+                           /.     yy            .M      d-     s+            -N      
+             h+                                  yy            .N      `      ``            `:      
+      `      h+     :+     .o             o-     yy             :      `                            
+      m-     :-     oy     :N      s`     m/     yy                    h-                   `+      
+      N:            oy     :N      M.    `mo:+oyyddyyo+/-``            N:            -:     :N      
+      N:            oy     :N      M. `/sys+::yh:``:hh::+sys/` `s      N:            +h     :N      
+      N:            oy     :N     `M+yy/.    yy      sh    ./yy+M`     N:            +h     -m      
+      m-            :+     :N    `om+`      oh        hs      `+mo`    N:            +h      `      
+                           .+   :d+        .N.        .N-        +d/   .             +h             
+                               sh.         sy          sy         `hs                +h             
+                              hs          `N-          .N`          sh        +/     +h             
+                             yy           :N            m/           yy       yo     +h             
+                    oy      :N`           oh            ys           `m:      yo     -/             
+             .`     oy      ho`-/+ooo+/:. ys .:++ooo+:- +h `-/+ooo+/:`+d      o/                    
+             h+     oy     `Nds+:-....-/oymmyo/-.M:.-:oydNys/:-....:/sdM`                           
+      m-     h+     /o     `d-           `+:`    M-     /h`           `/      :-                    
+      N:     h+             `                    M-      `                    yo                    
+      N:     h+                                  M-                    y.     yo                    
+      N:     h+                                  M-                    N:     s+            `-      
+      m-     y+                                  M-                    N:     ``            -N      
+      .      ``                                  M-                    N:                   :N      
+                    -:                           M-                    /`     -.     .-     :N      
+                    oy                           M-                           yo     +h     :N      
+                    oy                           M-                           yo     +h     -d      
+             ``     oy                           M-                           yo     +h      .      
+             y+     .-                           M-                           yo     +h      `      
+             h+                                 `M-                           -.     :+     -h      
+             h+                                 -M`                                         :N      
+             y+                              ``-ho                     `                    :N      
+             .`                              +oo-                      d-     `             :N      
+                                                                       N:     s+            :N      
+      y.            ``                                                 N:     yo            :N      
+      N:            oy                                                 d-     yo            .s      
+      N:            oy                                                        ..                    
+      N:            oy                                                                `      .      
+      /`            :/                                                 y.            +h     :N      
+
     ".colorize(:yellow)
       sleep (0.09)
-      system 'clear'
+      system('cls') || system('clear')
     end
-    def self.frame_four
-      puts "
-                                           .-`
-                                        -shyyd+`
-                                        .m+:::odo`
-                                         hy:::::sd/
-                                         oh::::::/hy.
-                                         /d::::::::od/
-                                         :m:::::::::/do
-                                         :m:::::::::::hs`
-                                     `:/:omyhyo:::::::/ds
-                                   -ys+hd+.``-od+::::::/m/
-                                  `dy.-mo-     +m:::::::sh`
-                                  `my:-mh/     sd::::::::m:
-                                   /do:+mo:.-/yh/::::o+-:ho
-                                    `://ymssso/::/oydm/:-yy
-                                        yy::/osyddhhmy:::yo
-                                       `oymdhhhyyyhms::::d/
-                                         -myyyyyhdh+::::+d`
-                                       `-smddddyo/::::::do     `
-                          :o++.:`     `dyoo+/::::::::::yd` .:/y+/o-.
-                         :d+//--+s    :d::::::::::::::sd. .os+.  o//s
-                       `s/:     `o+/` hs:::::::::::::sd.  hh`     `do`
-                       `+yo`     :yo /m/:::::::::::/hh`  :sd`     -d/
-                        `y-`.-`.ohs: hy:::::::::::od+     smo.`  oh:
-                         `//oydmd` -sm/:::::::::+dmm-  .oddsooho+o`.
-                               ymshmmy::::::::odm+.dd+ymy:    - .
-                               `ymhyd::::::oyh+-omy/dh+`
-                             .-/hmyohhssyhy+-    .ymo--.
-                        -oyys++++osyys+-.     :syyo++++osyy+.
-                       +d:          `:h+     yy-          `/m/
-                       /hso+++++++++osh:     ohso+++++++++oyh-
-                         `...........`         ............`
-    ".colorize(:yellow)
-      sleep (0.09)
-      system 'clear'
-    end
-    def self.frame_five
-      puts "
-                                          ./o/`
-                                        .mh+/sd+`
-                                         hy-:::sd+`
-                                         /d::::::sh:
-                                         -m/::::::+ds`
-                                         .m/::::::::yh.
-                                         `m/:::::::::od:
-                                         .m/::::::::::+m:
-                                    `/osyyhssyho:::::::om.
-                                   /d+.sh-    .yd::::::-yy
-                                   hdo`mhs`    -m+:::::-:m:
-                                   yh.`yd-    `sd::::::-:ys
-                                   `+ysommsooshs/:::+ys--od
-                                      `.+m////::/oydmm/--od`
-                                        sdossyhddhyhms:::sh
-                                        ./ddyyyyyyddo::::d+
-                                         .mhyyyddds:::::+d.
-                                       -+ymddhyo/:::::::do
-                         -+os-:-      `ds/:::::::::::::yh`   `-o+/:
-                        `yh-o:./y-    -m/:::::::::::::yd.   oyy- `d++:
-                       /+/`     :o+.  yy:::::::::::::yh`  `hh`     `y/
-                       -ss-     .sy. :m/:::::::::::+ds`   :ds      .d:
-                        /o`-:`.+hoo` yh::::::::::/ymh`    .yh-   `+d:`
-                         -++oy/ymy:+sm/:::::::::sd+:dd::+hmhshy+/-y:/
-                                -yyomy:::::::+ymd.  `ydyo-`   .+./`
-                                  .sm+::::+yhs-:dd:
-                                .yms/shhhs+.    `oms`
-                             .-+mm:               :mh--.
-                        .+yyso++++oyys:`      -oyyso+++osyyo-
-                       :m/`          -yy     /d:           :ho
-                       -hyo+++++++++osho     :hso+++++++++osh+
-                         `............         `...........`
-    ".colorize(:yellow)
-      sleep (0.09)
-      system 'clear'
-    end
-    def self.frame_six
-      puts "                                      ````..`
-                                          hhyyyyd:
-                                         sh:::::+m-
-                                        .m+::::::sd`
-                                        sh::::::::hy
-                                       `mo::::::::/m/
-               -//+`-`                 /m/:::::::::sd`                 -+/:.
-              -hs/s/-os`             .ohhyhs//shyyhhm+              `yyy. +h/+`
-             o/+      o+:`          +d:   `/mmo`   -hd             -yo    ` -s.
-             +oo`     -sy`          d+ .hs  sd` sh. -m-           `/m:      +h.
-             `y- `. `/hs/           od- `` :dm/``` .ymo           `:do`   ./y:
-               ++shy/sdd+.           :yhsyhy+/yhysyhoys          -oddyyy--o+o.
-                       :ymy-          oh:::::::::::::om`      .+hms-  `+///
-                         -odh+-`      smyso+++++ooshmhm`   -/ymy/`
-                           `:sdmy+.   hmyyhhhhhhhhhmyom.:odms/`
-                               ./sdds+mhmhyyyyyyydd+:smmho-`
-                                   -+hm/+ddhyyhdds:::hs`
-                                     -m/::+ssss+::::/m:
-                                     :m:::::::::::::yh
-                                     +m::::::::::::+m-
-                                     od:::::::::::/d+
-                                     sd:::::::::::hy
-                                     sh::::::::::yy`
-                                     sh:::::::::yd`
-                                     sh::::::::yh.
-                                     hy:::::::yh`
-                                     hy::::::hy`
-                                     /dmhhhydm/
-                                     /ms  `.-hm-
-                                    /mh`     `hm-
-                                   -md.       -md.
-                                  `dm.         :mh`
-                             .----ym/           omo----.
-                        .oyyso++++++oshs`    :yyso+++++osyho-
-                       /m/`          `+d`    oh.           :do
-                       :hyo++++++osyyy/`      /syyso++++++osd+
-                         `.........               `........`
-    ".colorize(:yellow)
-      sleep (0.09)
-      system 'clear'
-    end
-    def self.frame_seven
-      puts "
-                                   `yhyhhhd.
-                                   yh:::::yh`
-                                  oh::::::/m/
-                                 :m/:::::::yh`
-                                `ds::::::::/m:
-                                od::::::::::do
-                               .mhyhhys::+yhddo-
-                               sm+.  .+mdy-` `:ho
-           `./:.``             do  sy` sd` /h: -m:           `+:-`
-           +m/yo/++-          -mh. .. .hm/ `-``od`         ssh-`/d//`
-         .+o-     -s-`        +dodyooydo+hhsosdo`        .ss``  `..s-
-         .++-      :d+        oh::://:::::://sh          :m/      /h:
-          /s` `` .+hs.        sddyo++//////+shm`        `/hs    `-y+`
-           -+oyhoodd+`        sysmdhhdddddhhhdm.        .ommho.`:ys-
-               ``  /dd+`      oh:+ddyyyyyyyyddm:      :ymy-`./o+o`
-                    `/hdo.    :m:::oddhyyyhmy/mo:::/+hdo.
-                       :hmmdddmmo-:::+syhyo/::ddysss+/`
-                         ``````sd:::::::::::::hs
-                               `ds::::::::::::yo
-                                :m+:::::::::::ss
-                                 +d:::::::::::sh
-                                  sh::::::::::sh
-                                  `yh:::::::::sh
-                                   `hh::::::::om`
-                                    `yh:::::::+m`
-                                      yd/:::::+m.
-                                     -mddssyhhmh.
-                                    -dd`.:.` `ym/
-                                   .dm-       `hm-
-                                   ym:         .dm.
-                             `----+mo           -my----.`
-                        `+yyso+++++ooyyo`    `+hyso+++++oyys:`
-                       .m+`           -m:    +d.           -yy
-                       .hyoo++++++osyys-      /yyyoo++++++osho
-                         `.........`             `..........
-    ".colorize(:yellow)
-      sleep (0.09)
-      system 'clear'
-    end
-    def self.frame_eight
-      puts "
-                                       `:.
-                                     .+dyyhy:
-                                   `ods:::+m-
-                                  /ds:::::yh
-                                -hh/::::::ho
-                               +mo::::::::d+
-                             `sd/:::::::::m/
-                            `sd/::::::::::m+
-                            sd::::::::+yyhms:/:.
-                           +m/::::::+ds-``.+dh+sh:
-                          `ds:::::::mo     -om:.ym.
-                          /m::::::::ds     /ym::ym-
-                          oh::/o::::/dh/-.:omo-od/
-                          yy:::mdyo/::/ossomho+:`
-                          oy:::smhhddhso//:yh
-                          +d::::smhyyyhhddmys`
-                          .m+::::/hdhyyyyym:
-                     `     sd::::::/oyhdddmy-`
-                `.-o++h/:. `dy::::::::::/+ooym.     `:.oos/
-                y//o  .+so. .ds::::::::::::::do    y+--//+d/
-               `sd`     `hd` .ds:::::::::::::sh``/+s`     :+s`
-                +d-     `dy/  `hh/:::::::::::/m/ oy/      oyo`
-                 +do  `.oms    `odo:::::::::::yh`:sdo.`--`-y`
-                 -`s+ohyosddo-  :mmd+:::::::::/my: -dmdho+/`
-                   `-`-`  `/ymhomm-omdo::::::::smmdsmh`
-                             .+dd+hms-+dyo::::::dddmh`
-                            `.--omd-    -ohhyoshhodmd+-.``
-                        -oyyso++++oyhs/     .-+yhyso+++osyho-
-                       /m/`          -yy     oh:`          :do
-                       :dyo+++++++++osho     +dso+++++++++osd+
-                         `.----------.         `-----------`
-    ".colorize(:yellow)
-      sleep (0.09)
-      system 'clear'
-    end
+  
     def self.animation
-      10.times do
-        BananaMan.frame_one
-        BananaMan.frame_two
-        BananaMan.frame_three
-        BananaMan.frame_four
-        BananaMan.frame_six
-        BananaMan.frame_seven
-        BananaMan.frame_eight
+      20.times do
+        Rain.frame_one
+        Rain.frame_two
+        Rain.frame_three
       end
     end
     def self.go
-      system 'clear'
-      puts "\n\n💃🏻 TIME TO HAVE SOME FUN 🕺🏿 \n\n"
       self.animation
+      puts "Welcome"
     end
     end

@@ -1,52 +1,255 @@
 class String
-    def quotes 
-        case self 
-        when 'thunderstorm'
-            "Fucking love is in the air.
-             Fucking love is in the air.".colorize(:blue)
-        when 'light rain'
-            "Fucking|love is|in the air.
-            Fucking love is in the air."
-        when 'rain'
-             "It's fucking raining.
-             Fucking love is in the air."
-        when 'clear sky'
-            "Fucking|love is|in the air.
-            Fucking love is in the air."
-        when 'few clouds'
-             "It's fucking cloudy.
-             Fucking love is in the air."
-        when 'scattered clouds'
-            "Fucking|love is|in the air.
-            Fucking love is in the air.".colorize(:blue)      
-        when 'broken clouds'
-            "Fucking love is in the air.
-            Fucking love is in the air."
-        when 'overcast clouds'
+   
+def quotes 
+     case self
+     when 'thunderstorm'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'thunderstorm with light rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue) 
+     when 'thunderstorm with rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'thunderstorm with heavy rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue) 
+     when 'light thunderstorm'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue) 
+     when 'ragged thunderstorm'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)   
+     when 'thunderstorm with light drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)  
+     when 'thunderstorm with drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)   
+     when 'light thunderstorm'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)  
+     when 'thunderstorm with heavy drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light intensity drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'heavy intensity drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light intensity drizzle rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'drizzle rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'heavy intensity drizzle rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'shower rain and drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'heavy shower rain and drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'shower drizzle'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+    # when 'moderate rain'
+    #      puts "Get your fucking umbrella".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "Shitloads of rain is awaiting you".colorize(:blue)
+    # when 'heavy intensity rain'
+    #      puts "It rains cats and dogs.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You better get an umbrella my friend.".colorize(:blue) 
+    # when 'very heavy rain'
+    #      puts "It's fucking raining.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You can look outside to get more information.".colorize(:blue) 
+    # when 'extreme rain'
+    #      puts "Shitloads of rain is awaiting you".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You better get an umbrella my friend.".colorize(:blue)
+    # when 'freezing rain'
+    #      puts "Fucking brain freeze.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "Fuck Yeah Ice Cream!".colorize(:blue)
+     when 'light intensity shower rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue) 
+     when 'shower rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)  
+     when 'heavy intensity shower rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)  
+     when 'ragged shower rain'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)    
+    # when 'snow'
+    #      puts "Holy fucking snow.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "Still not ready for building that fucking snow castle.".colorize(:blue)
+    # when 'light snow'
+    #      puts "Are you freezing fucking serious?".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You can't look outside because of fucking snow.".colorize(:blue)
+    #  when 'heavy snow'
+    #       puts "Can't see because fucking snow.".bold.blink.colorize(:light_blue)
+    #       puts ''
+    #       puts "Try looking outside for more information, try it...".colorize(:blue)
+     when 'sleet'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light shower sleet'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'shower sleet'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light rain and snow'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'rain and snow'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'light shower snow'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+    # when 'shower snow'
+    #      puts "Hello? yes, this is snow-man.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "It's time to build me. Look outside fancy pants.".colorize(:blue)
+    # when 'heavy shower snow'
+    #      puts "It's fucking skiing time.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "Snow every where, yay!".colorize(:blue)
+    # when 'overcast clouds'
+    #      puts "Cloudy with a chance of....".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You thought I would say meatballs right? Stupid.".colorize(:blue)
+    # when 'few clouds'
+    #      puts "Meh...Just stayin bed.".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "You can browse Tumblr & play Angrybirds.".colorize(:blue)
+    # when 'scattered clouds'
+    #      puts "It’s likea meh…kinda day".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "But you can change it with a smile :) Or drugs.".colorize(:blue)
+    # when 'broken clouds'
+    #      puts "Fucking fifty shades of grey".bold.blink.colorize(:light_blue)
+    #      puts ''
+    #      puts "Fucking grey clouds everywhere".colorize(:blue)
+      when 'clear sky'
            puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
            puts ''
            puts "You can look outside to get more information.".colorize(:blue)
-        when 'tornado'
-             "Fucking|love is|in the air.
-             Fucking love is in the air."
-        when 'cold'
-             "Fucking|love is|in the air.
-             Fucking love is in the air."
-        when 'hot'
-             "Fucking|love is|in the air.
-             Fucking love is in the air."
-        when 'windy'
-              "Fucking|love is|in the air.
-              Fucking love is in the air."
-        when 'hail'
-             "Fucking|love is|in the air.
-             Fucking love is in the air."
-        else
-             "Fucking|love is|in the air.
-             Fucking love is in the air."
-        end
-    end
+   #  when 'mist'
+   #       puts "It's justfucking grey.".bold.blink.colorize(:light_blue)
+   #       puts ''
+   #       puts "Just mist & no love, but computer games".colorize(:blue)
+     when 'smoke'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'haze'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'sand/ dust whirls'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'fog'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'sand'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'dust'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'volcanic ash'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'squalls'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'tornado'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'cold'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'hot'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'windy'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     when 'hail'
+          puts "It's fucking cloudy.".bold.blink.colorize(:light_blue)
+          puts ''
+          puts "You can look outside to get more information.".colorize(:blue)
+     else
+         "\u{3F}" 
+     end
+   end
 end 
+
+
+
     
             
    #"phrases":[
