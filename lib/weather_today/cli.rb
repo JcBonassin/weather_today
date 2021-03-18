@@ -1,6 +1,5 @@
 class WeatherToday::CLI
 
-   
     $prompt = TTY::Prompt.new(active_color: :cyan)
    
     def call
@@ -12,6 +11,7 @@ class WeatherToday::CLI
     
     def welcome
         #puts Rain.go 
+        system('cls') || system('clear')
         puts ''
         puts "Welcome to today's weather"
         puts ''
@@ -28,6 +28,7 @@ class WeatherToday::CLI
         display_forecast(forecast)
 
         puts "World's News"
+        puts ''
         news = WeatherToday::Weather.news
         news_feed_(news)
         puts ''
@@ -79,6 +80,7 @@ class WeatherToday::CLI
                 #weather_enquire(weather_location)
                 forecast_2 = WeatherToday::Search.select_forecast(new_input)
                 display_forecast2(forecast_2)
+                search_nenu
                 yesno
             else 
                 new_input = nil
@@ -88,30 +90,40 @@ class WeatherToday::CLI
     end
 
 
-
-
-    def yesno 
-        puts "Do you want to check another location (Y/N)?"
-        answer = nil 
-        answer = gets.chomp.downcase
-        while answer != "exit" 
-            if answer.downcase == "y"
-            #system('cls') || system('clear') #clear the screen 
-            #puts ''   #a free space 
+    def yesno
+        answer = $prompt.select('Do you want to check another location?:', ["Yes","No"], require: true)
+        case answer
+        when "Yes"
+            #system('cls') || system('clear') #clear the screen
             new_entry
-            elsif answer.downcase == "n"
-                menu
-            else 
-             p "dude learn good types manners ;)  ... Try again!!!"
-             new_entry
-            end
+        when "No"
+            menu
+        else
+            p "dude come on.. ;)  ... Try again!!!"
         end 
     end
 
+    def search_nenu
+        answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","Main Menu"], require: true) 
+        case answer
+        when "check your location on googlemaps"
+            WeatherToday::Search.open_link_search
+        when "Main Meny"
+            menu
+        else 
+            p "dude come on.. ;)  ... Try again!!!"
+        end
+    end 
 
 
     def current_weather(weather)
-
+        spinner = TTY::Spinner.new("[:spinner] Hello.... fetching the weather ...", format: :arrow_pulse, interval: 10)
+        20.times do
+            spinner.spin
+            sleep(0.2)
+          end
+          spinner.success
+    
         puts "Today in #{weather.location}  #{weather.decription.graph_cond}  \n\u{1F305} #{weather.sunrise} #{weather.sunset}"  
         puts ''
         puts  "#{weather.decription.upcase.bold.blink.colorize(:white)} #{weather.decription.graph_cond}"
@@ -175,18 +187,23 @@ class WeatherToday::CLI
      end
 
      def news_feed_(news)
-       
-        
-        puts ''
-        #WeatherToday::Weather.open_link
-        puts ''
-        puts "#{news.title_1}"
-        puts ''
-        puts "#{news.title_2}"
-        puts ''
-        puts "#{news.title_3}"
-        puts ''
-        puts "#{news.title_4}"
+
+        box = TTY::Box.frame(width: 90, height: 8, border: :light, align: :left, padding: [1,3], title: {top_left: "(Headlines)", bottom_right: "(Source:BBC World)"}) do
+            "- #{news.title_1}  \n- #{news.title_2} \n- #{news.title_3} - \n- #{news.title_4}"
+        end 
+
+        print box
+      
+       # puts ''
+       # #WeatherToday::Weather.open_link
+       # puts ''
+       # puts "#{news.title_1}"
+       # puts ''
+       # puts "#{news.title_2}"
+       # puts ''
+       # puts "#{news.title_3}"
+       # puts ''
+       # puts "#{news.title_4}"
         
      end
 

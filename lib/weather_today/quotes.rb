@@ -1,5 +1,5 @@
 class String
-   
+#Some fun quotes brought you by the Authetic weather App :)    
 def quotes 
      case self
      when 'thunderstorm'

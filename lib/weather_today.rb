@@ -12,6 +12,8 @@ require 'colorize'
 require 'news-api'
 require 'tty-prompt'
 require "tty-table"
+require "tty-spinner"
+require "tty-box"
 Dotenv.load
 
 require_relative "weather_today/version"
