@@ -173,6 +173,64 @@ class Rain
       sleep (0.09)
       system('cls') || system('clear')
     end
+
+    def self.frame_four
+      puts "
+                                                                                                          
+      ++                                  :o             
+      -`                                         yy                    -             +h             
+      N-                                         yy                   `N.            +h             
+      N:                   `-             -`     ..                   `M.            :o             
+      s.     .`            :N             d/            `-            `M.                           
+             y+            :N      -      m/            /d      -     `M.     :-                    
+             h+            -h      N.     m/            /m     .N     `y`     yo     `.             
+             h+             `      M.     s-     ::     /m     .M             yo     +y             
+             h+             `      M.            sy     /m     `h      -`     +:     +h             
+             h+            -d      M.            sy     :y             m:            +h             
+             h+            :N      m`     -`     //     .+             N:     /-     +h      .      
+      h.     o:            :N      `      d/            /m             N:     yo     +h     -m      
+      N:                   -d             m/     oo     /m             N:     yo     +h     :N      
+      m-     ``             .             m/     yy     .+     `h      N:     yo     .-     :N      
+      -      y+                           /.     yy            .M      d-     s+            -N      
+             h+                                  yy            .N      `      ``            `:      
+      `      h+     :+     .o             o-     yy             :      `                            
+      m-     :-     oy     :N      s`     m/     yy                    h-                   `+      
+      N:            oy     :N      M.    `mo:+oyyddyyo+/-``            N:            -:     :N      
+      N:            oy     :N      M. `/sys+::yh:``:hh::+sys/` `s      N:            +h     :N      
+      N:            oy     :N     `M+yy/.    yy      sh    ./yy+M`     N:            +h     -m      
+      m-            :+     :N    `om+`      oh        hs      `+mo`    N:            +h      `      
+                           .+   :d+        .N.        .N-        +d/   .             +h             
+                               sh.         sy          sy         `hs                +h             
+                              hs          `N-          .N`          sh        +/     +h             
+                             yy           :N            m/           yy       yo     +h             
+                    oy      :N`           oh            ys           `m:      yo     -/             
+             .`     oy      ho`-/+ooo+/:. ys .:++ooo+:- +h `-/+ooo+/:`+d      o/                    
+             h+     oy     `Nds+:-....-/oymmyo/-.M:.-:oydNys/:-....:/sdM`                           
+      m-     h+     /o     `d-           `+:`    M-     /h`           `/      :-                    
+      N:     h+             `                    M-      `                    yo                    
+      N:     h+                                  M-                    y.     yo                    
+      N:     h+                                  M-                    N:     s+            `-      
+      m-     y+                                  M-                    N:     ``            -N      
+      .      ``                                  M-                    N:                   :N      
+                    -:                           M-                    /`     -.     .-     :N      
+                    oy                           M-                           yo     +h     :N      
+                    oy                           M-                           yo     +h     -d      
+             ``     oy                           M-                           yo     +h      .      
+             y+     .-                           M-                           yo     +h      `      
+             h+                                 `M-                           -.     :+     -h      
+             h+                                 -M`                                         :N      
+             y+                              ``-ho                     `                    :N      
+             .`                              +oo-                      d-     `             :N      
+                                                                       N:     s+            :N      
+      y.            ``                                                 N:     yo            :N      
+      N:            oy                                                 d-     yo            .s      
+      N:            oy                                                        ..                    
+      N:            oy                                                                `      .      
+      /`            :/                                                 y.            +h     :N      
+
+    ".colorize(:yellow)
+      #sleep (0.09)  
+    end
   
     def self.animation
       20.times do
@@ -180,9 +238,11 @@ class Rain
         Rain.frame_two
         Rain.frame_three
       end
+        
     end
     def self.go
       self.animation
+      Rain.frame_four
       puts "Welcome"
     end
     end

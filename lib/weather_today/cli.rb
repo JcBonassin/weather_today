@@ -128,7 +128,7 @@ class WeatherToday::CLI
 
     def weather_location(weather1)
 
-     puts "#{weather1.temp}ºF - #{weather1.conditions.graph_cond}" #{weather1.date}"
+     puts "#{weather1.temp}ºF - #{weather1.conditions.graph_cond} #{weather1.conditions.quotes}" #{weather1.date}"
          
     end
 
@@ -160,13 +160,13 @@ class WeatherToday::CLI
         puts  "Forecast".colorize(:red)
         puts ''
 
-        forecast_table_2 = TTY::Table.new(["#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}"], 
-                                         [["#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}"],
-                                         ["#{forecast_2.temp_1}ºF","#{forecast_2.temp_2}ºF","#{forecast_2.temp_3}ºF","#{forecast_2.temp_4}ºF"],
-                                         ["#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%"],
-                                         ["#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}"]])
+        forecast_table_2 = TTY::Table.new(["#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}","#{forecast_2.dt_5}"], 
+                                         [["#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
+                                         ["#{forecast_2.temp_1}ºF","#{forecast_2.temp_2}ºF","#{forecast_2.temp_3}ºF","#{forecast_2.temp_4}ºF","#{forecast_2.temp_5}ºF"],
+                                         ["#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
+                                         ["#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
         
-        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center]) { |renderer|
+        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
         renderer.border.style = :red
       } 

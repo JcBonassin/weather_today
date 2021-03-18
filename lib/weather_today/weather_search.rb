@@ -4,9 +4,9 @@ class WeatherToday::Search
  
     attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity
 
-    attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :dt_1, :dt_2, :dt_3, :dt_4, :humidity_1, :humidity_2, :humidity_3, :humidity_4
+    attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
 
-    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :pop, :pop_2, :pop_3, :pop_4
+    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_2, :pop_3, :pop_4, :pop_5
 
     
     
@@ -58,27 +58,32 @@ class WeatherToday::Search
     @forecast_1.temp_2 = data[:list][16][:main][:temp].to_i
     @forecast_1.temp_3 = data[:list][24][:main][:temp].to_i
     @forecast_1.temp_4 = data[:list][32][:main][:temp].to_i
+    @forecast_1.temp_5 = data[:list][34][:main][:temp].to_i
     #@forecast_1.report_time = parsed["dt"]
-    @forecast_1.dt_1 = Time.at(data[:list][8][:dt]).strftime('%A') #('%d-%m-%Y')
+    @forecast_1.dt_1 = Time.at(data[:list][8][:dt]).strftime('%A')  #('%d-%m-%Y')
     @forecast_1.dt_2 = Time.at(data[:list][16][:dt]).strftime('%A') #('%d-%m-%Y')
     @forecast_1.dt_3 = Time.at(data[:list][24][:dt]).strftime('%A') #('%d-%m-%Y')
     @forecast_1.dt_4 = Time.at(data[:list][32][:dt]).strftime('%A') #('%d-%m-%Y')
-    
+    @forecast_1.dt_5 = Time.at(data[:list][34][:dt]).strftime('%A') #('%d-%m-%Y')
+
     @forecast_1.weather_1 = data[:list][8][:weather].first[:description]
     @forecast_1.weather_2 = data[:list][16][:weather].first[:description]
     @forecast_1.weather_3 = data[:list][24][:weather].first[:description]
     @forecast_1.weather_4 = data[:list][32][:weather].first[:description]
+    @forecast_1.weather_5 = data[:list][34][:weather].first[:description]
 
     @forecast_1.humidity_1 = data[:list][8][:main][:humidity]
     @forecast_1.humidity_2 = data[:list][16][:main][:humidity]
     @forecast_1.humidity_3 = data[:list][24][:main][:humidity]
     @forecast_1.humidity_4 = data[:list][32][:main][:humidity]
+    @forecast_1.humidity_5 = data[:list][34][:main][:humidity]
 
     @forecast_1.pop = data[:list][8][:pop]*100
     @forecast_1.pop_2 = data[:list][16][:pop]*100
     @forecast_1.pop_3 = data[:list][24][:pop]*100
     @forecast_1.pop_4 = data[:list][32][:pop]*100
-    #@forecast.temp_min = data[:daily]
+    @forecast_1.pop_5 = data[:list][34][:pop]*100
+   #@forecast.temp_min = data[:daily]
     #@forecast = self.new
     #@forecast.location = data[:name]
     #@forecast.temp_min = data[:main]
