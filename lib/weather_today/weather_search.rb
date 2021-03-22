@@ -6,13 +6,13 @@ class WeatherToday::Search
 
     attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
 
-    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_2, :pop_3, :pop_4, :pop_5
+    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_2, :pop_3, :pop_4, :pop_5, :units
 
     
     
- def self.select_name(location)
+ def self.select_name(location,units)
       #response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=london&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
-      response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{ENV['API_KEY']}&units=imperial")
+      response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
       data = JSON.parse(response.body, symbolize_names: true)
       #data = response.parsed_response
       @weather_today = self.new
@@ -54,9 +54,9 @@ class WeatherToday::Search
 
 
    
-  def self.select_forecast(location)
+  def self.select_forecast(location,units)
     #response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=london&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
-    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=#{location}&appid=#{ENV['API_KEY']}&units=imperial")
+    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
     data = JSON.parse(response.read_body, symbolize_names: true)
     #parsed = response.parsed_response
     @forecast_1 = self.new 

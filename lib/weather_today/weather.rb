@@ -1,5 +1,7 @@
 class WeatherToday::Weather
 
+  
+
     attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
@@ -50,6 +52,7 @@ class WeatherToday::Weather
         lon = data.fetch(:longitude)
     end 
 
+
     #def self.current_time
     #    response = HTTParty.get("https://timezoneapi.io/api/ip/?token=aJvkeBPLCzkvwFKeMmTa")
     #    parsed = response.parsed_response
@@ -63,8 +66,9 @@ class WeatherToday::Weather
     #end
 
 
-    def self.api_location
-        response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=imperial")
+    def self.api_location(unit)
+        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=imperial")
+        response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=#{unit}")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
@@ -84,8 +88,10 @@ class WeatherToday::Weather
 
     
 
-   def self.api_forecast
-       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=#{ENV['API_KEY']}&units=imperial")
+    
+
+   def self.api_forecast(unit)
+       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=#{ENV['API_KEY']}&units=#{unit}")
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        @forecast = self.new 

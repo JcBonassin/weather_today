@@ -15,29 +15,50 @@ class WeatherToday::CLI
         puts ''
         puts "Welcome to today's weather"
         puts ''
-
+        units_selection
         puts ''
-        weather = WeatherToday::Weather.api_location
-        current_weather(weather)
-        puts ''
-
-        puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
-        puts ''
-     
-        forecast = WeatherToday::Weather.api_forecast
-        display_forecast(forecast)
-
         puts "World's News"
         puts ''
         news = WeatherToday::Weather.news
         news_feed_(news)
         puts ''
-
         menu 
-        puts ''
-
-        
+        puts ''      
     end
+
+
+    def units_selection
+        answer = $prompt.select('Please section your weather settings?:', ["Standard (For temperature in Kelvin)","Metric (For temperature in Celsius)","Imperial (For temperature in Fahrenheit)"], require: true)
+        case answer
+        when "Standard (For temperature in Kelvin)"
+            #system('cls') || system('clear') #clear the screen
+            weather = WeatherToday::Weather.api_location("standard")
+            current_weather(weather)
+            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
+            puts ''
+            forecast = WeatherToday::Weather.api_forecast("standard")
+            display_forecast(forecast)
+        when "Metric (For temperature in Celsius)"
+            weather = WeatherToday::Weather.api_location("metric")
+            current_weather(weather)
+            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
+            puts ''
+            forecast = WeatherToday::Weather.api_forecast("metric")
+            display_forecast(forecast)
+        when "Imperial (For temperature in Fahrenheit)"
+            weather = WeatherToday::Weather.api_location("imperial")
+            current_weather(weather)
+            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
+            puts ''
+            forecast = WeatherToday::Weather.api_forecast("imperial")
+            display_forecast(forecast)
+        else
+            menu
+        end 
+
+    end
+
+    
         
     def menu
         answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city", "to exit"], require: true)
@@ -74,13 +95,29 @@ class WeatherToday::CLI
             if new_input.empty?
                 new_entry
             elsif
-                weather1 = WeatherToday::Search.select_name(new_input)
+                answer = $prompt.select('Please section your weather settings?:', ["Standard","Metric","Imperial"], require: true)
+                case 
+                when "Standard"
+                weather1 = WeatherToday::Search.select_name(new_input, "standard")
                 weather_location(weather1)
                 #weather_location = WeatherToday::Search.current_time(new_input)
                 #weather_enquire(weather_location)
-                forecast_2 = WeatherToday::Search.select_forecast(new_input)
+                forecast_2 = WeatherToday::Search.select_forecast(new_input, "standard")
                 display_forecast2(forecast_2)
-                search_nenu
+                when "Metric"
+                weather1 = WeatherToday::Search.select_name(new_input, "metric")
+                weather_location(weather1)  
+                forecast_2 = WeatherToday::Search.select_forecast(new_input, "metric")
+                display_forecast2(forecast_2)      
+                when "Imperial"
+                weather1 = WeatherToday::Search.select_name(new_input, "imperial")
+                weather_location(weather1)  
+                forecast_2 = WeatherToday::Search.select_forecast(new_input, "imperial")
+                display_forecast2(forecast_2)
+                else 
+                new_entry  
+                end  
+                search_menu
                 yesno
             else 
                 new_input = nil
@@ -103,12 +140,12 @@ class WeatherToday::CLI
         end 
     end
 
-    def search_nenu
+    def search_menu
         answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","Main Menu"], require: true) 
         case answer
         when "check your location on googlemaps"
             WeatherToday::Search.open_link_search
-        when "Main Meny"
+        when "Main Menu"
             menu
         else 
             p "dude come on.. ;)  ... Try again!!!"
@@ -189,7 +226,7 @@ class WeatherToday::CLI
      def news_feed_(news)
 
         box = TTY::Box.frame(width: 90, height: 8, border: :light, align: :left, padding: [1,3], title: {top_left: "(Headlines)", bottom_right: "(Source:BBC World)"}) do
-            "- #{news.title_1}  \n- #{news.title_2} \n- #{news.title_3} - \n- #{news.title_4}"
+            "- #{news.title_1}  \n- #{news.title_2} \n- #{news.title_3}  \n- #{news.title_4}"
         end 
 
         print box
