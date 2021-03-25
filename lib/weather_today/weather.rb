@@ -2,30 +2,29 @@ class WeatherToday::Weather
 
   
 
-    attr_accessor :location, :date, :temp, :decription, :forecast, :temp_min, :temp_max, :feels, :all_news
+    attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
     attr_accessor :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
-    attr_accessor :sunset, :sunrise, :pop, :pop_2, :pop_3, :pop_4, :pop_5
-    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
+    attr_accessor :sunset, :sunrise, :pop, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
+    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility
     
 
-   # def self.location
-   #     url = URI("https://freegeoip.app/json/")
-   #     http = Net::HTTP.new(url.host, url.port)
-   #     http.use_ssl = true
-   #     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-   #     request = Net::HTTP::Get.new(url)   
-   #     request["accept"] = 'application/json'
-   #     request["content-type"] = 'application/json'
-   #     response = http.request(request)
-   #     data = JSON.parse(response.body, symbolize_names: true)
-   #     #data.fetch_values(:latitude, :longitude, :city)
-   #     location = data.fetch(:city)
-   #     #[@location]
-#
-   # end 
+   #def self.location
+   #    url = URI("https://freegeoip.app/json/")
+   #    http = Net::HTTP.new(url.host, url.port)
+   #    http.use_ssl = true
+   #    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+   #    request = Net::HTTP::Get.new(url)   
+   #    request["accept"] = 'application/json'
+   #    request["content-type"] = 'application/json'
+   #    response = http.request(request)
+   #    data = JSON.parse(response.body, symbolize_names: true)
+   #    #data.fetch_values(:latitude, :longitude, :city)
+   #    location = data.fetch(:city)
+   #    #[@location]
 
+   #end 
     def self.lat
         url = URI("https://freegeoip.app/json/")
         http = Net::HTTP.new(url.host, url.port)
@@ -67,7 +66,7 @@ class WeatherToday::Weather
 
 
     def self.api_location(unit)
-        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=imperial")
+        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=33.44&lon=-94.03&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
         response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=#{unit}")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
@@ -75,7 +74,7 @@ class WeatherToday::Weather
         #@weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
         #@weather_today.time = Time.new(data[:timezone])
         @weather_today.temp = data[:main][:temp].to_i
-        @weather_today.decription = data[:weather].first[:description]
+        @weather_today.description = data[:weather].first[:description]
         @weather_today.temp_max = data[:main][:temp_max].to_i
         @weather_today.temp_min = data[:main][:temp_min].to_i
         @weather_today.feels = data[:main][:feels_like].to_i
@@ -83,6 +82,10 @@ class WeatherToday::Weather
         @weather_today.pressure = data[:main][:pressure]
         @weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
         @weather_today.sunrise = Time.at(data[:sys][:sunrise]).strftime('%H:%M')
+        @weather_today.visibility = data[:visibility].to_s
+        @weather_today.cloudiness = data[:clouds][:all]
+        @weather_today.wind_speed = data[:wind][:speed]
+        @weather_today.wind_deg = degToCompass(data[:wind][:deg])
         @weather_today
     end 
 
@@ -203,6 +206,12 @@ class WeatherToday::Weather
     elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
       system "xdg-open #{link}"
     end
+  end
+
+  def self.degToCompass(deg)
+    val = ((deg.to_f / 22.5) + 0.5).floor
+    direction_arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    return direction_arr[(val % 16)]
   end
 
 

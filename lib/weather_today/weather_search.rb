@@ -2,15 +2,17 @@
 class WeatherToday::Search
 
  
-    attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity, :coordinates #, :maps
+    attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity, :coord, :feels, :pressure
 
     attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
 
-    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_2, :pop_3, :pop_4, :pop_5, :units
+    attr_accessor :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_2, :pop_3, :pop_4, :pop_5, :visibility, :units
+
+    attr_accessor :sunset, :sunrise, :visibility, :cloudiness, :wind_speed, :wind_deg
 
     
     
- def self.select_name(location,units)
+ def self.select_name(units, location)
       #response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=london&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
       response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
       data = JSON.parse(response.body, symbolize_names: true)
@@ -18,15 +20,29 @@ class WeatherToday::Search
       @weather_today = self.new
       @weather_today.response_code = data[:cod]
       if @weather_today.response_code === "404"
-        spinner = TTY::Spinner.new("[:spinner] Invalid Location")
-        spinner.error("(error)")
-          return
+        spinner = TTY::Spinner.new("[:spinner] cod")
+        spinner.error("404")
+        return
       else
+      @weather_today.location = data[:name]
       @weather_today.date = Time.at(data[:dt]).strftime('%H:%M %d-%m-%Y')
       @weather_today.temp = data[:main][:temp].to_i
       @weather_today.conditions = data[:weather].first[:description]
-      @weather_today.temp_max = data[:main][:temp]
-      @weather_today.coordinates = data[:coord].values.reverse.join(", ")
+      @weather_today.visibility = data[:visibility].to_s
+      @weather_today.coord = data[:coord].values.reverse.join(", ")
+      @weather_today.description = data[:weather].first[:description]
+      @weather_today.temp_max = data[:main][:temp_max].to_i
+      @weather_today.temp_min = data[:main][:temp_min].to_i
+      @weather_today.feels = data[:main][:feels_like].to_i
+      @weather_today.humidity = data[:main][:humidity]
+      @weather_today.pressure = data[:main][:pressure]
+      @weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
+      @weather_today.sunrise = Time.at(data[:sys][:sunrise]).strftime('%H:%M')
+      @weather_today.visibility = data[:visibility].to_s
+      @weather_today.cloudiness = data[:clouds][:all]
+      @weather_today.wind_speed = data[:wind][:speed]
+      @weather_today.wind_deg = degToCompass(data[:wind][:deg])
+
      # @weather_today.maps = "https://www.google.com/maps/place/#{@weather_today.coordinates.gsub(" ", "")}"
       #@map = @weather_today.maps
       end 
@@ -54,7 +70,7 @@ class WeatherToday::Search
 
 
    
-  def self.select_forecast(location,units)
+  def self.select_forecast(units, location)
     #response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=london&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
     response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
     data = JSON.parse(response.read_body, symbolize_names: true)
@@ -101,7 +117,7 @@ class WeatherToday::Search
   end
 
   def self.open_link_search
-    link = "https://www.google.com/maps/place/#{@weather_today.coordinates.gsub(" ", "")}"
+    link = "https://www.google.com/maps/place/#{@weather_today.coord.gsub(" ", "")}"
     if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
       system "start #{link}"
     elsif RbConfig::CONFIG['host_os'] =~ /darwin/
@@ -109,6 +125,12 @@ class WeatherToday::Search
     elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
       system "xdg-open #{link}"
     end
+  end
+
+  def self.degToCompass(deg)
+    val = ((deg.to_f / 22.5) + 0.5).floor
+    direction_arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    return direction_arr[(val % 16)]
   end
 
 

@@ -121,9 +121,58 @@ class String
             "\u{1F32C}"
         when 'hail'
             "\u{1F30A}"
+        when "N"
+            "\u{2191}" 
+        when "S"
+            "\u{2193}"
+        when "E"
+            "\u{2192}"
+        when "W"
+            "\u{2190}"
+        when "WNW"
+            "\u{2196}"
+        when "NNW"
+            "\u{2196}"
+        when "NW"
+            "\u{2196}"
+        when "SSW"
+            "\u{2199}"
+        when "WSW"
+            "\u{2199}"
+        when "SW"
+            "\u{2199}"
+        when "NNE"
+            "\u{2197}"
+        when "NE"
+            "\u{2197}"
+        when "ENE"
+            "\u{2197}"
+        when "ESE"
+            "\u{2198}"
+        when "SSE"
+            "\u{2198}"
+        when "SE"
+            "\u{2198}"
         else
             "\u{3F}" 
         end
     end
+
+    def visibility_range
+       
+        case self  
+        when "0..999"
+             "Fog"
+        when "1000..5000"
+            "Poor"
+        when "5001..9999"
+            "Moderate"
+        when "10000"
+             "Good"
+        else 
+            "Clear"
+        end 
+    end 
+
     
 end
