@@ -2,11 +2,11 @@ class WeatherToday::Weather
 
   
 
-    attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news
-    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
+    attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news, :time
+    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
     attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
-    attr_accessor :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
-    attr_accessor :sunset, :sunrise, :pop, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
+    attr_accessor :weather, :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
+    attr_accessor :sunset, :sunrise, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
     attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility
     
 
@@ -63,16 +63,24 @@ class WeatherToday::Weather
     #    end
 #
     #end
+    
+    #def self.current_time
+    #  response = HTTParty.get("https://timezoneapi.io/api/ip/?token=#{ENV['API_TIME_ZONE']}")
+    #  data = JSON.parse(response.body, symbolize_names: true)
+    #  @location_time = self.new
+    #  @location_time.time = data[:data][:datetime][:time]
+    #  @location_time
+    #end 
 
 
     def self.api_location(unit)
-        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=33.44&lon=-94.03&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
+        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=52.3824&lon=4.8995&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
         response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=#{unit}")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
         #@weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
-        #@weather_today.time = Time.new(data[:timezone])
+        @weather_today.time = Time.at(data[:dt])
         @weather_today.temp = data[:main][:temp].to_i
         @weather_today.description = data[:weather].first[:description]
         @weather_today.temp_max = data[:main][:temp_max].to_i
@@ -94,48 +102,53 @@ class WeatherToday::Weather
     
 
    def self.api_forecast(unit)
-       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,hourly,current&appid=#{ENV['API_KEY']}&units=#{unit}")
+       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
+       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        @forecast = self.new 
+       @forecast.temp = data[:hourly][1][:temp].to_i
        @forecast.temp_1 = data[:daily][1][:temp][:day].to_i
        @forecast.temp_2 = data[:daily][2][:temp][:day].to_i
        @forecast.temp_3 = data[:daily][3][:temp][:day].to_i
        @forecast.temp_4 = data[:daily][4][:temp][:day].to_i
        @forecast.temp_5 = data[:daily][5][:temp][:day].to_i
        #@forecast.report_time = parsed["dt"]
+       #@forecast.dt = Time.at(data[:hourly][1][:dt]).strftime('%A')
        @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%A')
        @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
        @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%A')
        @forecast.dt_4 = Time.at(data[:daily][4][:dt]).strftime('%A')
        @forecast.dt_5 = Time.at(data[:daily][5][:dt]).strftime('%A')
        #data = JSON.parse(response.body, symbolize_names: true)
-
+       @forecast.weather = data[:hourly][1][:weather].first[:description]
        @forecast.weather_1 = data[:daily][1][:weather].first[:description]
        @forecast.weather_2 = data[:daily][2][:weather].first[:description]
        @forecast.weather_3 = data[:daily][3][:weather].first[:description]
        @forecast.weather_4 = data[:daily][4][:weather].first[:description]
        @forecast.weather_5 = data[:daily][5][:weather].first[:description]
-
+       
+       @forecast.humidity = data[:hourly][1][:humidity]
        @forecast.humidity_1 = data[:daily][1][:humidity]
        @forecast.humidity_2 = data[:daily][2][:humidity]
        @forecast.humidity_3 = data[:daily][3][:humidity]
        @forecast.humidity_4 = data[:daily][4][:humidity]
        @forecast.humidity_5 = data[:daily][5][:humidity]
-
+       @forecast.pop_1 = data[:hourly][1][:pop]*100
        @forecast.pop = data[:daily][1][:pop]*100
        @forecast.pop_2 = data[:daily][2][:pop]*100
        @forecast.pop_3 = data[:daily][3][:pop]*100
        @forecast.pop_4 = data[:daily][4][:pop]*100
        @forecast.pop_5 = data[:daily][5][:pop]*100
-       #@forecast.temp_min = data[:daily]
-       #@forecast = self.new
-       #@forecast.location = data[:name]
-       #@forecast.temp_min = data[:main]
-       #forecast.temp_max = "temp_max"
-       #forecast.conditions = "conditions"
-       #@forecast.description = data[:current][:weather][:description]
 
+
+      # #@forecast.temp_min = data[:daily]
+      # #@forecast.location = data[:name]
+      # #@forecast.temp_min = data[:main]
+      # #forecast.temp_max = "temp_max"
+      # #forecast.conditions = "conditions"
+      # #@forecast.description = data[:current][:weather][:description]
+#
        @forecast
    end
 

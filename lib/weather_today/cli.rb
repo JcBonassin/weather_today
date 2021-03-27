@@ -34,23 +34,19 @@ class WeatherToday::CLI
             #system('cls') || system('clear') #clear the screen
             weather = WeatherToday::Weather.api_location("imperial")
             current_weather(weather)
-            puts ''
-            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
-            puts ''
+            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red) 
             forecast = WeatherToday::Weather.api_forecast("imperial")
             display_forecast(forecast)
         when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
             weather = WeatherToday::Weather.api_location("metric")
             current_weather(weather)
-            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
-            puts ''
+            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)  
             forecast = WeatherToday::Weather.api_forecast("metric")
             display_forecast(forecast)
         when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
             weather = WeatherToday::Weather.api_location("standard")
             current_weather(weather)
             puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
-            puts ''
             forecast = WeatherToday::Weather.api_forecast("standard")
             display_forecast(forecast)
         else
@@ -59,8 +55,7 @@ class WeatherToday::CLI
 
     end
 
-    
-        
+         
     def menu
         answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city", "to exit"], require: true)
         case answer
@@ -96,9 +91,9 @@ class WeatherToday::CLI
             if new_input.empty?
                 new_entry
             elsif
-                answer = $prompt.select('Please section your weather settings?:', ["Imperial (For temperature in Fahrenheit)", "Metric (For temperature in Celsius)", "Standard (For temperature in Kelvin)"], require: true)
+                answer = $prompt.select('Please section your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
                 case answer
-                when "Imperial (For temperature in Fahrenheit)"
+                when "Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)"
                 weather1 = WeatherToday::Search.select_name("imperial", new_input)
                  if  weather1 === nil
                     begin
@@ -108,12 +103,13 @@ class WeatherToday::CLI
                       end
                       new_entry
                  end 
+                weather_location_time = WeatherToday::Search.current_time(new_input)
+                weather_enquire(weather_location_time)
                 weather_location(weather1)
-                #weather_location = WeatherToday::Search.current_time(new_input)
-                #weather_enquire(weather_location)
+                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:cyan)
                 forecast_2 = WeatherToday::Search.select_forecast("imperial", new_input)
                 display_forecast2(forecast_2)
-                when "Metric (For temperature in Celsius)"
+                when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
                 weather1 = WeatherToday::Search.select_name("metric", new_input)
                 if  weather1 === nil
                     begin
@@ -123,10 +119,13 @@ class WeatherToday::CLI
                       end
                       new_entry
                  end 
-                weather_location(weather1)  
+                weather_location_time = WeatherToday::Search.current_time(new_input)
+                weather_enquire(weather_location_time)
+                weather_location(weather1)
+                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:red)
                 forecast_2 = WeatherToday::Search.select_forecast("metric", new_input)
                 display_forecast2(forecast_2)      
-                when "Standard (For temperature in Kelvin)"
+                when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
                 weather1 = WeatherToday::Search.select_name("standard", new_input)
                 if  weather1 === nil
                     begin
@@ -136,7 +135,10 @@ class WeatherToday::CLI
                       end
                       new_entry
                  end 
-                weather_location(weather1)  
+                weather_location_time = WeatherToday::Search.current_time(new_input)
+                weather_enquire(weather_location_time)
+                weather_location(weather1)
+                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:cyan)
                 forecast_2 = WeatherToday::Search.select_forecast("standard", new_input)
                 display_forecast2(forecast_2) 
                 end  
@@ -185,11 +187,11 @@ class WeatherToday::CLI
             sleep(0.2)
           end
           spinner.success
-
+          puts ''
           puts "Today in #{weather.location}  #{weather.description.graph_cond}  \u{1F305} #{weather.sunrise} #{weather.sunset}"  
           #puts  "#{weather.decription.quotes}"
 
-          box = TTY::Box.frame(width: 40, height: 26, border: :light, align: :center, padding: [1,3]) do
+          box = TTY::Box.frame(width: 39, height: 25, border: :light, align: :center, padding: [1,3]) do
             "#{weather.description.graph_cond}  #{weather.description.upcase.bold.colorize(:white)} #{weather.description.graph_cond}
             \n#{weather.temp.to_s.upcase.bold}º
             \nL:#{weather.temp_min}º H:#{weather.temp_max}º \u{1F321}
@@ -203,18 +205,20 @@ class WeatherToday::CLI
             \n \u{1F32C}  Wind #{weather.wind_speed} #{weather.wind_deg.graph_cond.bold.colorize(:cyan)}" 
           end 
           print box
+          puts ''
     end 
 
 
     def weather_location(weather1)
 
-        puts "Today in #{weather1.location}  #{weather1.description.graph_cond}  \u{1F305} #{weather1.sunrise} #{weather1.sunset}"  
+        puts ''
+        puts "Today #{weather1.description.graph_cond} \u{1F305} " #{weather1.sunrise} #{weather1.sunset}
           #puts  "#{weather1.decription.quotes}"
 
-          box = TTY::Box.frame(width: 40, height: 26, border: :light, align: :center, padding: [1,3]) do
-            "#{weather1.description.graph_cond}  #{weather1.description.upcase.bold.colorize(:white)} #{weather1.description.graph_cond}
+          box = TTY::Box.frame(width: 39, height: 25, border: :light, align: :center, padding: [1,3]) do
+            "#{weather1.description.graph_cond} #{weather1.description.upcase.bold.colorize(:white)} 
             \n#{weather1.temp.to_s.upcase.bold}º
-            \nL:#{weather1.temp_min}º H:#{weather1.temp_max}º \u{1F321}
+            \nL:#{weather1.temp_min}º H:#{weather1.temp_max}º \u{1F321} 
             \nTemperature feels like #{weather1.feels}º
             \n___________
             \nHumidity #{weather1.humidity}%
@@ -225,49 +229,42 @@ class WeatherToday::CLI
             \n \u{1F32C}  Wind #{weather1.wind_speed} #{weather1.wind_deg.graph_cond.bold.colorize(:cyan)}" 
           end 
           print box
+          puts ''
          
     end
 
-    def weather_enquire(weather_location)
-        puts "Local time #{weather_location.time}"
+    def weather_enquire(weather_location_time)
+        puts ''
+        p "Hi #{weather_location_time.location}"
+        p "Local time: #{weather_location_time.time}"
     end 
 
 
     def display_forecast(forecast)
-
-       forecast_table_1 = TTY::Table.new(["#{forecast.dt_1}","#{forecast.dt_2}","#{forecast.dt_3}","#{forecast.dt_4}","#{forecast.dt_5}"], 
-                                         [["#{forecast.weather_1.graph_cond}","#{forecast.weather_2.graph_cond}","#{forecast.weather_3.graph_cond}","#{forecast.weather_4.graph_cond}","#{forecast.weather_5.graph_cond}"],
-                                         ["#{forecast.temp_1}º","#{forecast.temp_2}º","#{forecast.temp_3}º","#{forecast.temp_4}º","#{forecast.temp_5}º"],
-                                         ["#{forecast.humidity_1}%","#{forecast.humidity_2}%","#{forecast.humidity_3}%","#{forecast.humidity_4}%","#{forecast.humidity_5}%"],
-                                         ["#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}","#{forecast.pop_4.to_i}%\u{1F4A7}","#{forecast.pop_5.to_i}%\u{1F4A7}"]])
+       forecast_table_1 = TTY::Table.new(["Next Hour","#{forecast.dt_1}","#{forecast.dt_2}","#{forecast.dt_3}","#{forecast.dt_4}","#{forecast.dt_5}"], 
+                                         [["#{forecast.weather.graph_cond}","#{forecast.weather_1.graph_cond}","#{forecast.weather_2.graph_cond}","#{forecast.weather_3.graph_cond}","#{forecast.weather_4.graph_cond}","#{forecast.weather_5.graph_cond}"],
+                                         ["#{forecast.temp}º","#{forecast.temp_1}º","#{forecast.temp_2}º","#{forecast.temp_3}º","#{forecast.temp_4}º","#{forecast.temp_5}º"],
+                                         ["#{forecast.humidity}%","#{forecast.humidity_1}%","#{forecast.humidity_2}%","#{forecast.humidity_3}%","#{forecast.humidity_4}%","#{forecast.humidity_5}%"],
+                                         ["#{forecast.pop_1.to_i}%\u{1F4A7}","#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}","#{forecast.pop_4.to_i}%\u{1F4A7}","#{forecast.pop_5.to_i}%\u{1F4A7}"]])
         
-        puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center]) { |renderer|
+        puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
         renderer.border.style = :blue
-      } 
-        
-       puts ''
-        
+      }   
     end
 
     #Forecast display for request
     def display_forecast2(forecast_2)
-       
-        puts  "Forecast".colorize(:red)
-        puts ''
-
-        forecast_table_2 = TTY::Table.new(["#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}","#{forecast_2.dt_5}"], 
-                                         [["#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
-                                         ["#{forecast_2.temp_1}º","#{forecast_2.temp_2}º","#{forecast_2.temp_3}º","#{forecast_2.temp_4}º","#{forecast_2.temp_5}º"],
-                                         ["#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
-                                         ["#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
+        forecast_table_2 = TTY::Table.new(["Next Hour","#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}","#{forecast_2.dt_5}"], 
+                                         [["#{forecast_2.weather.graph_cond}","#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
+                                         ["#{forecast_2.temp}º","#{forecast_2.temp_1}º","#{forecast_2.temp_2}º","#{forecast_2.temp_3}º","#{forecast_2.temp_4}º","#{forecast_2.temp_5}º"],
+                                         ["#{forecast_2.humidity}%","#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
+                                         ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
         
-        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center]) { |renderer|
+        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center,:center]) { |renderer|
         #renderer.border.separator = :each_row
         renderer.border.style = :red
-      } 
-        puts ''
-       
+      }    
      end
 
      def news_feed_(news)
