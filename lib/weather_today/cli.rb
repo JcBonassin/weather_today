@@ -34,19 +34,19 @@ class WeatherToday::CLI
             #system('cls') || system('clear') #clear the screen
             weather = WeatherToday::Weather.api_location("imperial")
             current_weather(weather)
-            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red) 
+            puts "Forecast in #{weather.location}".colorize(:red) 
             forecast = WeatherToday::Weather.api_forecast("imperial")
             display_forecast(forecast)
         when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
             weather = WeatherToday::Weather.api_location("metric")
             current_weather(weather)
-            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)  
+            puts "Forecast in #{weather.location}".colorize(:red)  
             forecast = WeatherToday::Weather.api_forecast("metric")
             display_forecast(forecast)
         when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
             weather = WeatherToday::Weather.api_location("standard")
             current_weather(weather)
-            puts "Forecast in #{weather.location} for the next 5 days".colorize(:red)
+            puts "Forecast in #{weather.location}".colorize(:red)
             forecast = WeatherToday::Weather.api_forecast("standard")
             display_forecast(forecast)
         else
@@ -106,7 +106,7 @@ class WeatherToday::CLI
                 weather_location_time = WeatherToday::Search.current_time(new_input)
                 weather_enquire(weather_location_time)
                 weather_location(weather1)
-                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:cyan)
+                puts "Forecast in #{weather1.location}".colorize(:cyan)
                 forecast_2 = WeatherToday::Search.select_forecast("imperial", new_input)
                 display_forecast2(forecast_2)
                 when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
@@ -122,7 +122,7 @@ class WeatherToday::CLI
                 weather_location_time = WeatherToday::Search.current_time(new_input)
                 weather_enquire(weather_location_time)
                 weather_location(weather1)
-                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:red)
+                puts "Forecast in #{weather1.location}".colorize(:red)
                 forecast_2 = WeatherToday::Search.select_forecast("metric", new_input)
                 display_forecast2(forecast_2)      
                 when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
@@ -138,7 +138,7 @@ class WeatherToday::CLI
                 weather_location_time = WeatherToday::Search.current_time(new_input)
                 weather_enquire(weather_location_time)
                 weather_location(weather1)
-                puts "Forecast in #{weather1.location} for the next 5 days".colorize(:cyan)
+                puts "Forecast in #{weather1.location}".colorize(:cyan)
                 forecast_2 = WeatherToday::Search.select_forecast("standard", new_input)
                 display_forecast2(forecast_2) 
                 end  
@@ -245,7 +245,8 @@ class WeatherToday::CLI
                                          [["#{forecast.weather.graph_cond}","#{forecast.weather_1.graph_cond}","#{forecast.weather_2.graph_cond}","#{forecast.weather_3.graph_cond}","#{forecast.weather_4.graph_cond}","#{forecast.weather_5.graph_cond}"],
                                          ["#{forecast.temp}º","#{forecast.temp_1}º","#{forecast.temp_2}º","#{forecast.temp_3}º","#{forecast.temp_4}º","#{forecast.temp_5}º"],
                                          ["#{forecast.humidity}%","#{forecast.humidity_1}%","#{forecast.humidity_2}%","#{forecast.humidity_3}%","#{forecast.humidity_4}%","#{forecast.humidity_5}%"],
-                                         ["#{forecast.pop_1.to_i}%\u{1F4A7}","#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}","#{forecast.pop_4.to_i}%\u{1F4A7}","#{forecast.pop_5.to_i}%\u{1F4A7}"]])
+                                         ["#{forecast.pop_1.to_i}%\u{1F4A7}","#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}","#{forecast.pop_4.to_i}%\u{1F4A7}","#{forecast.pop_5.to_i}%\u{1F4A7}"],
+                                         ["\u{2666}#{forecast.uvi.uv_radiation}","#{forecast.uvi_1.uv_radiation}","#{forecast.uvi_2.uv_radiation}","#{forecast.uvi_3.uv_radiation}","#{forecast.uvi_4.uv_radiation}","#{forecast.uvi_5.uv_radiation}"]])
         
         puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
@@ -259,7 +260,8 @@ class WeatherToday::CLI
                                          [["#{forecast_2.weather.graph_cond}","#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
                                          ["#{forecast_2.temp}º","#{forecast_2.temp_1}º","#{forecast_2.temp_2}º","#{forecast_2.temp_3}º","#{forecast_2.temp_4}º","#{forecast_2.temp_5}º"],
                                          ["#{forecast_2.humidity}%","#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
-                                         ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
+                                         ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"],
+                                         ["\u{2666}#{forecast_2.uvi.uv_radiation}","#{forecast_2.uvi_1.uv_radiation}","#{forecast_2.uvi_2.uv_radiation}","#{forecast_2.uvi_3.uv_radiation}","#{forecast_2.uvi_4.uv_radiation}","#{forecast_2.uvi_5.uv_radiation}"]])
         
         puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center,:center]) { |renderer|
         #renderer.border.separator = :each_row

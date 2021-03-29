@@ -1,10 +1,8 @@
 class WeatherToday::Weather
 
-  
-
     attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news, :time
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
-    attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4
+    attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4, :uvi, :uvi_1, :uvi_2, :uvi_3, :uvi_4, :uvi_5
     attr_accessor :weather, :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
     attr_accessor :sunset, :sunrise, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
     attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility
@@ -90,7 +88,7 @@ class WeatherToday::Weather
         @weather_today.pressure = data[:main][:pressure]
         @weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
         @weather_today.sunrise = Time.at(data[:sys][:sunrise]).strftime('%H:%M')
-        @weather_today.visibility = data[:visibility].to_s
+        @weather_today.visibility = data[:visibility]
         @weather_today.cloudiness = data[:clouds][:all]
         @weather_today.wind_speed = data[:wind][:speed]
         @weather_today.wind_deg = degToCompass(data[:wind][:deg])
@@ -101,9 +99,9 @@ class WeatherToday::Weather
 
     
 
-   def self.api_forecast(unit)
-       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
-       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
+   def self.api_forecast #(unit)
+       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
+       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        @forecast = self.new 
@@ -134,12 +132,20 @@ class WeatherToday::Weather
        @forecast.humidity_3 = data[:daily][3][:humidity]
        @forecast.humidity_4 = data[:daily][4][:humidity]
        @forecast.humidity_5 = data[:daily][5][:humidity]
+
        @forecast.pop_1 = data[:hourly][1][:pop]*100
        @forecast.pop = data[:daily][1][:pop]*100
        @forecast.pop_2 = data[:daily][2][:pop]*100
        @forecast.pop_3 = data[:daily][3][:pop]*100
        @forecast.pop_4 = data[:daily][4][:pop]*100
        @forecast.pop_5 = data[:daily][5][:pop]*100
+
+       @forecast.uvi = data[:hourly][1][:uvi].to_i
+       @forecast.uvi_1 = data[:daily][1][:uvi].to_i
+       @forecast.uvi_2 = data[:daily][2][:uvi].to_i
+       @forecast.uvi_3 = data[:daily][3][:uvi].to_i
+       @forecast.uvi_4 = data[:daily][4][:uvi].to_i
+       @forecast.uvi_5 = data[:daily][5][:uvi].to_i
 
 
       # #@forecast.temp_min = data[:daily]

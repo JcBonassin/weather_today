@@ -8,12 +8,12 @@ class WeatherToday::Search
 
     attr_accessor :weather, :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :visibility, :units
 
-    attr_accessor :sunset, :sunrise, :visibility, :cloudiness, :wind_speed, :wind_deg
+    attr_accessor :sunset, :sunrise, :visibility, :cloudiness, :wind_speed, :wind_deg, :uvi, :uvi_1, :uvi_2, :uvi_3, :uvi_4, :uvi_5
 
     
     
  def self.select_name(units, location)
-      response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=tokyo&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
+      #response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=tokyo&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
       response = HTTParty.get("http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
       data = JSON.parse(response.body, symbolize_names: true)
       #data = response.parsed_response
@@ -38,7 +38,7 @@ class WeatherToday::Search
       @weather_today.pressure = data[:main][:pressure]
       #@weather_today.sunset = Time.at(data[:sys][:sunset]).strftime('%H:%M')
       #@weather_today.sunrise = Time.at(data[:sys][:sunrise]).strftime('%H:%M')
-      @weather_today.visibility = data[:visibility].to_s
+      @weather_today.visibility = data[:visibility]
       @weather_today.cloudiness = data[:clouds][:all]
       @weather_today.wind_speed = data[:wind][:speed]
       @weather_today.wind_deg = degToCompass(data[:wind][:deg])
@@ -112,6 +112,13 @@ class WeatherToday::Search
     @forecast_1.pop_3 = data[:list][19][:pop]*100
     @forecast_1.pop_4 = data[:list][27][:pop]*100
     @forecast_1.pop_5 = data[:list][35][:pop]*100
+
+    @forecast_1.uvi = data[:list][0][:uvi].to_i
+    @forecast_1.uvi_1 = data[:list][3][:uvi].to_i
+    @forecast_1.uvi_2 = data[:list][11][:uvi].to_i
+    @forecast_1.uvi_3 = data[:list][19][:uvi].to_i
+    @forecast_1.uvi_4 = data[:list][27][:uvi].to_i
+    @forecast_1.uvi_5 = data[:list][35][:uvi].to_i
    #@forecast.temp_min = data[:daily]
     #@forecast = self.new
     #@forecast.location = data[:name]

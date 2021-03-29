@@ -20,6 +20,5 @@ require_relative "weather_today/version"
 require_relative './weather_today/cli'
 require_relative './weather_today/weather'
 require_relative './weather_today/weather_search'
-require_relative './weather_today/graphics'
-require_relative './weather_today/quotes'
 require_relative './weather_today/animation'
+require_relative './weather_today/Helper'
