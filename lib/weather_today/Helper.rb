@@ -4,17 +4,17 @@ class Integer
         inf = Float::INFINITY
         case self
         when 0..2
-            "UV Low"
+            "L UV"
         when 3..5 
-             "UV Moderate"
+             "M UV"
         when 6..7
-           "UV High"
+           "H UV"
         when 8..10  
-           "UV Very High"
+           "VH UV"
         when 11..inf
-           "UV Extreme"
+           "E UV"
         else 
-            "UV Error"
+            "Error UV"
         end
     end  
 

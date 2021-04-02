@@ -99,9 +99,9 @@ class WeatherToday::Weather
 
     
 
-   def self.api_forecast #(unit)
-       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
-       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
+   def self.api_forecast(unit)
+       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
+       response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
        data = JSON.parse(response.read_body, symbolize_names: true)
        #parsed = response.parsed_response
        @forecast = self.new 
@@ -154,7 +154,7 @@ class WeatherToday::Weather
       # #forecast.temp_max = "temp_max"
       # #forecast.conditions = "conditions"
       # #@forecast.description = data[:current][:weather][:description]
-#
+
        @forecast
    end
 

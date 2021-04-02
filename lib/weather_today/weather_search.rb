@@ -2,11 +2,13 @@
 class WeatherToday::Search
 
  
-    attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity, :coord, :feels, :pressure
+    attr_accessor :location, :temp, :date, :conditions, :time, :current_time, :city, :response_code, :description, :humidity
 
-    attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5, :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5
+    attr_accessor :temp_max, :temp_min, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5, :coord
 
-    attr_accessor :weather, :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :visibility, :units
+    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility, :units, :feels, :pressure
+
+    attr_accessor :weather, :weather_1, :weather_2 , :weather_3, :weather_4, :weather_5, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5
 
     attr_accessor :sunset, :sunrise, :visibility, :cloudiness, :wind_speed, :wind_deg, :uvi, :uvi_1, :uvi_2, :uvi_3, :uvi_4, :uvi_5
 
@@ -74,7 +76,7 @@ class WeatherToday::Search
 
    
   def self.select_forecast(units, location)
-    #response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=london&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
+    #response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=caracas&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
     response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast?q=#{location}&appid=#{ENV['API_KEY']}&units=#{units}")
     data = JSON.parse(response.read_body, symbolize_names: true)
     #parsed = response.parsed_response
@@ -113,12 +115,12 @@ class WeatherToday::Search
     @forecast_1.pop_4 = data[:list][27][:pop]*100
     @forecast_1.pop_5 = data[:list][35][:pop]*100
 
-    @forecast_1.uvi = data[:list][0][:uvi].to_i
-    @forecast_1.uvi_1 = data[:list][3][:uvi].to_i
-    @forecast_1.uvi_2 = data[:list][11][:uvi].to_i
-    @forecast_1.uvi_3 = data[:list][19][:uvi].to_i
-    @forecast_1.uvi_4 = data[:list][27][:uvi].to_i
-    @forecast_1.uvi_5 = data[:list][35][:uvi].to_i
+    #@forecast_1.uvi = data[:list][0][:uvi].to_i
+    #@forecast_1.uvi_1 = data[:list][3][:uvi].to_i
+    #@forecast_1.uvi_2 = data[:list][11][:uvi].to_i
+    #@forecast_1.uvi_3 = data[:list][19][:uvi].to_i
+    #@forecast_1.uvi_4 = data[:list][27][:uvi].to_i
+    #@forecast_1.uvi_5 = data[:list][35][:uvi].to_i
    #@forecast.temp_min = data[:daily]
     #@forecast = self.new
     #@forecast.location = data[:name]

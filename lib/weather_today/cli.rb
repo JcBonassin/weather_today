@@ -4,31 +4,45 @@ class WeatherToday::CLI
    
     def call
         welcome
-        menu
-        #forecast
-        #bye
     end
     
     def welcome
-        #puts Rain.go 
+        puts Rain.go 
+        puts Intro.go 
+        sleep (3)
+        #system('cls') || system('clear') #clear the screen
+        puts"
+                                             .-. .-.  ,---.   ,-.     ,-.      .---.   
+                                             | | | |  | .-'   | |     | |     / .-. )  
+                                             | `-' |  | `-.   | |     | |     | | |(_) 
+                                             | .-. |  | .-'   | |     | |     | | | |  
+                                             | | |)|  |  `--. | `--.  | `--.  \ `-' /  
+                                             /(  (_)  /( __.' |( __.' |( __.'  )---'   
+                                            (__)     (__)     (_)     (_)     (_)     
+    ".colorize(:cyan)
+         units_selection
+         puts ''
+         puts "World's News"
+         puts ''
+         news = WeatherToday::Weather.news
+         news_feed_(news)
+         sleep (2)
+         puts ''
+         menu 
+         puts ''      
+    end
+
+    def home
         system('cls') || system('clear')
-        puts ''
-        puts "Welcome to today's weather"
-        puts ''
         units_selection
-        puts ''
-        puts "World's News"
-        puts ''
         news = WeatherToday::Weather.news
         news_feed_(news)
-        puts ''
-        menu 
-        puts ''      
-    end
+        menu
+    end 
 
 
     def units_selection
-        answer = $prompt.select('Please section your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
+        answer = $prompt.select('Please select your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
         case answer
         when "Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)"
             #system('cls') || system('clear') #clear the screen
@@ -38,12 +52,14 @@ class WeatherToday::CLI
             forecast = WeatherToday::Weather.api_forecast("imperial")
             display_forecast(forecast)
         when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
+            #system('cls') || system('clear')
             weather = WeatherToday::Weather.api_location("metric")
             current_weather(weather)
             puts "Forecast in #{weather.location}".colorize(:red)  
             forecast = WeatherToday::Weather.api_forecast("metric")
             display_forecast(forecast)
         when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
+            #system('cls') || system('clear')
             weather = WeatherToday::Weather.api_location("standard")
             current_weather(weather)
             puts "Forecast in #{weather.location}".colorize(:red)
@@ -52,31 +68,50 @@ class WeatherToday::CLI
         else
             menu
         end 
-
     end
 
          
     def menu
-        answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city", "to exit"], require: true)
+        answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city","to exit"], require: true)
         case answer
         when "for more useful data"
-            weather = WeatherToday::Weather.api_location
-            current_weather(weather)
+            p "hello"
             menu
         when "Read the News"
-            #system "clear"
+            system('cls') || system('clear')
             news_display = WeatherToday::Weather.news
             news_display(news_display)
             menu
         when "to check another city"
+            system('cls') || system('clear')
             new_entry 
         when "to exit"
             bye
-        else
-            puts "sorry you didn't select the right option. Please try again"  
         end
      end  
 
+     def menu_2 
+            answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city","Home","to exit"], require: true)
+            case answer
+            when "for more useful data"
+                p "hello"
+                menu
+            when "Read the News"
+                system('cls') || system('clear')
+                news_display = WeatherToday::Weather.news
+                news_display(news_display)
+                menu
+            when "to check another city"
+                system('cls') || system('clear')
+                new_entry 
+            when "home"
+                home 
+            when "to exit"
+                bye
+            end
+        end  
+     
+    
 
     def new_entry
         new_input = nil
@@ -84,16 +119,16 @@ class WeatherToday::CLI
         while new_input != "exit"
             new_input = gets.chomp.downcase
             if new_input === "exit" 
-                menu
+                menu_2
                 else
-            end 
-
+            end
             if new_input.empty?
                 new_entry
             elsif
                 answer = $prompt.select('Please section your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
                 case answer
                 when "Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)"
+                #system('cls') || system('clear')
                 weather1 = WeatherToday::Search.select_name("imperial", new_input)
                  if  weather1 === nil
                     begin
@@ -143,7 +178,7 @@ class WeatherToday::CLI
                 display_forecast2(forecast_2) 
                 end  
                 search_menu
-                yesno
+                #yesno
             else 
                 new_input = nil
                 new_entry
@@ -159,23 +194,23 @@ class WeatherToday::CLI
             #system('cls') || system('clear') #clear the screen
             new_entry
         when "No"
-            menu
-        else
-            p "dude come on.. ;)  ... Try again!!!"
+            #system('cls') || system('clear')
+            menu_2
         end 
     end
 
     def search_menu
-        answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","Main Menu", "to check another location"], require: true) 
+        answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","to check another location","Home"], require: true) 
         case answer
         when "check your location on googlemaps"
+            #system('cls') || system('clear')
             WeatherToday::Search.open_link_search
-        when "Main Menu"
-            menu
+            yesno
         when "to check another location"
+            #system('cls') || system('clear')
             new_entry
-        else 
-            p "dude come on.. ;)  ... Try again!!!"
+        when "Home"
+            home
         end
     end 
 
@@ -191,8 +226,8 @@ class WeatherToday::CLI
           puts "Today in #{weather.location}  #{weather.description.graph_cond}  \u{1F305} #{weather.sunrise} #{weather.sunset}"  
           #puts  "#{weather.decription.quotes}"
 
-          box = TTY::Box.frame(width: 39, height: 25, border: :light, align: :center, padding: [1,3]) do
-            "#{weather.description.graph_cond}  #{weather.description.upcase.bold.colorize(:white)} #{weather.description.graph_cond}
+          box = TTY::Box.frame(width: 37, height: 23, border: :light, align: :center, padding: [1,3]) do
+            "#{weather.description.graph_cond}  #{weather.description.upcase.bold.colorize(:white)} 
             \n#{weather.temp.to_s.upcase.bold}º
             \nL:#{weather.temp_min}º H:#{weather.temp_max}º \u{1F321}
             \nTemperature feels like #{weather.feels}º
@@ -212,11 +247,11 @@ class WeatherToday::CLI
     def weather_location(weather1)
 
         puts ''
-        puts "Today #{weather1.description.graph_cond} \u{1F305} " #{weather1.sunrise} #{weather1.sunset}
+        puts "Today in #{weather1.location}" #{weather1.description.graph_cond}" # \u{1F305} #{weather1.sunrise} #{weather1.sunset}
           #puts  "#{weather1.decription.quotes}"
 
-          box = TTY::Box.frame(width: 39, height: 25, border: :light, align: :center, padding: [1,3]) do
-            "#{weather1.description.graph_cond} #{weather1.description.upcase.bold.colorize(:white)} 
+          box = TTY::Box.frame(width: 37, height: 23, border: :light, align: :center, padding: [1,3]) do
+            "#{weather1.description.graph_cond}  #{weather1.description.upcase.bold.colorize(:white)} 
             \n#{weather1.temp.to_s.upcase.bold}º
             \nL:#{weather1.temp_min}º H:#{weather1.temp_max}º \u{1F321} 
             \nTemperature feels like #{weather1.feels}º
@@ -235,7 +270,8 @@ class WeatherToday::CLI
 
     def weather_enquire(weather_location_time)
         puts ''
-        p "Hi #{weather_location_time.location}"
+        p "THE WEATHER IN #{weather_location_time.location}"
+        puts ''
         p "Local time: #{weather_location_time.time}"
     end 
 
@@ -246,7 +282,7 @@ class WeatherToday::CLI
                                          ["#{forecast.temp}º","#{forecast.temp_1}º","#{forecast.temp_2}º","#{forecast.temp_3}º","#{forecast.temp_4}º","#{forecast.temp_5}º"],
                                          ["#{forecast.humidity}%","#{forecast.humidity_1}%","#{forecast.humidity_2}%","#{forecast.humidity_3}%","#{forecast.humidity_4}%","#{forecast.humidity_5}%"],
                                          ["#{forecast.pop_1.to_i}%\u{1F4A7}","#{forecast.pop.to_i}%\u{1F4A7}","#{forecast.pop_2.to_i}%\u{1F4A7}","#{forecast.pop_3.to_i}%\u{1F4A7}","#{forecast.pop_4.to_i}%\u{1F4A7}","#{forecast.pop_5.to_i}%\u{1F4A7}"],
-                                         ["\u{2666}#{forecast.uvi.uv_radiation}","#{forecast.uvi_1.uv_radiation}","#{forecast.uvi_2.uv_radiation}","#{forecast.uvi_3.uv_radiation}","#{forecast.uvi_4.uv_radiation}","#{forecast.uvi_5.uv_radiation}"]])
+                                         ["#{forecast.uvi.uv_radiation}","#{forecast.uvi_1.uv_radiation}","#{forecast.uvi_2.uv_radiation}","#{forecast.uvi_3.uv_radiation}","#{forecast.uvi_4.uv_radiation}","#{forecast.uvi_5.uv_radiation}"]])
         
         puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
@@ -260,10 +296,9 @@ class WeatherToday::CLI
                                          [["#{forecast_2.weather.graph_cond}","#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
                                          ["#{forecast_2.temp}º","#{forecast_2.temp_1}º","#{forecast_2.temp_2}º","#{forecast_2.temp_3}º","#{forecast_2.temp_4}º","#{forecast_2.temp_5}º"],
                                          ["#{forecast_2.humidity}%","#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
-                                         ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"],
-                                         ["\u{2666}#{forecast_2.uvi.uv_radiation}","#{forecast_2.uvi_1.uv_radiation}","#{forecast_2.uvi_2.uv_radiation}","#{forecast_2.uvi_3.uv_radiation}","#{forecast_2.uvi_4.uv_radiation}","#{forecast_2.uvi_5.uv_radiation}"]])
-        
-        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center,:center]) { |renderer|
+                                         ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
+                                       # ["\u{2666}#{forecast_2.uvi.uv_radiation}","#{forecast_2.uvi_1.uv_radiation}","#{forecast_2.uvi_2.uv_radiation}","#{forecast_2.uvi_3.uv_radiation}","#{forecast_2.uvi_4.uv_radiation}","#{forecast_2.uvi_5.uv_radiation}"]
+        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
         renderer.border.style = :red
       }    
@@ -296,13 +331,41 @@ class WeatherToday::CLI
            WeatherToday::Weather.open_link_4 
            news_display(news)       
        else
-           menu
+           menu_2
        end
     end 
   
 
     def bye
-        puts "thanks for checking the weather. Get ready to go out"
+        #system('cls') || system('clear')
+        puts Paint[ 'Thanks for checking the weather. Get ready to go out', :cyan, :italic]
+        puts "  
+                                                                                                                                                         
+                                                                   dddddddd     bbbbbbbb                                                              
+        GGGGGGGGGGGGG                                              d::::::d     b::::::b                                                              
+     GGG::::::::::::G                                              d::::::d     b::::::b                                                              
+   GG:::::::::::::::G                                              d::::::d     b::::::b                                                              
+  G:::::GGGGGGGG::::G                                              d:::::d       b:::::b                                                              
+ G:::::G       GGGGGG   ooooooooooo      ooooooooooo       ddddddddd:::::d       b:::::bbbbbbbbb    yyyyyyy           yyyyyyy    eeeeeeeeeeee         
+G:::::G               oo:::::::::::oo  oo:::::::::::oo   dd::::::::::::::d       b::::::::::::::bb   y:::::y         y:::::y   ee::::::::::::ee       
+G:::::G              o:::::::::::::::oo:::::::::::::::o d::::::::::::::::d       b::::::::::::::::b   y:::::y       y:::::y   e::::::eeeee:::::ee     
+G:::::G    GGGGGGGGGGo:::::ooooo:::::oo:::::ooooo:::::od:::::::ddddd:::::d       b:::::bbbbb:::::::b   y:::::y     y:::::y   e::::::e     e:::::e     
+G:::::G    G::::::::Go::::o     o::::oo::::o     o::::od::::::d    d:::::d       b:::::b    b::::::b    y:::::y   y:::::y    e:::::::eeeee::::::e     
+G:::::G    GGGGG::::Go::::o     o::::oo::::o     o::::od:::::d     d:::::d       b:::::b     b:::::b     y:::::y y:::::y     e:::::::::::::::::e      
+G:::::G        G::::Go::::o     o::::oo::::o     o::::od:::::d     d:::::d       b:::::b     b:::::b      y:::::y:::::y      e::::::eeeeeeeeeee       
+ G:::::G       G::::Go::::o     o::::oo::::o     o::::od:::::d     d:::::d       b:::::b     b:::::b       y:::::::::y       e:::::::e                
+  G:::::GGGGGGGG::::Go:::::ooooo:::::oo:::::ooooo:::::od::::::ddddd::::::dd      b:::::bbbbbb::::::b        y:::::::y        e::::::::e               
+   GG:::::::::::::::Go:::::::::::::::oo:::::::::::::::o d:::::::::::::::::d      b::::::::::::::::b          y:::::y          e::::::::eeeeeeee       
+     GGG::::::GGG:::G oo:::::::::::oo  oo:::::::::::oo   d:::::::::ddd::::d      b:::::::::::::::b          y:::::y            ee:::::::::::::e       
+        GGGGGG   GGGG   ooooooooooo      ooooooooooo      ddddddddd   ddddd      bbbbbbbbbbbbbbbb          y:::::y               eeeeeeeeeeeeee       
+                                                                                                          y:::::y                                     
+                                                                                                         y:::::y                                      
+                                                                                                        y:::::y                                       
+                                                                                                       y:::::y                                        
+                                                                                                      yyyyyyy                                         
+                                                                                                                                                      
+                                                                                                                                                                 
+        ".colorize(:red)
         exit 
     end     
 
@@ -314,7 +377,4 @@ class WeatherToday::CLI
             print box
         end
     end
-
-
-
 end
