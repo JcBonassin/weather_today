@@ -96,6 +96,7 @@ Forecast is display as shown:
 
 Follow the prompt menu to reach the location coordenates on Google Maps. A new Browser window will pop up. 
 
+And That's it. 
 
 ## Development
 
