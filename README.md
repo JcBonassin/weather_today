@@ -15,9 +15,9 @@ So what can I do with this gem:
 - Check the current weather and Forecast for the next 5 days at any city you name in the world plus a link to the city location on Google Maps. It only works with city names. 
 
 -  It gives you 3 unit system to choose from: 
-  - default (temperatures in Kelvin)
-  - metric (temperatures in Celsius)
-  - imperial (temperatures in Fahrenheit)
+  - Default (temperatures in Kelvin)
+  - Metric (temperatures in Celsius)
+  - Imperial (temperatures in Fahrenheit)
 
 - Read and open in your browser the latest world headlines from BBC News. 
 - Gives you a funny quote according to weather conditions cortesy of the [AUTHENTIC WEATHER APP](https://github.com/reduxd/authentic-ubersicht). 
