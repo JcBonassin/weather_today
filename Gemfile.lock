@@ -81,7 +81,7 @@ PLATFORMS
 DEPENDENCIES
   bundler
   colorize (~> 0.8.1)
-  dotenv
+  dotenv (~> 2.7, >= 2.7.6)
   httparty
   json
   open-uri

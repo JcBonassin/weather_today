@@ -1,5 +1,7 @@
 require 'pry'
 require 'bundler'
+require 'dotenv'
+Dotenv.load('./.env')
 require 'JSON'
 require 'httparty'
 require 'paint'
@@ -13,7 +15,7 @@ require 'tty-prompt'
 require "tty-table"
 require "tty-spinner"
 require "tty-box"
-Dotenv.load
+
 
 require_relative "weather_today/version"
 require_relative './weather_today/cli'
