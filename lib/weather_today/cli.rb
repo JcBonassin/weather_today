@@ -7,8 +7,8 @@ class WeatherToday::CLI
     end
     
     def welcome
-        #puts Rain.go 
-        #puts Intro.go 
+        puts Rain.go 
+        puts Intro.go 
         sleep (3)
         puts"
                                              .-. .-.  ,---.   ,-.     ,-.      .---.   
@@ -101,7 +101,6 @@ class WeatherToday::CLI
             end
         end  
      
-
 
     def new_entry
         new_input = nil
@@ -252,8 +251,7 @@ class WeatherToday::CLI
             \n \u{1F32C}  Wind #{weather1.wind_speed} #{weather1.wind_deg.graph_cond.bold.colorize(:cyan)}" 
           end 
           print box
-          puts ''
-         
+          puts ''    
     end
 
     def weather_enquire(weather_location_time)
@@ -352,13 +350,4 @@ G:::::G        G::::Go::::o     o::::oo::::o     o::::od:::::d     d:::::d      
         ".colorize(:red)
         exit 
     end     
-
-
-    class Error < StandardError
-
-        def message
-            box = TTY::Box.error("Sorry location not found")
-            print box
-        end
-    end
 end

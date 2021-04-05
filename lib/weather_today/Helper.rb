@@ -501,6 +501,15 @@ class Helper
         elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
           system "xdg-open #{link}"
         end
-      end
+      end      
 end 
+
+
+class Error < StandardError
+
+    def message
+        box = TTY::Box.error("Sorry location not found")
+        print box
+    end
+end
 

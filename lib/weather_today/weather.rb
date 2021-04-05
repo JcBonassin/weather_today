@@ -2,11 +2,11 @@
 class WeatherToday::Weather < Helper
 
     attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news, :time
-    attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
-    attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4, :uvi, :uvi_1, :uvi_2, :uvi_3, :uvi_4, :uvi_5
-    attr_accessor :weather, :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure 
+    attr_accessor :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
+    attr_accessor :title_1, :title_2, :title_3, :title_4, :url_1, :url_2, :url_3, :url_4, :uvi, :uvi_1, :uvi_2, :uvi_3
+    attr_accessor :weather, :weather_1, :weather_2, :weather_3, :weather_4, :weather_5, :pressure, :uvi_4, :uvi_5
     attr_accessor :sunset, :sunrise, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
-    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility
+    attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility, :conditions
     
     def self.lat
         url = URI("https://freegeoip.app/json/")
