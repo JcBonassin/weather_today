@@ -92,6 +92,7 @@ Forecast is display as shown:
 - Temperature
 - Humidity
 - Chance of precipitation
+- ![Screenshot 2021-04-05 at 10 32 36](https://user-images.githubusercontent.com/72950188/113637067-564b2680-9639-11eb-8007-8d206e1fa9b9.png)
 
 Follow the prompt menu to reach the location coordenates on Google Maps. A new Browser window will pop up. 
 
