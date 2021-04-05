@@ -77,7 +77,7 @@ Forecast is display as shown:
  ![2](https://user-images.githubusercontent.com/72950188/113636671-94941600-9638-11eb-862d-1606166bf12b.png)
 
 World's News will display the main 4 headlines from BBC News NewsAPI source. Follow the prompts to read and open a new Browser window. 
-![Screenshot 2021-04-05 at 18 02 10](https://user-images.githubusercontent.com/72950188/113636955-23a12e00-9639-11eb-8ea4-07ffabb1b6ef.png)
+![3](https://user-images.githubusercontent.com/72950188/113636955-23a12e00-9639-11eb-8ea4-07ffabb1b6ef.png)
 
 Finally to get the current weather at a certain city anywhere in the world type the city name. However for more accurate results type `<city name>, <Alpha-2 ISO 3166 country codes>`. Example: 
 
@@ -92,7 +92,7 @@ Forecast is display as shown:
 - Temperature
 - Humidity
 - Chance of precipitation
-- ![Screenshot 2021-04-05 at 10 32 36](https://user-images.githubusercontent.com/72950188/113637067-564b2680-9639-11eb-8007-8d206e1fa9b9.png)
+- ![4](https://user-images.githubusercontent.com/72950188/113637067-564b2680-9639-11eb-8007-8d206e1fa9b9.png)
 
 Follow the prompt menu to reach the location coordenates on Google Maps. A new Browser window will pop up. 
 
