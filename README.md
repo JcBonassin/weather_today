@@ -74,6 +74,7 @@ Forecast is display as shown:
 - Humidity
 - Chance of precipitation
 - UV Index
+ ![2](https://user-images.githubusercontent.com/72950188/113636671-94941600-9638-11eb-862d-1606166bf12b.png)
 
 World's News will display the main 4 headlines from BBC News NewsAPI source. Follow the prompts to read and open a new Browser window. 
 
