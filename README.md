@@ -29,7 +29,7 @@ Before running the CLI is important to:
 
 - Sign up for a API key on [OPENWEATHERMAP](https://openweathermap.org/). It's free
 - Sign up for a API key on [NEWSAPI](https://newsapi.org/). Also Free. 
-- Sign up for a API key on [Abstract](https://app.abstractapi.com/). To get a precide timeZone on the location enquiry. They've got a free plan too. So all cool. 
+- Sign up for a API key on [Abstract](https://app.abstractapi.com/). To get a precise timeZone on the location enquiry. They've got a free plan too. So all cool. 
 
 Please don't forget to create a `.env` for the root of the project. This will hide your API Keys and avoid to be published on your repository in case you fork it. 
 
