@@ -1,4 +1,5 @@
-class WeatherToday::Weather
+
+class WeatherToday::Weather < Helper
 
     attr_accessor :location, :date, :temp, :description, :forecast, :temp_min, :temp_max, :feels, :all_news, :time
     attr_accessor :conditions, :city, :temp_1, :temp_2, :temp_3, :temp_4, :temp_5, :dt, :dt_1, :dt_2, :dt_3, :dt_4, :dt_5 
@@ -7,22 +8,6 @@ class WeatherToday::Weather
     attr_accessor :sunset, :sunrise, :pop, :pop_1, :pop_2, :pop_3, :pop_4, :pop_5, :cloudiness, :wind_speed, :wind_deg
     attr_accessor :humidity, :humidity_1, :humidity_2, :humidity_3, :humidity_4, :humidity_5, :visibility
     
-
-   #def self.location
-   #    url = URI("https://freegeoip.app/json/")
-   #    http = Net::HTTP.new(url.host, url.port)
-   #    http.use_ssl = true
-   #    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-   #    request = Net::HTTP::Get.new(url)   
-   #    request["accept"] = 'application/json'
-   #    request["content-type"] = 'application/json'
-   #    response = http.request(request)
-   #    data = JSON.parse(response.body, symbolize_names: true)
-   #    #data.fetch_values(:latitude, :longitude, :city)
-   #    location = data.fetch(:city)
-   #    #[@location]
-
-   #end 
     def self.lat
         url = URI("https://freegeoip.app/json/")
         http = Net::HTTP.new(url.host, url.port)
@@ -49,35 +34,11 @@ class WeatherToday::Weather
         lon = data.fetch(:longitude)
     end 
 
-
-    #def self.current_time
-    #    response = HTTParty.get("https://timezoneapi.io/api/ip/?token=aJvkeBPLCzkvwFKeMmTa")
-    #    parsed = response.parsed_response
-    #    if parsed["meta"]["code"] = 200
-    #        #city = parsed["data"]["city"]
-    #        #puts city
-    #        time = parsed["data"]["datetime"]["date_time"]
-    #        puts time
-    #    end
-#
-    #end
-    
-    #def self.current_time
-    #  response = HTTParty.get("https://timezoneapi.io/api/ip/?token=#{ENV['API_TIME_ZONE']}")
-    #  data = JSON.parse(response.body, symbolize_names: true)
-    #  @location_time = self.new
-    #  @location_time.time = data[:data][:datetime][:time]
-    #  @location_time
-    #end 
-
-
     def self.api_location(unit)
-        #response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=52.3824&lon=4.8995&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")
         response = HTTParty.get("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{ENV['API_KEY']}&units=#{unit}")
         data = JSON.parse(response.body, symbolize_names: true)
         @weather_today = self.new
         @weather_today.location = data[:name]
-        #@weather_today.date = Time.at(data[:dt]).strftime('Today: %A %d-%m-%Y') # only time report not local time
         @weather_today.time = Time.at(data[:dt])
         @weather_today.temp = data[:main][:temp].to_i
         @weather_today.description = data[:weather].first[:description]
@@ -91,19 +52,14 @@ class WeatherToday::Weather
         @weather_today.visibility = data[:visibility]
         @weather_today.cloudiness = data[:clouds][:all]
         @weather_today.wind_speed = data[:wind][:speed]
-        @weather_today.wind_deg = degToCompass(data[:wind][:deg])
+        @weather_today.wind_deg = compass(data[:wind][:deg])
         @weather_today
     end 
 
-    
-
-    
 
    def self.api_forecast(unit)
-       #response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=52.3824&lon=4.8995&&exclude=minutely,current&appid=f8822bf698b7ae0e71f06a474dc913f3&units=imperial")  
        response = HTTParty.get("https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely,current&appid=#{ENV['API_KEY']}&units=#{unit}")
        data = JSON.parse(response.read_body, symbolize_names: true)
-       #parsed = response.parsed_response
        @forecast = self.new 
        @forecast.temp = data[:hourly][1][:temp].to_i
        @forecast.temp_1 = data[:daily][1][:temp][:day].to_i
@@ -111,50 +67,35 @@ class WeatherToday::Weather
        @forecast.temp_3 = data[:daily][3][:temp][:day].to_i
        @forecast.temp_4 = data[:daily][4][:temp][:day].to_i
        @forecast.temp_5 = data[:daily][5][:temp][:day].to_i
-       #@forecast.report_time = parsed["dt"]
-       #@forecast.dt = Time.at(data[:hourly][1][:dt]).strftime('%A')
        @forecast.dt_1 = Time.at(data[:daily][1][:dt]).strftime('%A')
        @forecast.dt_2 = Time.at(data[:daily][2][:dt]).strftime('%A')
        @forecast.dt_3 = Time.at(data[:daily][3][:dt]).strftime('%A')
        @forecast.dt_4 = Time.at(data[:daily][4][:dt]).strftime('%A')
        @forecast.dt_5 = Time.at(data[:daily][5][:dt]).strftime('%A')
-       #data = JSON.parse(response.body, symbolize_names: true)
        @forecast.weather = data[:hourly][1][:weather].first[:description]
        @forecast.weather_1 = data[:daily][1][:weather].first[:description]
        @forecast.weather_2 = data[:daily][2][:weather].first[:description]
        @forecast.weather_3 = data[:daily][3][:weather].first[:description]
        @forecast.weather_4 = data[:daily][4][:weather].first[:description]
        @forecast.weather_5 = data[:daily][5][:weather].first[:description]
-       
        @forecast.humidity = data[:hourly][1][:humidity]
        @forecast.humidity_1 = data[:daily][1][:humidity]
        @forecast.humidity_2 = data[:daily][2][:humidity]
        @forecast.humidity_3 = data[:daily][3][:humidity]
        @forecast.humidity_4 = data[:daily][4][:humidity]
        @forecast.humidity_5 = data[:daily][5][:humidity]
-
        @forecast.pop_1 = data[:hourly][1][:pop]*100
        @forecast.pop = data[:daily][1][:pop]*100
        @forecast.pop_2 = data[:daily][2][:pop]*100
        @forecast.pop_3 = data[:daily][3][:pop]*100
        @forecast.pop_4 = data[:daily][4][:pop]*100
-       @forecast.pop_5 = data[:daily][5][:pop]*100
-
+       @forecast.pop_5 = data[:daily][5][:pop]*10
        @forecast.uvi = data[:hourly][1][:uvi].to_i
        @forecast.uvi_1 = data[:daily][1][:uvi].to_i
        @forecast.uvi_2 = data[:daily][2][:uvi].to_i
        @forecast.uvi_3 = data[:daily][3][:uvi].to_i
        @forecast.uvi_4 = data[:daily][4][:uvi].to_i
        @forecast.uvi_5 = data[:daily][5][:uvi].to_i
-
-
-      # #@forecast.temp_min = data[:daily]
-      # #@forecast.location = data[:name]
-      # #@forecast.temp_min = data[:main]
-      # #forecast.temp_max = "temp_max"
-      # #forecast.conditions = "conditions"
-      # #@forecast.description = data[:current][:weather][:description]
-
        @forecast
    end
 
@@ -177,64 +118,7 @@ class WeatherToday::Weather
     @link_2 = @news.url_2
     @link_3 = @news.url_3
     @link_4 = @news.url_4
-    #@news.all_news = n.get_top_headlines(sources: "bbc-news")
-    #all = @news.all_news
-    #@news.title_1 = all[0]
     @news 
    end 
-
-   def self.open_link
-    link =  @link 
-    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-      system "start #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
-      system "open #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
-      system "xdg-open #{link}"
-    end
-  end
-
-  def self.open_link_2
-    link =  @link_2
-    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-      system "start #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
-      system "open #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
-      system "xdg-open #{link}"
-    end
-  end
-
-  def self.open_link_3
-    link =  @link_3
-    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-      system "start #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
-      system "open #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
-      system "xdg-open #{link}"
-    end
-  end
-
-  def self.open_link_4
-    link =  @link_4
-    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-      system "start #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /darwin/
-      system "open #{link}"
-    elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
-      system "xdg-open #{link}"
-    end
-  end
-
-  def self.degToCompass(deg)
-    val = ((deg.to_f / 22.5) + 0.5).floor
-    direction_arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
-    return direction_arr[(val % 16)]
-  end
-
-
-
-
 end 
 

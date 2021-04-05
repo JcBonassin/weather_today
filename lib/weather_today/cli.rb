@@ -10,7 +10,6 @@ class WeatherToday::CLI
         #puts Rain.go 
         #puts Intro.go 
         sleep (3)
-        #system('cls') || system('clear') #clear the screen
         puts"
                                              .-. .-.  ,---.   ,-.     ,-.      .---.   
                                              | | | |  | .-'   | |     | |     / .-. )  
@@ -45,21 +44,18 @@ class WeatherToday::CLI
         answer = $prompt.select('Please select your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
         case answer
         when "Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)"
-            #system('cls') || system('clear') #clear the screen
             weather = WeatherToday::Weather.api_location("imperial")
             current_weather(weather)
             puts "Forecast in #{weather.location}".colorize(:red) 
             forecast = WeatherToday::Weather.api_forecast("imperial")
             display_forecast(forecast)
         when "Metric (For temperature in Celsius & Wind speed: meter/sec.)"
-            #system('cls') || system('clear')
             weather = WeatherToday::Weather.api_location("metric")
             current_weather(weather)
             puts "Forecast in #{weather.location}".colorize(:red)  
             forecast = WeatherToday::Weather.api_forecast("metric")
             display_forecast(forecast)
         when "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"
-            #system('cls') || system('clear')
             weather = WeatherToday::Weather.api_location("standard")
             current_weather(weather)
             puts "Forecast in #{weather.location}".colorize(:red)
@@ -72,11 +68,8 @@ class WeatherToday::CLI
 
          
     def menu
-        answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city","to exit"], require: true)
+        answer = $prompt.select('Main Menu:', ["Read the News","to check another city","to exit"], require: true)
         case answer
-        when "for more useful data"
-            p "hello"
-            menu
         when "Read the News"
             system('cls') || system('clear')
             news_display = WeatherToday::Weather.news
@@ -91,11 +84,8 @@ class WeatherToday::CLI
      end  
 
      def menu_2 
-            answer = $prompt.select('Main Menu:', ["for more useful data","Read the News","to check another city","Home","to exit"], require: true)
+            answer = $prompt.select('Main Menu:', ["Read the News","to check another city","Home","to exit"], require: true)
             case answer
-            when "for more useful data"
-                p "hello"
-                menu
             when "Read the News"
                 system('cls') || system('clear')
                 news_display = WeatherToday::Weather.news
@@ -128,7 +118,6 @@ class WeatherToday::CLI
                 answer = $prompt.select('Please section your weather settings?:', ["Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)", "Metric (For temperature in Celsius & Wind speed: meter/sec.)", "Standard (For temperature in Kelvin & Wind speed: meter/sec.)"], require: true)
                 case answer
                 when "Imperial (For temperature in Fahrenheit & Wind speed: miles/hour.)"
-                #system('cls') || system('clear')
                 weather1 = WeatherToday::Search.select_name("imperial", new_input)
                  if  weather1 === nil
                     begin
@@ -178,7 +167,6 @@ class WeatherToday::CLI
                 display_forecast2(forecast_2) 
                 end  
                 search_menu
-                #yesno
             else 
                 new_input = nil
                 new_entry
@@ -191,26 +179,24 @@ class WeatherToday::CLI
         answer = $prompt.select('Do you want to check another location?:', ["Yes","No"], require: true)
         case answer
         when "Yes"
-            #system('cls') || system('clear') #clear the screen
             new_entry
         when "No"
-            #system('cls') || system('clear')
             menu_2
         end 
     end
 
     def search_menu
-        answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","to check another location","Home"], require: true) 
+        answer = $prompt.select('For more information about your location:', ["check your location on googlemaps","to check another location","Home", "exit"], require: true) 
         case answer
         when "check your location on googlemaps"
-            #system('cls') || system('clear')
             WeatherToday::Search.open_link_search
             yesno
         when "to check another location"
-            #system('cls') || system('clear')
             new_entry
         when "Home"
             home
+        when "exit"
+            bye
         end
     end  
 
@@ -224,7 +210,6 @@ class WeatherToday::CLI
           spinner.success
           puts ''
           puts "Today in #{weather.location}  #{weather.description.graph_cond}  \u{1F305} #{weather.sunrise} #{weather.sunset}"  
-          #puts  "#{weather.decription.quotes}"
 
           box = TTY::Box.frame(width: 37, height: 24, border: :light, align: :center, padding: [1,3]) do
             "#{weather.description.graph_cond} #{weather.description.upcase.bold.colorize(:white)} 
@@ -251,8 +236,7 @@ class WeatherToday::CLI
     def weather_location(weather1)
 
         puts ''
-        puts "Today in #{weather1.location}" #{weather1.description.graph_cond}" # \u{1F305} #{weather1.sunrise} #{weather1.sunset}
-          #puts  "#{weather1.decription.quotes}"
+        puts "Today in #{weather1.location}"
 
           box = TTY::Box.frame(width: 37, height: 24, border: :light, align: :center, padding: [1,3]) do
             "#{weather1.description.graph_cond}  #{weather1.description.upcase.bold.colorize(:white)} 
@@ -289,12 +273,10 @@ class WeatherToday::CLI
                                          ["#{forecast.uvi.uv_radiation}","#{forecast.uvi_1.uv_radiation}","#{forecast.uvi_2.uv_radiation}","#{forecast.uvi_3.uv_radiation}","#{forecast.uvi_4.uv_radiation}","#{forecast.uvi_5.uv_radiation}"]])
         
         puts forecast_table_1.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
-        #renderer.border.separator = :each_row
         renderer.border.style = :blue
       }   
     end
 
-    #Forecast display for request
     def display_forecast2(forecast_2)
         forecast_table_2 = TTY::Table.new(["Next Hour","#{forecast_2.dt_1}","#{forecast_2.dt_2}","#{forecast_2.dt_3}","#{forecast_2.dt_4}","#{forecast_2.dt_5}"], 
                                          [["#{forecast_2.weather.graph_cond}","#{forecast_2.weather_1.graph_cond}","#{forecast_2.weather_2.graph_cond}","#{forecast_2.weather_3.graph_cond}","#{forecast_2.weather_4.graph_cond}","#{forecast_2.weather_5.graph_cond}"],
@@ -303,7 +285,6 @@ class WeatherToday::CLI
                                          ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
         
         puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
-        #renderer.border.separator = :each_row
         renderer.border.style = :red
       }    
      end
@@ -341,7 +322,6 @@ class WeatherToday::CLI
   
 
     def bye
-        #system('cls') || system('clear')
         puts Paint[ 'Thanks for checking the weather. Get ready to go out', :cyan, :italic]
         puts "  
                                                                                                                                                          
@@ -377,7 +357,7 @@ G:::::G        G::::Go::::o     o::::oo::::o     o::::od:::::d     d:::::d      
     class Error < StandardError
 
         def message
-            box = TTY::Box.error("Sorry location not found") #.colorize(:white).on_red
+            box = TTY::Box.error("Sorry location not found")
             print box
         end
     end

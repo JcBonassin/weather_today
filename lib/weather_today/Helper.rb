@@ -1,6 +1,5 @@
 class Integer
-
-      def uv_radiation
+    def uv_radiation
         inf = Float::INFINITY
         case self
         when 0..2
@@ -18,7 +17,7 @@ class Integer
         end
     end  
 
-    def visibility_range
+   def visibility_range
       case self  
       when 0..999
            "Fog"
@@ -31,8 +30,7 @@ class Integer
       else 
           "Clear"
       end 
-  end 
-
+    end 
 end 
 
 class String
@@ -193,8 +191,7 @@ class String
       else
           "\u{3F}" 
       end
-  end
-
+end
   #Some fun quotes brought you by the Authetic weather App :)    
 def quotes 
   case self
@@ -442,4 +439,68 @@ def quotes
         "\u{3F}" 
     end
   end
-end
+end 
+  
+class Helper
+    def self.compass(deg)
+        value = ((deg.to_f / 22.5) + 0.5).floor
+        direction = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+        return direction[(value % 16)]
+    end 
+
+    def self.open_link_search
+        link = "https://www.google.com/maps/place/#{@weather_today.coord.gsub(" ", "")}"
+        if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+          system "start #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+          system "open #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+          system "xdg-open #{link}"
+        end
+    end
+
+    def self.open_link
+        link =  @link 
+        if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+          system "start #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+          system "open #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+          system "xdg-open #{link}"
+        end
+      end
+    
+      def self.open_link_2
+        link =  @link_2
+        if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+          system "start #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+          system "open #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+          system "xdg-open #{link}"
+        end
+      end
+    
+      def self.open_link_3
+        link =  @link_3
+        if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+          system "start #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+          system "open #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+          system "xdg-open #{link}"
+        end
+      end
+    
+      def self.open_link_4
+        link =  @link_4
+        if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+          system "start #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /darwin/
+          system "open #{link}"
+        elsif RbConfig::CONFIG['host_os'] =~ /linux|bsd/
+          system "xdg-open #{link}"
+        end
+      end
+end 
+
