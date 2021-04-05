@@ -16,7 +16,7 @@ gem 'bundler'
 gem 'httparty'
 gem 'dotenv'
 gem 'colorize', '~> 0.8.1'
-gem 'news-api', '~> 0.2.0'
+#gem 'news-api', '~> 0.2.0'
 gem 'tty-prompt', '~> 0.23.0'
 gem 'tty-table', '~> 0.12.0'
 gem "tty-spinner"

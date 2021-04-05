@@ -7,8 +7,8 @@ class WeatherToday::CLI
     end
     
     def welcome
-        puts Rain.go 
-        puts Intro.go 
+        #puts Rain.go 
+        #puts Intro.go 
         sleep (3)
         #system('cls') || system('clear') #clear the screen
         puts"
@@ -38,7 +38,7 @@ class WeatherToday::CLI
         news = WeatherToday::Weather.news
         news_feed_(news)
         menu
-    end 
+    end
 
 
     def units_selection
@@ -104,14 +104,14 @@ class WeatherToday::CLI
             when "to check another city"
                 system('cls') || system('clear')
                 new_entry 
-            when "home"
+            when "Home"
                 home 
             when "to exit"
                 bye
             end
         end  
      
-    
+
 
     def new_entry
         new_input = nil
@@ -212,7 +212,7 @@ class WeatherToday::CLI
         when "Home"
             home
         end
-    end 
+    end  
 
 
     def current_weather(weather)
@@ -226,8 +226,8 @@ class WeatherToday::CLI
           puts "Today in #{weather.location}  #{weather.description.graph_cond}  \u{1F305} #{weather.sunrise} #{weather.sunset}"  
           #puts  "#{weather.decription.quotes}"
 
-          box = TTY::Box.frame(width: 37, height: 23, border: :light, align: :center, padding: [1,3]) do
-            "#{weather.description.graph_cond}  #{weather.description.upcase.bold.colorize(:white)} 
+          box = TTY::Box.frame(width: 37, height: 24, border: :light, align: :center, padding: [1,3]) do
+            "#{weather.description.graph_cond} #{weather.description.upcase.bold.colorize(:white)} 
             \n#{weather.temp.to_s.upcase.bold}º
             \nL:#{weather.temp_min}º H:#{weather.temp_max}º \u{1F321}
             \nTemperature feels like #{weather.feels}º
@@ -241,6 +241,10 @@ class WeatherToday::CLI
           end 
           print box
           puts ''
+          puts  "QUOTE OF THE DAY... Brought you BY the Authentic Weather App" 
+          puts ''
+          puts "#{weather.description.quotes}"
+          puts ''
     end 
 
 
@@ -250,7 +254,7 @@ class WeatherToday::CLI
         puts "Today in #{weather1.location}" #{weather1.description.graph_cond}" # \u{1F305} #{weather1.sunrise} #{weather1.sunset}
           #puts  "#{weather1.decription.quotes}"
 
-          box = TTY::Box.frame(width: 37, height: 23, border: :light, align: :center, padding: [1,3]) do
+          box = TTY::Box.frame(width: 37, height: 24, border: :light, align: :center, padding: [1,3]) do
             "#{weather1.description.graph_cond}  #{weather1.description.upcase.bold.colorize(:white)} 
             \n#{weather1.temp.to_s.upcase.bold}º
             \nL:#{weather1.temp_min}º H:#{weather1.temp_max}º \u{1F321} 
@@ -297,8 +301,8 @@ class WeatherToday::CLI
                                          ["#{forecast_2.temp}º","#{forecast_2.temp_1}º","#{forecast_2.temp_2}º","#{forecast_2.temp_3}º","#{forecast_2.temp_4}º","#{forecast_2.temp_5}º"],
                                          ["#{forecast_2.humidity}%","#{forecast_2.humidity_1}%","#{forecast_2.humidity_2}%","#{forecast_2.humidity_3}%","#{forecast_2.humidity_4}%","#{forecast_2.humidity_5}%"],
                                          ["#{forecast_2.pop_1.to_i}%\u{1F4A7}","#{forecast_2.pop.to_i}%\u{1F4A7}","#{forecast_2.pop_2.to_i}%\u{1F4A7}","#{forecast_2.pop_3.to_i}%\u{1F4A7}","#{forecast_2.pop_4.to_i}%\u{1F4A7}","#{forecast_2.pop_5.to_i}%\u{1F4A7}"]])
-                                       # ["\u{2666}#{forecast_2.uvi.uv_radiation}","#{forecast_2.uvi_1.uv_radiation}","#{forecast_2.uvi_2.uv_radiation}","#{forecast_2.uvi_3.uv_radiation}","#{forecast_2.uvi_4.uv_radiation}","#{forecast_2.uvi_5.uv_radiation}"]
-        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center]) { |renderer|
+        
+        puts forecast_table_2.render(:unicode, padding: [1, 2], alignments: [:center, :center, :center, :center, :center, :center]) { |renderer|
         #renderer.border.separator = :each_row
         renderer.border.style = :red
       }    

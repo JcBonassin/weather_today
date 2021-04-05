@@ -9,7 +9,7 @@ require 'net/http'
 require 'openssl'
 require 'dotenv/load'
 require 'colorize'
-require 'news-api'
+#require 'news-api'
 require 'tty-prompt'
 require "tty-table"
 require "tty-spinner"

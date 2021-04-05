@@ -1,8 +1,48 @@
-# WeatherToday Hello 
+![Screenshot 2021-04-02 at 18 12 08](2.png)
+<div align="center">
+  <p>With this CLI, you can easily check the weather from an API and few more things.</p>
+</div>
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/weather_today`. To experiment with that code, run `bin/console` for an interactive prompt.
+# Hello 
 
-TODO: Delete this and the text above, and describe your gem
+Welcome to WeatherToday! 
+
+This CLI was build to give you a quick update of the weather on your location and also in any city you ask for. It will too provide headlines of BBC news as a plus. 
+
+So what can I do with this gem: 
+
+- Check the current weather at your location and Forecast for the next 5 days 
+- Check the current weather and Forecast for the next 5 days at any city you name in the world plus a link to the city location on Google Maps. It only works with city names. 
+
+-  It gives you 3 unit system to choose from: 
+  - default (temperatures in Kelvin)
+  - metric (temperatures in Celsius)
+  - imperial (temperatures in Fahrenheit)
+
+- Read and open in your browser the latest world headlines from BBC News. 
+- Gives you a funny quote according to weather conditions cortesy of the [AUTHENTIC WEATHER APP](https://github.com/reduxd/authentic-ubersicht). 
+- Also a Big Good Bye. 
+
+## Important information 
+
+Before running the CLI is important to: 
+
+- Sign up for a API key on [OPENWEATHERMAP](https://openweathermap.org/). It's free
+- Sign up for a API key on [NEWSAPI](https://newsapi.org/). Also Free. 
+- Sign up for a API key on [Abstract](https://app.abstractapi.com/). To get a precide timeZone on the location enquiry. They've got a free plan too. So all cool. 
+
+Please don't forget to create a `.env` for the root of the project. This will hide your API Keys and avoid to be published on your repository in case you fork it. 
+
+Inside the `.env` file add the following 3 lines of code:
+
+```cassandraql
+API_KEY = YOURKEY
+API_ABSTRACT = YOURKEY
+API_NEWS = YOURKEY
+```
+Just reach the right directory and type `bin/weather_today` in your terminal. 
+
+"Voila" you are ready to check the weather and news. 
 
 ## Installation
 
@@ -22,7 +62,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run `bin/weather_today` 
+
+Follow the prompts on your terminal. 
+
+The current Weather information will be display automatically after choosing your weather settings. This data is based on your current and IP address.
+
+Forecast is display as shown: 
+- Weather condition
+- Temperature
+- Humidity
+- Chance of precipitation
+- UV Index
+
+World's News will display the main 4 headlines from BBC News NewsAPI source. Follow the prompts to read and open a new Browser window. 
+
+Finally to get the current weather at a certain city anywhere in the world type the city name. However for more accurate results type `<city name>, <Alpha-2 ISO 3166 country codes>`. Example: 
+
+```ruby
+'Paris,FR' 
+```
+Check info of the Alpha-2 country codes [HERE](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+
+The current Weather information will be display automatically after choosing your weather settings. Also will show date and time of the location requested.
+Forecast is display as shown: 
+- Weather condition
+- Temperature
+- Humidity
+- Chance of precipitation
+
+Follow the prompt menu to reach the location coordenates on Google Maps. A new Browser window will pop up. 
+
 
 ## Development
 
