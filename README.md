@@ -1,6 +1,6 @@
 ![weather_today](https://user-images.githubusercontent.com/72950188/113460639-0ffa8b00-93df-11eb-857e-f53f2bf7127e.png)
 <div align="center">
-  <p>With this CLI, you can easily check the weather from an API and few more things.</p>
+  <p>With this CLI, you can easily check the weather from an API and few other things.</p>
 </div>
 
 # Hello 
