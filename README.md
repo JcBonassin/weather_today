@@ -7,7 +7,7 @@
 
 Welcome to WeatherToday! 
 
-This CLI was build to give you a quick update of the weather on your location and also in any city you ask for. It will too provide headlines of BBC news as a plus. 
+This CLI was built to give you a quick update of the weather on your location and also in any city you ask for. It will provide headlines of BBC news as a plus. 
 
 So what can I do with this gem: 
 
@@ -20,8 +20,8 @@ So what can I do with this gem:
   - Imperial (temperatures in Fahrenheit)
 
 - Read and open in your browser the latest world headlines from BBC News. 
-- Gives you a funny quote according to weather conditions cortesy of the [AUTHENTIC WEATHER APP](https://github.com/reduxd/authentic-ubersicht). 
-- Also a Big Good Bye. 
+- Gives you a funny quote according to weather conditions courtesy of the [AUTHENTIC WEATHER APP](https://github.com/reduxd/authentic-ubersicht). 
+- Also a Big GoodBye. 
 
 ## Important information 
 
@@ -31,7 +31,7 @@ Before running the CLI is important to:
 - Sign up for a API key on [NEWSAPI](https://newsapi.org/). Also Free. 
 - Sign up for a API key on [Abstract](https://app.abstractapi.com/). To get a precise timeZone on the location enquiry. They've got a free plan too. So all cool. 
 
-Please don't forget to create a `.env` for the root of the project. This will hide your API Keys and avoid to be published on your repository in case you fork it. 
+Please don't forget to create a `.env` for the root of the project. This will hide your API Keys and avoid being published on your repository in case you fork it. 
 
 Inside the `.env` file add the following 3 lines of code:
 
@@ -66,7 +66,7 @@ Run `bin/weather_today`
 
 Follow the prompts on your terminal. 
 
-The current Weather information will be display automatically after choosing your weather settings. This data is based on your current and IP address.
+The current Weather information will be displayed automatically after choosing your weather settings. This data is based on your current and IP address.
 
 Forecast is display as shown: 
 - Weather condition
@@ -86,7 +86,7 @@ Finally to get the current weather at a certain city anywhere in the world type 
 ```
 Check info of the Alpha-2 country codes [HERE](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
 
-The current Weather information will be display automatically after choosing your weather settings. Also will show date and time of the location requested.
+The current Weather information will be displayed automatically after choosing your weather settings. Also will show date and time of the location requested.
 Forecast is display as shown: 
 - Weather condition
 - Temperature
@@ -94,7 +94,7 @@ Forecast is display as shown:
 - Chance of precipitation
 - ![4](https://user-images.githubusercontent.com/72950188/113637067-564b2680-9639-11eb-8007-8d206e1fa9b9.png)
 
-Follow the prompt menu to reach the location coordenates on Google Maps. A new Browser window will pop up. 
+Follow the prompt menu to reach the location coordinates on Google Maps. A new Browser window will pop up. 
 
 And That's it. 
 
@@ -115,3 +115,5 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the WeatherToday project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/<github username>/weather_today/blob/master/CODE_OF_CONDUCT.md).
+
+
